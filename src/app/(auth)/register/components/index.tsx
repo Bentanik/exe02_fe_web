@@ -5,16 +5,14 @@ import Link from "next/link";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
 import { Gender } from "@/const/genders";
 import { useRegister } from "@/app/(auth)/register/hooks/useRegister";
 import { Controller } from "react-hook-form";
+import Image from "next/image";
 
 export default function RegisterForm() {
   const {
@@ -167,9 +165,9 @@ export default function RegisterForm() {
           //   onClick={() => handleLoginGoogle()}
           className="w-full rounded-md py-2 bg-white border border-gray-400 hover:bg-gray-300 flex items-center justify-center space-x-2"
         >
-          <img
-            src={"/images/Google-icon.svg"}
-            alt="Login with Google"
+          <Image
+            src={"/images/google-icon.svg"}
+            alt="Đăng nhập với Google"
             width={25}
             height={25}
             className="block"

@@ -7,23 +7,17 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import useToast from "@/hooks/use-toast";
 
 export function useRegister() {
-  const router = useRouter();
   const [typePassword, setTypePassword] = useState<boolean>(false);
   const [typeConfirmPassword, setTypeConfirmPassword] =
     useState<boolean>(false);
-  const { addToast } = useToast();
 
   const {
     register,
     watch,
     handleSubmit,
-    setError,
     formState: { errors },
-    reset,
     control,
   } = useForm<RegisterBodyType>({
     resolver: zodResolver(RegisterBody),

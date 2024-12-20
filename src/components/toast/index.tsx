@@ -7,7 +7,7 @@ interface ToastAlertProps {
   title?: string;
   description?: string; // Show description
   dateTime?: Date; // Show description
-  onClose?: any;
+  onClose?: () => void | undefined;
 }
 
 const notificationTypes = {

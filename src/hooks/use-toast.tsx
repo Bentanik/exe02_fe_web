@@ -14,7 +14,14 @@ const useToast = () => {
           <ToastAlert
             description={options?.description || ""}
             type={options?.type || "success"}
-            onClose={close === true ? () => toast.dismiss(t) : null}
+            onClose={
+              close === true
+                ? () => {
+                    toast.dismiss(t);
+                    return;
+                  }
+                : undefined
+            }
           />
         </div>
       ),
