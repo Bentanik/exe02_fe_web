@@ -3,7 +3,7 @@ import LoginForm from "@/app/(auth)/login/components";
 
 export const metadata: Metadata = {
   title: "Log In",
-  description: "Log In for PawFund",
+  description: "Log In for antiSCM",
 };
 
 export default function LoginPage() {

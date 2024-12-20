@@ -1,11 +1,13 @@
+import { Gender } from "@/const/genders";
 import { z } from "zod";
 
 export const LoginBody = z
   .object({
-    email: z
+    email: z.string().email("Email này hợp lệ, xin vui lòng sửa lại"),
+    password: z
       .string()
-      .email("Email này không đúng format, xin vui lòng sửa lại"),
-    password: z.string().min(6, "Mật khẩu phải ít nhất 6 ký tự").max(100),
+      .min(6, "Mật khẩu phải ít nhất 6 ký tự")
+      .max(100, "Mật khẩu dài tối đa 100 ký tự"),
   })
   .strict();
 
@@ -13,19 +15,20 @@ export type LoginBodyType = z.infer<typeof LoginBody>;
 
 export const RegisterBody = z
   .object({
-    firstName: z
+    fullName: z
       .string()
       .trim()
-      .min(2, "First name is 2 characters or more in length")
+      .min(2, "Họ và tên phải từ 2 ký tự trở lên")
       .max(256),
-    lastName: z
+    email: z.string().email("Email này hợp lệ, xin vui lòng sửa lại"),
+    password: z
       .string()
-      .trim()
-      .min(2, "Last name is 2 characters or more in length")
-      .max(256),
-    email: z.string().email(),
-    password: z.string().min(6).max(100),
-    confirmPassword: z.string().min(6).max(100),
+      .min(6, "Mật khẩu phải ít nhất 6 ký tự")
+      .max(100, "Mật khẩu dài tối đa 100 ký tự"),
+    confirmPassword: z
+      .string()
+      .min(6, "Mật khẩu phải ít nhất 6 ký tự")
+      .max(100, "Mật khẩu dài tối đa 100 ký tự"),
     phoneNumber: z.string().refine(
       (val) => {
         if (/^0\d{9}$/.test(val)) return true;
@@ -33,16 +36,19 @@ export const RegisterBody = z
         return false;
       },
       {
-        message: "Invalid phone number",
+        message: "Số điện thoại này không hợp lệ",
       }
     ),
+    gender: z.nativeEnum(Gender, {
+      errorMap: () => ({ message: "Xin vui lòng lựa chọn giới tính" }),
+    }),
   })
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Passwords do not match",
+        message: "Mật khẩu không khớp, xin vui lòng kiểm tra lại",
         path: ["confirmPassword"],
       });
     }
