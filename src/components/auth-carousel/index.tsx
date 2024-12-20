@@ -21,17 +21,17 @@ export default function AuthCarousel() {
         <CarouselItem>
           <div className="absolute w-full h-[100vh]">
             <Image
-              src={"/images/auth.jpg"}
+              src={"/images/carousel_authentication_01.webp"}
               alt="Authen01"
               layout="fill"
               priority
             />
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="absolute inset-0 flex justify-center items-center">
-              <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
-                Luxury without ownership
+            <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+            <div className="absolute bottom-[30%] translate-y-1/2 inset-0 flex justify-center items-center">
+              <p className=" text-2xl leading-normal text-gray-50 text-center _alternates">
+                Lừa đảo không ngừng sáng tạo
                 <br />
-                Just the experience.
+                bạn không được ngừng học hỏi
               </p>
             </div>
           </div>
@@ -39,35 +39,17 @@ export default function AuthCarousel() {
         <CarouselItem>
           <div className="absolute w-full h-[100vh]">
             <Image
-              src={"/images/auth01.jpg"}
+              src={"/images/carousel_authentication_02.jpg"}
               alt="Authen02"
               layout="fill"
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="absolute inset-0 flex justify-center items-center">
-              <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
-                Elegant in every detail
+            <div className="absolute bottom-[30%] translate-y-1/2 inset-0 flex justify-center items-center">
+              <p className=" text-2xl leading-normal text-gray-50 text-center _alternates">
+                Chỉ một khoảnh khắc mất cảnh giác
                 <br />
-                Simple yet sophisticated
-              </p>
-            </div>
-          </div>
-        </CarouselItem>
-        <CarouselItem>
-          <div className="absolute w-full h-[100vh]">
-            <Image
-              src={"/images/auth02.jpg"}
-              alt="Authen03"
-              layout="fill"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="absolute inset-0 flex justify-center items-center">
-              <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
-                Enjoy the journey
-                <br />
-                Forget the worry of ownership.
+                bạn có thể hối tiếc cả đời.
               </p>
             </div>
           </div>
@@ -75,17 +57,15 @@ export default function AuthCarousel() {
         <CarouselItem>
           <div className="relative w-full h-[100vh]">
             <Image
-              src={"/images/auth03.jpg"}
-              alt="Authen04"
+              src={"/images/carousel_authentication_03.jpg"}
+              alt="Authen03"
               layout="fill"
               priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="absolute inset-0 flex justify-center items-center">
-              <p className="font-montserrat text-2xl leading-normal text-gray-50 text-center font-montserrat_alternates">
-                No need to own.
-                <br />
-                Freedom to experience
+            <div className="absolute bottom-[30%] translate-y-1/2 inset-0 flex justify-center items-center">
+              <p className=" text-2xl leading-normal text-gray-50 text-center _alternates">
+                Đừng để lòng tin mù quáng trở thành công cụ của kẻ gian.
               </p>
             </div>
           </div>
