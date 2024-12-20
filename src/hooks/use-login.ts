@@ -7,13 +7,8 @@ import {
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useServiceLogin } from "@/services/auth/services";
-import useToast from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 
 export function useLogin() {
-  const router = useRouter();
-  const { addToast } = useToast();
   const [typePassword, setTypePassword] = useState<boolean>(false);
 
   const {
@@ -21,8 +16,6 @@ export function useLogin() {
     watch,
     handleSubmit,
     formState: { errors },
-    setError,
-    reset,
   } = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
     defaultValues: {

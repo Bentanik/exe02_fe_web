@@ -2,6 +2,7 @@
 
 import InputAuth from "@/components/input-auth";
 import { useLogin } from "@/hooks/use-login";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function LoginForm() {
@@ -85,9 +86,9 @@ export default function LoginForm() {
               // onClick={() => handleLoginGoogle()}
               className="w-full rounded-md py-2 bg-white border border-gray-400 hover:bg-gray-300 flex items-center justify-center space-x-2"
             >
-              <img
+              <Image
                 src={"/images/google-icon.svg"}
-                alt="Login with Google"
+                alt="Đăng nhập với Google"
                 width={25}
                 height={25}
                 className="block"

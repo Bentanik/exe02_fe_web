@@ -40,7 +40,7 @@ export default function AuthCarousel() {
           <div className="absolute w-full h-[100vh]">
             <Image
               src={"/images/carousel_authentication_02.jpg"}
-              alt="Authen02"
+              alt="ảnh 1"
               layout="fill"
               priority
             />
@@ -58,7 +58,7 @@ export default function AuthCarousel() {
           <div className="relative w-full h-[100vh]">
             <Image
               src={"/images/carousel_authentication_03.jpg"}
-              alt="Authen03"
+              alt="ảnh 2"
               layout="fill"
               priority
             />
