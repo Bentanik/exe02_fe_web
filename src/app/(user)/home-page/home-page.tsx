@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import anime from "animejs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const listInfo = [
     {
@@ -120,6 +120,57 @@ function WarningItem({
 }
 
 export default function Home() {
+    const product1Ref = useRef<HTMLParagraphElement>(null);
+    const product2Ref = useRef<HTMLParagraphElement>(null);
+    const product3Ref = useRef<HTMLParagraphElement>(null);
+
+    const [currentImage, setCurrentImage] = useState("/images/launching.png");
+    const [fade, setFade] = useState(false);
+
+    useEffect(() => {
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (
+                    entry.target === product1Ref.current &&
+                    entry.isIntersecting
+                ) {
+                    updateImage("/images/launching.png");
+                } else if (
+                    entry.target === product2Ref.current &&
+                    entry.isIntersecting
+                ) {
+                    updateImage("/images/bg1.jpg");
+                } else if (
+                    entry.target === product3Ref.current &&
+                    entry.isIntersecting
+                ) {
+                    updateImage("/images/dot.png");
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, {
+            root: null,
+            threshold: 0.1,
+        });
+
+        if (product1Ref.current) observer.observe(product1Ref.current);
+        if (product2Ref.current) observer.observe(product2Ref.current);
+        if (product3Ref.current) observer.observe(product3Ref.current);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    const updateImage = (newImage: string) => {
+        setFade(false);
+        setTimeout(() => {
+            setCurrentImage(newImage);
+            setFade(true);
+        }, 100);
+    };
+
     const renderListInfo = () => {
         return listInfo.map((info, index) => (
             <div
@@ -166,7 +217,7 @@ export default function Home() {
     };
 
     return (
-        <div className="w-full  bg-[#f6f6f6]">
+        <div className="w-full bg-[#f6f6f6]">
             {/* Hero Content */}
             <div className="pt-[10%] pl-[10%] bg-[black] relative rounded-b-[50px]">
                 <div className="flex w-full">
@@ -205,6 +256,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
             {/* Warning content 1 */}
             <div className="pt-[80px] pl-[50px]">
                 {/* Header */}
@@ -228,13 +280,13 @@ export default function Home() {
 
             {/* Solution content*/}
             <div className="mt-[80px]">
-                <div className=" ">
+                <div>
                     <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
                         Làm thế nào để phòng ngừa
                         <br /> và bảo vệ
                     </h1>
                     <div className="mt-[30px] px-[75px] relative">
-                        <div className="flex justify-between ">
+                        <div className="flex justify-between">
                             <Image
                                 src="/images/dot.png"
                                 alt="icon"
@@ -263,7 +315,50 @@ export default function Home() {
                     antiSCM cung cấp các thông tin và
                     <br /> khóa học về an ninh mạng
                 </h1>
-                <div className="mt-[30px]"></div>
+
+                {/* Product 1 */}
+                <div>
+                    <div className="mt-[100px] flex justify-around">
+                        <div className="flex-1">
+                            <h1 className="text-[2rem]">
+                                Trang giới thiệu về mobile app
+                            </h1>
+                            <p className="mt-[1000px]" ref={product1Ref}>
+                                hết nội dung 1
+                            </p>
+                            <h1 className="text-[2rem]">
+                                Trang giới thiệu về mobile app 2
+                            </h1>
+                            <p className="mt-[1000px]" ref={product2Ref}>
+                                hết nội dung 2
+                            </p>
+                            <h1 className="text-[2rem]">
+                                Trang giới thiệu về mobile app 3
+                            </h1>
+                            <p className="mt-[1000px]" ref={product3Ref}>
+                                hết nội dung 3
+                            </p>
+                        </div>
+                        <div className="flex-1 relative">
+                            {/* Sticky Image */}
+                            <div className="sticky top-[100px]">
+                                <div
+                                    className={`image-fade ${
+                                        fade ? "image-fade-active" : ""
+                                    }`}
+                                >
+                                    <Image
+                                        src={currentImage}
+                                        alt="icon"
+                                        width={400}
+                                        height={500}
+                                        className="object-cover w-full h-[500px]"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
