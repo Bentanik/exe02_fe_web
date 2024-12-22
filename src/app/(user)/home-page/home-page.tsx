@@ -69,6 +69,28 @@ const listProtect = [
         desc: "Phishing is a scam where an attacker impersonates a trusted entity to deceive users into providing sensitive information via spoofed emails or messages.",
     },
 ];
+const listHomeContent = [
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng nhận thức về phòng chống lừa dảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng các dấu hiệu lừa đảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của trang Web trong qua URL",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của tài khoản ngân hàng trong qua số tài khoản",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Cung cấp các gói premium về các khóa học phòng chống lừa đảo đến từ các chuyên gia an toàn thông tin",
+    },
+];
 
 // Component for each warning
 function WarningItem({
@@ -123,54 +145,79 @@ export default function Home() {
     const product1Ref = useRef<HTMLParagraphElement>(null);
     const product2Ref = useRef<HTMLParagraphElement>(null);
     const product3Ref = useRef<HTMLParagraphElement>(null);
+    const product4Ref = useRef<HTMLParagraphElement>(null);
+    const h1Ref = useRef<HTMLHeadingElement>(null); // Thêm ref cho <h1>
 
-    const [currentImage, setCurrentImage] = useState("/images/launching.png");
-    const [fade, setFade] = useState(false);
+    const [currentImage1, setCurrentImage1] = useState<string | null>(null);
+    const [currentImage2, setCurrentImage2] = useState<string | null>(null);
+    const [fade1, setFade1] = useState(false);
+    const [fade2, setFade2] = useState(false);
+    const [hideImages, setHideImages] = useState(false); // Trạng thái để ẩn/hiện ảnh
+
+    const updateImage = (newImage: string, imageIndex: number) => {
+        if (imageIndex === 1) {
+            setFade1(false);
+            setTimeout(() => {
+                setCurrentImage1(newImage);
+                setFade1(true);
+            }, 300);
+        } else if (imageIndex === 2) {
+            setFade2(false);
+            setTimeout(() => {
+                setCurrentImage2(newImage);
+                setFade2(true);
+            }, 300);
+        }
+    };
 
     useEffect(() => {
         const observerCallback = (entries: IntersectionObserverEntry[]) => {
             entries.forEach((entry) => {
-                if (
-                    entry.target === product1Ref.current &&
-                    entry.isIntersecting
-                ) {
-                    updateImage("/images/launching.png");
-                } else if (
-                    entry.target === product2Ref.current &&
-                    entry.isIntersecting
-                ) {
-                    updateImage("/images/bg1.jpg");
-                } else if (
-                    entry.target === product3Ref.current &&
-                    entry.isIntersecting
-                ) {
-                    updateImage("/images/dot.png");
+                if (entry.isIntersecting) {
+                    // Khi phần tử được nhìn thấy
+                    if (entry.target === product1Ref.current) {
+                        updateImage("/images/launching.png", 1);
+                        updateImage("/images/home.png", 2);
+                    } else if (entry.target === product2Ref.current) {
+                        updateImage("/images/awareness.png", 1);
+                        updateImage("/images/signOfScam.png", 2);
+                    } else if (entry.target === product3Ref.current) {
+                        updateImage("/images/bankVerify.png", 1);
+                        updateImage("/images/webVerify.png", 2);
+                    } else if (entry.target === product4Ref.current) {
+                        updateImage("/images/listCourse.png", 1);
+                        updateImage("/images/curriculum.png", 2);
+                    }
+
+                    // Kiểm tra nếu h1 xuất hiện trong viewport
+                    if (
+                        entry.target === h1Ref.current &&
+                        entry.isIntersecting
+                    ) {
+                        setHideImages(true); // Ẩn ảnh khi h1 xuất hiện
+                    } else {
+                        setHideImages(false); // Hiện lại ảnh khi h1 không còn trong viewport
+                    }
                 }
             });
         };
 
         const observer = new IntersectionObserver(observerCallback, {
-            root: null,
-            threshold: 0.1,
+            root: null, // Theo dõi trong viewport
+            threshold: 0.1, // Kích hoạt khi 10% phần tử xuất hiện
         });
 
+        // Quan sát các phần tử
         if (product1Ref.current) observer.observe(product1Ref.current);
         if (product2Ref.current) observer.observe(product2Ref.current);
         if (product3Ref.current) observer.observe(product3Ref.current);
+        if (product4Ref.current) observer.observe(product4Ref.current);
+        if (h1Ref.current) observer.observe(h1Ref.current); // Quan sát <h1>
 
         return () => {
-            observer.disconnect();
+            observer.disconnect(); // Dừng quan sát khi component bị unmount
         };
     }, []);
-
-    const updateImage = (newImage: string) => {
-        setFade(false);
-        setTimeout(() => {
-            setCurrentImage(newImage);
-            setFade(true);
-        }, 100);
-    };
-
     const renderListInfo = () => {
         return listInfo.map((info, index) => (
             <div
@@ -205,6 +252,17 @@ export default function Home() {
                     <p className="text-gray-600 pt-[20px] text-center">
                         {info.desc}
                     </p>
+                </div>
+            </div>
+        ));
+    };
+
+    const renderListHome = () => {
+        return listHomeContent.map((info, index) => (
+            <div key={index} className="w-[90%]">
+                <div className="flex mt-5">
+                    <Image src={info.img} alt="icon" width={50} height={50} />
+                    <p className="">{info.desc}</p>
                 </div>
             </div>
         ));
@@ -311,49 +369,107 @@ export default function Home() {
 
             {/* Introduce mobile app */}
             <div className="mt-[200px]">
-                <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
+                <h1
+                    ref={h1Ref} // Thêm ref cho phần tử <h1>
+                    className="text-[3.1rem] leading-[60px] font-bold text-center"
+                >
                     antiSCM cung cấp các thông tin và
                     <br /> khóa học về an ninh mạng
                 </h1>
 
                 {/* Product 1 */}
                 <div>
-                    <div className="mt-[100px] flex justify-around">
+                    <div className="mt-[100px] flex p-[7%]">
                         <div className="flex-1">
-                            <h1 className="text-[2rem]">
-                                Trang giới thiệu về mobile app
-                            </h1>
-                            <p className="mt-[1000px]" ref={product1Ref}>
-                                hết nội dung 1
-                            </p>
-                            <h1 className="text-[2rem]">
-                                Trang giới thiệu về mobile app 2
-                            </h1>
-                            <p className="mt-[1000px]" ref={product2Ref}>
-                                hết nội dung 2
-                            </p>
+                            {/* Content 1 */}
+                            <div className="w-[80%]">
+                                <h1 className="text-[3rem] font-bold">
+                                    Giới thiệu về antiSCM
+                                </h1>
+                                <h2 className="mt-10">
+                                    antiSCM cung cấp giao diện thân thiện đến
+                                    người dùng
+                                </h2>
+                                <p className="mt-7">
+                                    antiScm giúp người dùng nhận thức về các dấu
+                                    hiệu lừa đảo thông qua các bài đăng và các
+                                    khóa học được cung cấp bởi các chuyên gia
+                                    của antiSCM
+                                </p>
+
+                                <div className="mt-5">
+                                    <h2 ref={product1Ref}>
+                                        antiSCM cung cấp các tính năng hấp dẫn
+                                    </h2>
+                                    {renderListHome()}
+                                </div>
+                            </div>
+
+                            <div className="mt-[300px]">
+                                <h1 className="text-[2rem]">
+                                    Trang giới thiệu về mobile app 2
+                                </h1>
+                                <p className="mt-[1000px]" ref={product2Ref}>
+                                    hết nội dung 2
+                                </p>
+                            </div>
                             <h1 className="text-[2rem]">
                                 Trang giới thiệu về mobile app 3
                             </h1>
                             <p className="mt-[1000px]" ref={product3Ref}>
                                 hết nội dung 3
                             </p>
+                            <h1 className="text-[2rem]">
+                                Trang giới thiệu về mobile app 3
+                            </h1>
+                            <p className="mt-[1000px]" ref={product4Ref}>
+                                hết nội dung 4
+                            </p>
                         </div>
                         <div className="flex-1 relative">
                             {/* Sticky Image */}
                             <div className="sticky top-[100px]">
-                                <div
-                                    className={`image-fade ${
-                                        fade ? "image-fade-active" : ""
-                                    }`}
-                                >
-                                    <Image
-                                        src={currentImage}
-                                        alt="icon"
-                                        width={400}
-                                        height={500}
-                                        className="object-cover w-full h-[500px]"
-                                    />
+                                <div className=" flex gap-5">
+                                    {/* Image 1 */}
+                                    <div
+                                        className={`transition-opacity duration-500 ${
+                                            hideImages
+                                                ? "opacity-0" // Ẩn khi hideImages là true
+                                                : fade1
+                                                ? "opacity-100"
+                                                : "opacity-50"
+                                        }`}
+                                    >
+                                        {currentImage1 && (
+                                            <Image
+                                                src={currentImage1}
+                                                alt="icon 1"
+                                                width={400}
+                                                height={500}
+                                                className="object-cover w-full h-[600px] ml-[5%]"
+                                            />
+                                        )}
+                                    </div>
+
+                                    <div
+                                        className={`transition-opacity duration-500 ${
+                                            hideImages
+                                                ? "opacity-0"
+                                                : fade2
+                                                ? "opacity-100"
+                                                : "opacity-50"
+                                        }`}
+                                    >
+                                        {currentImage2 && (
+                                            <Image
+                                                src={currentImage2}
+                                                alt="icon 2"
+                                                width={400}
+                                                height={500}
+                                                className="object-cover w-full h-[600px] ml-[5%]"
+                                            />
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
