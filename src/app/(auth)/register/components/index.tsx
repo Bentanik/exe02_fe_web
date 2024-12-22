@@ -30,7 +30,7 @@ export default function RegisterForm() {
   } = useRegister();
 
   return (
-    <div className="w-full max-w-[680px] px-4 py-5 mx-auto font-montserrat">
+    <div className="w-full max-w-[680px] px-4 py-5 mx-auto">
       <h2 className="text-2xl font-medium leading-8">Đăng ký</h2>
       <span className="text-gray-500 inline-block mt-2">
         Kiến thức là sức mạnh, hiểu biết về cách phòng tránh lừa đảo chính là
