@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/popover";
 import { useState } from "react";
 import AvatarAdminMenu from "@/components/avatar-admin-menu";
+import Image from "next/image";
 
 export default function HeaderSidebar() {
   const [avatarTooltip, setAvatarTooltip] = useState<boolean>(false);
@@ -15,11 +16,7 @@ export default function HeaderSidebar() {
   const handleToggleAvatarTooltip = () => {
     setAvatarTooltip((prev) => !prev);
   };
-
-  const handleCloseAvatarTooltip = () => {
-    setAvatarTooltip(false);
-  };
-
+  
   return (
     <div className="w-full flex items-center justify-between">
       <div>
@@ -31,8 +28,10 @@ export default function HeaderSidebar() {
             <PopoverTrigger asChild>
               <div onClick={handleToggleAvatarTooltip}>
                 <figure className="rounded-full overflow-hidden w-11 h-11 flex items-center justify-center">
-                  <img
+                  <Image
                     id="avatarButton"
+                    width={40}
+                    height={40}
                     className="w-10 h-10 rounded-full cursor-pointer"
                     src={"/images/avatar.jpg"}
                     alt="User dropdown"
