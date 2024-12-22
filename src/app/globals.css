@@ -28,6 +28,7 @@ input::-webkit-inner-spin-button {
   border-radius: 10px; /* Làm tròn nền */
 }
 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
