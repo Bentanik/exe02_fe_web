@@ -19,7 +19,7 @@ export default function LoginForm() {
   // const { handleLoginGoogle, isPendingGoogle } = useLoginGoogle();
 
   return (
-    <div className="px-10 w-full min-h-screen flex justify-center items-center bg-white font-montserrat">
+    <div className="px-10 w-full min-h-screen flex justify-center items-center bg-white">
       <div className="w-full px-5 py-4 m-auto">
         <h2 className="text-[1.5rem] leading-8 font-medium text-center">
           Đăng nhập
@@ -72,7 +72,7 @@ export default function LoginForm() {
                     : "bg-blue-100"
                 }`}
               ></div>
-              <span className="text-gray-400 font-montserrat">OR</span>
+              <span className="text-gray-400">OR</span>
               <div
                 className={`w-[45%] h-1 rounded-full ${
                   Object.keys(errors).length === 0

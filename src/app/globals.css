@@ -12,6 +12,22 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.scrollbar-admin::-webkit-scrollbar {
+  width: 12px;
+  border-radius: 10px;
+}
+
+.scrollbar-admin::-webkit-scrollbar-thumb {
+  background-color: #5c50d7;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
+.scrollbar-admin::-webkit-scrollbar-track {
+  background: #f5f5f5; /* Màu nền của scrollbar */
+  border-radius: 10px; /* Làm tròn nền */
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -39,6 +55,7 @@ input::-webkit-inner-spin-button {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --primary-color-admin: 245 63% 58%;
   }
   .dark {
     --background: 0 0% 3.9%;
