@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import anime from "animejs";
 import { useState, useEffect, useRef } from "react";
+import { Disclosure } from "@headlessui/react";
+import { motion } from "framer-motion";
+import { XMarkIcon, PlusIcon } from "@heroicons/react/24/solid";
 
 const listInfo = [
     {
@@ -70,6 +73,75 @@ const listProtect = [
     },
 ];
 const listHomeContent = [
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng nhận thức về phòng chống lừa dảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng các dấu hiệu lừa đảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của trang Web trong qua URL",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của tài khoản ngân hàng trong qua số tài khoản",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Cung cấp các gói premium về các khóa học phòng chống lừa đảo đến từ các chuyên gia an toàn thông tin",
+    },
+];
+
+const listAwarenessContent = [
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng nhận thức về phòng chống lừa dảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng các dấu hiệu lừa đảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của trang Web trong qua URL",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của tài khoản ngân hàng trong qua số tài khoản",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Cung cấp các gói premium về các khóa học phòng chống lừa đảo đến từ các chuyên gia an toàn thông tin",
+    },
+];
+
+const listSignContent = [
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng nhận thức về phòng chống lừa dảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Các bài đăng các dấu hiệu lừa đảo không gian mạng",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của trang Web trong qua URL",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Tính năng check độ an toàn của tài khoản ngân hàng trong qua số tài khoản",
+    },
+    {
+        img: "/images/email.svg",
+        desc: "Cung cấp các gói premium về các khóa học phòng chống lừa đảo đến từ các chuyên gia an toàn thông tin",
+    },
+];
+
+const listCourseContent = [
     {
         img: "/images/email.svg",
         desc: "Các bài đăng nhận thức về phòng chống lừa dảo không gian mạng",
@@ -268,10 +340,110 @@ export default function Home() {
         ));
     };
 
+    const renderListAwareness = () => {
+        return listAwarenessContent.map((info, index) => (
+            <div key={index} className="w-[90%]">
+                <div className="flex mt-5">
+                    <Image src={info.img} alt="icon" width={50} height={50} />
+                    <p className="">{info.desc}</p>
+                </div>
+            </div>
+        ));
+    };
+
+    const renderListSign = () => {
+        return listSignContent.map((info, index) => (
+            <div key={index} className="w-[90%]">
+                <div className="flex mt-5">
+                    <Image src={info.img} alt="icon" width={50} height={50} />
+                    <p className="">{info.desc}</p>
+                </div>
+            </div>
+        ));
+    };
+
+    const renderListCourse = () => {
+        return listCourseContent.map((info, index) => (
+            <div key={index} className="w-[90%]">
+                <div className="flex mt-5">
+                    <Image src={info.img} alt="icon" width={50} height={50} />
+                    <p className="">{info.desc}</p>
+                </div>
+            </div>
+        ));
+    };
+
     const renderListWarning = () => {
         return listWarning.map((info, index) => (
             <WarningItem key={index} info={info} index={index} />
         ));
+    };
+
+    const RenderListQuestion = () => {
+        const [openIndex, setOpenIndex] = useState<number | null>(null); // Quản lý mục đang mở
+
+        return listWarning.map((info, index) => {
+            return (
+                <Disclosure
+                    as="div"
+                    className="p-6 w-[40%] flex flex-col bg-white rounded-xl shadow-sm"
+                    key={index}
+                >
+                    {({ open }) => (
+                        <>
+                            <Disclosure.Button
+                                onClick={() =>
+                                    setOpenIndex(open ? null : index)
+                                } // Đóng nếu đang mở, ngược lại mở
+                                className="w-full flex items-start justify-between"
+                            >
+                                {/* Left Content */}
+                                <div>
+                                    <div className="!text-justify">
+                                        {info.title}
+                                    </div>
+
+                                    <motion.div
+                                        className="mt-2 text-gray-700 text-sm"
+                                        initial={{ opacity: 1, maxHeight: 0 }} // Ban đầu, không hiển thị
+                                        animate={{
+                                            opacity:
+                                                open && openIndex === index
+                                                    ? 1
+                                                    : 0,
+                                            maxHeight:
+                                                open && openIndex === index
+                                                    ? 700
+                                                    : 0, // Điều chỉnh chiều cao khi mở/đóng
+                                        }}
+                                        exit={{
+                                            opacity: 0,
+                                            maxHeight: 0, // Khi rời khỏi, ẩn lại
+                                        }}
+                                        transition={{
+                                            opacity: { duration: 0.3 }, // Thời gian chuyển động opacity
+                                            maxHeight: {
+                                                duration: open ? 0.7 : 0.5,
+                                            }, // Mở trong 0.7s, đóng trong 0.5s
+                                        }}
+                                    >
+                                        {info.desc}
+                                    </motion.div>
+                                </div>
+                                {/* Icon */}
+                                <div className="ml-4">
+                                    {open && openIndex === index ? (
+                                        <XMarkIcon className="w-8 h-8 text-red-500 border-2-red bg-red-100 rounded-full" />
+                                    ) : (
+                                        <PlusIcon className="w-8 h-8 text-red-500 border-2-red bg-red-100 rounded-full" />
+                                    )}
+                                </div>
+                            </Disclosure.Button>
+                        </>
+                    )}
+                </Disclosure>
+            );
+        });
     };
 
     return (
@@ -377,12 +549,12 @@ export default function Home() {
                     <br /> khóa học về an ninh mạng
                 </h1>
 
-                {/* Product 1 */}
+                {/* Content*/}
                 <div>
                     <div className="mt-[100px] flex p-[7%]">
                         <div className="flex-1">
                             {/* Content 1 */}
-                            <div className="w-[80%]">
+                            <div className="w-[90%]">
                                 <h1 className="text-[3rem] font-bold">
                                     Giới thiệu về antiSCM
                                 </h1>
@@ -405,26 +577,105 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <div className="mt-[300px]">
-                                <h1 className="text-[2rem]">
-                                    Trang giới thiệu về mobile app 2
+                            {/* Content 2 */}
+                            <div className="mt-[300px] w-[90%]">
+                                <h1 className="text-[3rem] font-bold leading-[55px]">
+                                    Nhận thức và các dấu hiệu về lừa đảo không
+                                    gian mạng
                                 </h1>
-                                <p className="mt-[1000px]" ref={product2Ref}>
-                                    hết nội dung 2
+                                <p>
+                                    Hiện nay lừa đảo qua không gian mạng đang
+                                    ngày càng phổ biến và phức tạp. Chính vì thế
+                                    antiSCM đem đến cho người dùng các bài đăng
+                                    về nhận thức và dấu hiệu nhận biết về các
+                                    cuộc tấn công mạng đề người dùng có được các
+                                    kiến thức để phòng tránh các cuộc lừa đảo
+                                    qua không gian mạng.
                                 </p>
+                                <div>
+                                    <h2 className="text-[1.7rem] font-medium">
+                                        Cung cấp các bài đăng về nhận thức phòng
+                                        chống lừa đảo
+                                    </h2>
+
+                                    <div className="">
+                                        <h3>20+</h3>
+                                        <h4>Hơn 20 bài đăng</h4>
+                                        <p>
+                                            Chúng tôi cung cấp hơn 20 bài dăng
+                                            để người dân có thể nhận thức được
+                                            các cuộc lừa đảo không gian mạng
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h2
+                                        className="text-[1.7rem] font-medium"
+                                        ref={product2Ref}
+                                    >
+                                        Cung cấp các bài đăng về các dấu hiệu
+                                        lừa đảo
+                                    </h2>
+
+                                    <div className="">
+                                        <h3>30+</h3>
+                                        <h4>Hơn 30 các dấu hiệu</h4>
+                                        <p>
+                                            Chúng tôi cung cấp hơn 30 các dấu
+                                            hiệu giúp người dùng dễ dàng phòng
+                                            tránh khỏi các cuộc lừa đảo không
+                                            gian mạng
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <h1 className="text-[2rem]">
-                                Trang giới thiệu về mobile app 3
-                            </h1>
-                            <p className="mt-[1000px]" ref={product3Ref}>
-                                hết nội dung 3
-                            </p>
-                            <h1 className="text-[2rem]">
-                                Trang giới thiệu về mobile app 3
-                            </h1>
-                            <p className="mt-[1000px]" ref={product4Ref}>
-                                hết nội dung 4
-                            </p>
+
+                            {/* Content 3 */}
+                            <div className="mt-[300px] w-[90%]">
+                                <h1 className="text-[3rem] font-bold leading-[55px]">
+                                    Cung các tính năng kiểm thử đặc biệt
+                                </h1>
+                                {/* Awareness */}
+                                <div>
+                                    <h2>
+                                        Kiểm tra độ an toàn của trang web thông
+                                        qua URL
+                                    </h2>
+                                    <div className="">
+                                        {renderListAwareness()}
+                                    </div>
+                                </div>
+
+                                {/* Sign  */}
+                                <div ref={product3Ref}>
+                                    <h2>
+                                        Kiểm tra độ an toàn của ngân hàng thông
+                                        qua tài khoản ngân hàng
+                                    </h2>
+                                    <div className="">{renderListSign()}</div>
+                                </div>
+                            </div>
+
+                            {/* Content 4 */}
+                            <div className="mt-[300px] w-[90%]">
+                                <h1 className="text-[3rem] font-bold leading-[55px]">
+                                    Cung cấp các khóa học khi đăng kí gói
+                                    premium
+                                </h1>
+                                <p>
+                                    Bên cạnh các bài đăng về dấu hiệu nhận biết
+                                    các cuộc tấn công mạng. Ứng dụng antiSCM còn
+                                    cung cấp các gói premium với các bài giảng
+                                    hấp dẫn, dễ tiếp cận cùng với chất lượng đến
+                                    từ các chuyên gia trong lĩnh vực.
+                                </p>
+                                <h2 className="" ref={product4Ref}>
+                                    Những lợi ích khi đăng kí gói premium của
+                                    antiSCM
+                                </h2>
+                                <div>{renderListCourse()}</div>
+                            </div>
                         </div>
                         <div className="flex-1 relative">
                             {/* Sticky Image */}
@@ -476,6 +727,9 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+            {/* */}
+            <div>{RenderListQuestion()}</div>
         </div>
     );
 }
