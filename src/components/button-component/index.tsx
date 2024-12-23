@@ -6,6 +6,12 @@ import {
   useEffect,
   useState,
 } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface IButtonAdminProps {
   children: ReactNode;
@@ -14,6 +20,8 @@ interface IButtonAdminProps {
   className?: string;
   type: "none" | "admin";
   active: false | true;
+  tooltip?: "not-full" | "full"; // set parent with tooltip
+  description?: string;
   rest?:
     | ButtonHTMLAttributes<HTMLButtonElement>
     | AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -26,9 +34,11 @@ export default function ButtonComponent({
   type,
   active,
   className,
+  description,
+  tooltip = "full",
   ...rest
 }: IButtonAdminProps) {
-  const baseClass = `min-h-10 px-4 flex items-center gap-x-3 rounded-md bg-white text-gray-800 hover:opacity-95 ${className}`;
+  const baseClass = `min-h-10 px-4 flex items-center gap-x-3 rounded-md bg-white text-gray-800 hover:bg-gray-100 ${className}`;
 
   const [stateBaseClass, setStateBaseClass] = useState<string>(baseClass);
   const [mounted, setMounted] = useState(false); // Track if the component is mounted
@@ -61,13 +71,28 @@ export default function ButtonComponent({
   // Render Link if href is provided
   if (href) {
     return (
-      <Link
-        href={href}
-        className={stateBaseClass}
-        {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
-      >
-        {children}
-      </Link>
+      <TooltipProvider>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger className={`${tooltip === "full" && "w-full"}`}>
+            <Link
+              href={href}
+              className={stateBaseClass}
+              {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
+            >
+              {children}
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent
+            className={`bg-white shadow-tooltip select-none ${
+              !description && "hidden"
+            }`}
+          >
+            <span className="text-[#00000d] text-xs font-montserrat font-normal">
+              {description}
+            </span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     );
   }
 

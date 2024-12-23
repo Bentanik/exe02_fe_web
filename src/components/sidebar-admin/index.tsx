@@ -14,12 +14,14 @@ export default function SidebarAdmin() {
 
   const renderNavAdmin = (navbar: TButton[]) => {
     return navbar.map((nav, index) => {
+      const isActive = pathname?.includes(nav.pathname || "");
       return (
         <li key={index}>
           <ButtonComponent
             href={nav.pathname}
             type="admin"
-            active={pathname === nav.pathname ? true : false}
+            active={isActive}
+            description={nav.description}
           >
             {nav.icon}
             <span className="text-base">{nav.text}</span>
@@ -32,10 +34,10 @@ export default function SidebarAdmin() {
   return (
     <div className="flex flex-col h-full justify-between">
       <div>
-        <div className="mx-auto h-[60px] px-4 flex items-center justify-between">
+        <div className="mx-auto h-[60px] px-4 flex items-center justify-between border-b">
           <h4>antiSCM</h4>
         </div>
-        <div className="border-t py-6 flex flex-col gap-y-4">
+        <div className="py-6 flex flex-col gap-y-4">
           <div className="px-4">
             <ul className="flex flex-col gap-y-3">
               {renderNavAdmin(NAV_SIDEBAR_TOP_ADMIN)}

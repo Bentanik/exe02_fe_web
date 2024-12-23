@@ -1,4 +1,4 @@
-import { TButton } from "@/utils/types/common";
+import { TBreadcrumb, TButton, TProgressStep } from "@/utils/types/common";
 import {
   Bolt,
   ChartColumnBig,
@@ -16,26 +16,31 @@ export const NAV_SIDEBAR_TOP_ADMIN: TButton[] = [
     pathname: "/admin/home",
     icon: <House className="text-base" strokeWidth={1.5} />,
     text: "Trang chủ",
+    description: "Trang chủ",
   },
   {
     pathname: "/admin/analytic",
     icon: <ChartColumnBig className="text-base" strokeWidth={1.5} />,
     text: "Phân tích",
+    description: "Phân tích",
   },
   {
     pathname: "/admin/manage-user",
     icon: <UserRoundCog className="text-base" strokeWidth={1.5} />,
     text: "Quản lí người dùng",
+    description: "Quản lí người dùng",
   },
   {
     pathname: "/admin/manage-course",
     icon: <FolderKanban className="text-base" strokeWidth={1.5} />,
     text: "Quản lí khóa học",
+    description: "Quản lí khóa học",
   },
   {
     pathname: "/admin/support",
     icon: <MailQuestion className="text-base" strokeWidth={1.5} />,
     text: "Hỗ trợ người dùng",
+    description: "Hỗ trợ người dùng",
   },
 ];
 
@@ -44,11 +49,13 @@ export const NAV_SIDEBAR_TOOL_ADMIN: TButton[] = [
     pathname: "/admin/setting",
     icon: <Bolt className="text-base" strokeWidth={1.5} />,
     text: "Cài đặt",
+    description: "Cài đặt",
   },
   {
     pathname: "/admin/profile",
     icon: <UserPen className="text-base" strokeWidth={1.5} />,
     text: "Hồ sơ",
+    description: "Hồ sơ",
   },
 ];
 
@@ -58,6 +65,7 @@ export const NAV_SIDEBAR_BOTTOM_ADMIN: TButton[] = [
     onClick: () => alert("Đăng xuất"),
     icon: <LogOut className="text-base" strokeWidth={1.5} />,
     text: "Đăng xuất",
+    description: "Đăng xuất",
   },
 ];
 
@@ -74,7 +82,39 @@ export const DROPDOWN_MENU_ADMIN: TButton[] = [
 ];
 
 export const NAV_HEADER_ADMIN: TButton = {
-  pathname: "/admin/create-course",
+  pathname: "/admin/manage-course/create-course",
   icon: <CirclePlus className="text-base" strokeWidth={1.5} />,
   text: "Tạo khóa học",
+  description: "Tạo khóa học",
 };
+
+export const CREATE_COURSE_STEPS: TProgressStep[] = [
+  {
+    text: "Thông tin khóa học",
+  },
+  {
+    text: "Tạo các chương học",
+  },
+  {
+    text: "Tạo bài học",
+  },
+  {
+    text: "Học phí",
+  },
+  {
+    text: "Xuất bản khóa học",
+  },
+];
+
+export const BREADCRUMB_CREATECOURSE: TBreadcrumb[] = [
+  {
+    link: "123",
+    title: "Quản lí khóa học",
+    isActive: false,
+  },
+  {
+    link: "123",
+    title: "Tạo khóa học",
+    isActive: false,
+  },
+];

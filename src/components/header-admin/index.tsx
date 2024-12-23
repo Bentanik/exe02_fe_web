@@ -13,6 +13,7 @@ import ButtonComponent from "@/components/button-component";
 import { NAV_HEADER_ADMIN } from "@/const/admin";
 
 export default function HeaderAdmin() {
+
   const [avatarTooltip, setAvatarTooltip] = useState<boolean>(false);
 
   const handleToggleAvatarTooltip = () => {
