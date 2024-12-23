@@ -20,7 +20,7 @@ export default function CreateInformationCourse({
   };
 
   const handleNextStep = () => {
-    onNextStep();
+    if (files) onNextStep();
   };
 
   return (

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { TProgressStep } from "@/utils/types/common";
@@ -6,14 +5,12 @@ import { TProgressStep } from "@/utils/types/common";
 interface IProgressStepProps {
   stepValue: TProgressStep[];
   currentStep: number;
-  onNextStep?: () => void;
   onPrevStep?: () => void;
 }
 
 export default function ProgressStep({
   stepValue,
   currentStep,
-  onNextStep,
   onPrevStep,
 }: IProgressStepProps) {
   const totalSteps = stepValue?.length;
@@ -39,6 +36,7 @@ export default function ProgressStep({
             initial={{ scale: 0.8 }}
             animate={{ scale: index < currentStep ? 1.2 : 1 }}
             transition={{ duration: 0.3 }}
+            onClick={onPrevStep}
           >
             {index < currentStep ? <Check /> : index + 1}
           </motion.div>

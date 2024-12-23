@@ -1,25 +1,27 @@
 "use client";
 
 import { DROPDOWN_MENU_ADMIN } from "@/const/admin";
-import { TDropdownAdmin } from "@/utils/types/common";
-import Link from "next/link";
+import { TButton } from "@/utils/types/common";
+import ButtonComponent from "@/components/button-component";
 
 interface IAvatarMenuAdminProps {
   onClose: () => void;
 }
 
 export default function AvatarMenuAdmin({ onClose }: IAvatarMenuAdminProps) {
-  const renderDropdowns = (dropdowns: TDropdownAdmin[]) => {
+  const renderDropdowns = (dropdowns: TButton[]) => {
     return dropdowns?.map((dropdown, index) => {
       return (
         <li key={index} onClick={onClose}>
-          <Link
+          <ButtonComponent
             href="#!"
+            type="admin"
+            active={false}
             className="flex items-center gap-x-2 px-4 py-3 hover:bg-primary-admin hover:text-white"
           >
             {dropdown.icon}
             <span className="text-base">{dropdown.text}</span>
-          </Link>
+          </ButtonComponent>
         </li>
       );
     });

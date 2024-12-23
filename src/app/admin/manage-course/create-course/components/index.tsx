@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import CreateInformationCourse from "@/app/admin/manage-course/create-course/components/create-information-course";
 import ProgressStep from "@/components/progress-step";
 import { BREADCRUMB_CREATECOURSE, CREATE_COURSE_STEPS } from "@/const/admin";
@@ -57,6 +56,7 @@ export default function CreateCourseForm() {
         <ProgressStep
           stepValue={CREATE_COURSE_STEPS}
           currentStep={currentStep}
+          onPrevStep={handlePrevStep}
         />
       </div>
       <main className="my-16 border rounded-md">
