@@ -1,11 +1,11 @@
 "use client";
 
-import { NAV_BOTTOM_ADMIN, NAV_TOOL_ADMIN, NAV_TOP_ADMIN } from "@/const/admin";
+import { NAV_SIDEBAR_BOTTOM_ADMIN, NAV_SIDEBAR_TOOL_ADMIN, NAV_SIDEBAR_TOP_ADMIN } from "@/const/admin";
 import { TNavbarAdmin } from "@/utils/types/admin";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function AdminSidebar() {
+export default function SidebarAdmin() {
   const pathname = usePathname();
 
   const renderNavAdmin = (navbar: TNavbarAdmin[]) => {
@@ -37,14 +37,14 @@ export default function AdminSidebar() {
         <div className="border-t py-6 flex flex-col gap-y-4">
           <div className="px-4">
             <ul className="flex flex-col gap-y-3">
-              {renderNavAdmin(NAV_TOP_ADMIN)}
+              {renderNavAdmin(NAV_SIDEBAR_TOP_ADMIN)}
             </ul>
           </div>
           <div className="px-4">
             <h3>Công cụ</h3>
             <div className="mt-6">
               <ul className="flex flex-col gap-y-3">
-                {renderNavAdmin(NAV_TOOL_ADMIN)}
+                {renderNavAdmin(NAV_SIDEBAR_TOOL_ADMIN)}
               </ul>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function AdminSidebar() {
       </div>
       <div className="border-t py-2 px-4">
         <ul className="flex flex-col gap-y-3">
-          {renderNavAdmin(NAV_BOTTOM_ADMIN)}
+          {renderNavAdmin(NAV_SIDEBAR_BOTTOM_ADMIN)}
         </ul>
       </div>
     </div>

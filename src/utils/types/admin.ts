@@ -6,3 +6,10 @@ export type TNavbarAdmin = {
   icon: ReactNode;
   text: string;
 };
+
+export type TDropdownAdmin = {
+  pathname?: string;
+  onClick?: () => void;
+  icon: ReactNode;
+  text: string;
+};

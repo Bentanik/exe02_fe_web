@@ -1,5 +1,5 @@
-import AdminSidebar from "@/components/admin-sidebar";
-import HeaderSidebar from "@/components/header-sidebar";
+import SidebarAdmin from "@/components/sidebar-admin";
+import HeaderAdmin from "@/components/header-admin";
 
 export default function AdminLayout({
   children,
@@ -11,12 +11,12 @@ export default function AdminLayout({
       <div className="w-full h-[95vh] bg-white rounded-lg shadow-box-admin relative">
         <div className="flex items-start h-full">
           <section className="w-[20%] h-full border-r">
-            <AdminSidebar />
+            <SidebarAdmin />
           </section>
           <main className="flex-1 relative w-full min-h-full h-full overflow-hidden">
             <div className="w-full">
               <div className="mx-auto px-4 h-[60px] flex items-center justify-between">
-                <HeaderSidebar />
+                <HeaderAdmin />
               </div>
               <div className="border-t w-full h-full overflow-y-auto scrollbar-admin">
                 <section className="">{children}</section>

@@ -1,7 +1,8 @@
-import { TNavbarAdmin } from "@/utils/types/admin";
+import { TDropdownAdmin, TNavbarAdmin } from "@/utils/types/admin";
 import {
   Bolt,
   ChartColumnBig,
+  FolderKanban,
   House,
   LogOut,
   MailQuestion,
@@ -9,7 +10,7 @@ import {
   UserRoundCog,
 } from "lucide-react";
 
-export const NAV_TOP_ADMIN: TNavbarAdmin[] = [
+export const NAV_SIDEBAR_TOP_ADMIN: TNavbarAdmin[] = [
   {
     pathname: "/admin/home",
     icon: <House className="text-base" strokeWidth={1.5} />,
@@ -27,7 +28,7 @@ export const NAV_TOP_ADMIN: TNavbarAdmin[] = [
   },
   {
     pathname: "/admin/manage-course",
-    icon: <ChartColumnBig className="text-base" strokeWidth={1.5} />,
+    icon: <FolderKanban className="text-base" strokeWidth={1.5} />,
     text: "Quản lí khóa học",
   },
   {
@@ -37,7 +38,7 @@ export const NAV_TOP_ADMIN: TNavbarAdmin[] = [
   },
 ];
 
-export const NAV_TOOL_ADMIN: TNavbarAdmin[] = [
+export const NAV_SIDEBAR_TOOL_ADMIN: TNavbarAdmin[] = [
   {
     pathname: "/admin/setting",
     icon: <Bolt className="text-base" strokeWidth={1.5} />,
@@ -50,10 +51,22 @@ export const NAV_TOOL_ADMIN: TNavbarAdmin[] = [
   },
 ];
 
-export const NAV_BOTTOM_ADMIN: TNavbarAdmin[] = [
+export const NAV_SIDEBAR_BOTTOM_ADMIN: TNavbarAdmin[] = [
   {
     pathname: "#!",
     onClick: () => alert("Đăng xuất"),
+    icon: <LogOut className="text-base" strokeWidth={1.5} />,
+    text: "Đăng xuất",
+  },
+];
+
+export const DROPDOWN_MENU_ADMIN: TDropdownAdmin[] = [
+  {
+    pathname: "/admin/setting",
+    icon: <Bolt className="text-base" strokeWidth={1.5} />,
+    text: "Cài đặt",
+  },
+  {
     icon: <LogOut className="text-base" strokeWidth={1.5} />,
     text: "Đăng xuất",
   },

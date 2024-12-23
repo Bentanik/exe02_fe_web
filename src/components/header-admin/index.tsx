@@ -7,16 +7,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import AvatarAdminMenu from "@/components/avatar-admin-menu";
+import AvatarMenuAdmin from "@/components/avatar-menu-admin";
 import Image from "next/image";
 
-export default function HeaderSidebar() {
+export default function HeaderAdmin() {
   const [avatarTooltip, setAvatarTooltip] = useState<boolean>(false);
 
   const handleToggleAvatarTooltip = () => {
     setAvatarTooltip((prev) => !prev);
   };
-  
+
+  const handleCloseAvatarTooltip = () => {
+    setAvatarTooltip(false);
+  };
+
   return (
     <div className="w-full flex items-center justify-between">
       <div>
@@ -44,7 +48,7 @@ export default function HeaderSidebar() {
               align="end"
               className="w-auto h-auto rounded-md p-0"
             >
-              <AvatarAdminMenu />
+              <AvatarMenuAdmin onClose={handleCloseAvatarTooltip} />
               {/* <AvatarMenu onCloseTooltip={handleCloseAvatarMenuTooltip} /> */}
             </PopoverContent>
           </Popover>
