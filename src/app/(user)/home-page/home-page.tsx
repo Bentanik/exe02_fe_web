@@ -380,70 +380,71 @@ export default function Home() {
     };
 
     const RenderListQuestion = () => {
-        const [openIndex, setOpenIndex] = useState<number | null>(null); // Quản lý mục đang mở
+        const [openIndices, setOpenIndices] = useState<boolean[]>(
+            listWarning.map(() => false) // Khởi tạo mảng trạng thái
+        );
 
-        return listWarning.map((info, index) => {
-            return (
-                <Disclosure
-                    as="div"
-                    className="p-6 w-[40%] flex flex-col bg-white rounded-xl shadow-sm"
-                    key={index}
-                >
-                    {({ open }) => (
-                        <>
-                            <Disclosure.Button
-                                onClick={() =>
-                                    setOpenIndex(open ? null : index)
-                                } // Đóng nếu đang mở, ngược lại mở
-                                className="w-full flex items-start justify-between"
-                            >
-                                {/* Left Content */}
-                                <div>
-                                    <div className="!text-justify">
-                                        {info.title}
-                                    </div>
-
-                                    <motion.div
-                                        className="mt-2 text-gray-700 text-sm"
-                                        initial={{ opacity: 1, maxHeight: 0 }} // Ban đầu, không hiển thị
-                                        animate={{
-                                            opacity:
-                                                open && openIndex === index
-                                                    ? 1
-                                                    : 0,
-                                            maxHeight:
-                                                open && openIndex === index
-                                                    ? 700
-                                                    : 0, // Điều chỉnh chiều cao khi mở/đóng
-                                        }}
-                                        exit={{
-                                            opacity: 0,
-                                            maxHeight: 0, // Khi rời khỏi, ẩn lại
-                                        }}
-                                        transition={{
-                                            opacity: { duration: 0.3 }, // Thời gian chuyển động opacity
-                                            maxHeight: {
-                                                duration: open ? 0.7 : 0.5,
-                                            }, // Mở trong 0.7s, đóng trong 0.5s
-                                        }}
-                                    >
-                                        {info.desc}
-                                    </motion.div>
-                                </div>
-                                {/* Icon */}
-                                <div className="ml-4">
-                                    {open && openIndex === index ? (
-                                        <XMarkIcon className="w-8 h-8 text-red-500 border-2-red bg-red-100 rounded-full" />
-                                    ) : (
-                                        <PlusIcon className="w-8 h-8 text-red-500 border-2-red bg-red-100 rounded-full" />
-                                    )}
-                                </div>
-                            </Disclosure.Button>
-                        </>
-                    )}
-                </Disclosure>
+        const toggleIndex = (index: number) => {
+            setOpenIndices(
+                (prev) =>
+                    prev.map((isOpen, i) => (i === index ? !isOpen : isOpen)) // Đảo trạng thái mục được nhấn
             );
-        });
+        };
+
+        return listWarning.map((info, index) => (
+            <Disclosure
+                as="div"
+                className="p-6 flex flex-col bg-white rounded-xl shadow-sm mt-3"
+                key={index}
+            >
+                {({}) => (
+                    <>
+                        <Disclosure.Button
+                            onClick={() => toggleIndex(index)} // Thay đổi trạng thái của mục
+                            className="w-full flex items-start justify-between"
+                        >
+                            {/* Left Content */}
+                            <div>
+                                <div className="!text-justify">
+                                    {info.title}
+                                </div>
+
+                                <motion.div
+                                    className="mt-2 text-gray-700 text-sm"
+                                    initial={{ opacity: 1, maxHeight: 0 }} // Ban đầu, không hiển thị
+                                    animate={{
+                                        opacity: openIndices[index] ? 1 : 0,
+                                        maxHeight: openIndices[index] ? 700 : 0, // Điều chỉnh chiều cao khi mở/đóng
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        maxHeight: 0, // Khi rời khỏi, ẩn lại
+                                    }}
+                                    transition={{
+                                        opacity: { duration: 0.3 }, // Thời gian chuyển động opacity
+                                        maxHeight: {
+                                            duration: openIndices[index]
+                                                ? 0.7
+                                                : 0.5,
+                                        }, // Mở trong 0.7s, đóng trong 0.5s
+                                    }}
+                                >
+                                    {info.desc}
+                                </motion.div>
+                            </div>
+                            {/* Icon */}
+                            <div className="ml-4">
+                                {openIndices[index] ? (
+                                    <XMarkIcon className="w-8 h-8 text-red-500 border-2-red bg-red-100 rounded-full" />
+                                ) : (
+                                    <PlusIcon className="w-8 h-8 text-red-500 border-2-red bg-red-100 rounded-full" />
+                                )}
+                            </div>
+                        </Disclosure.Button>
+                    </>
+                )}
+            </Disclosure>
+        ));
     };
 
     return (
@@ -728,8 +729,53 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* */}
-            <div>{RenderListQuestion()}</div>
+            {/* Logo and Sologan */}
+            <div className="mx-[10%] mt-[100px] relative">
+                <div>
+                    <Image
+                        src="/images/dot.png"
+                        alt="icon 1"
+                        width={400}
+                        height={500}
+                        className="object-cover w-[27%] h-[400px] ml-auto"
+                    />
+                </div>
+                <div className="w-[90%] h-[200px] bg-white absolute bottom-[25%] left flex justify-center items-center shadow-lg rounded-[20px]">
+                    <Image
+                        src="/images/searchBug.svg"
+                        alt="icon 1"
+                        width={400}
+                        height={500}
+                        className="object-cover w-[20%] h-[220px] absolute bottom-[50%] left-10"
+                    />
+                    <div className="flex items-center ml-[20%]">
+                        <div>
+                            <h1 className="text-[2.5rem] font-bold">
+                                antiSCM mobile app
+                            </h1>
+                            <div className="flex gap-3 mt-[20px]">
+                                <p>hellklaskdlaksdlkas</p>
+                                <p>hellklaskdlaksdlkas</p>
+                            </div>
+                        </div>
+                        <div className="flex-[1/2] ml-[100px]">
+                            <Button className="bg-[#036f98] px-[50px] py-[25px] rounded-full">
+                                Tham gia ngay
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Question and Answer */}
+            <div className="relative h-screen mt-[100px]">
+                <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
+                    Answers to Your Questions
+                </h1>
+                <div className="absolute left-1/2 transform -translate-x-1/2">
+                    <div className="space-y-4">{RenderListQuestion()}</div>
+                </div>
+            </div>
         </div>
     );
 }
