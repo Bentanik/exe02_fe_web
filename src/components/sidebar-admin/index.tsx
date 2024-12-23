@@ -1,28 +1,29 @@
 "use client";
 
-import { NAV_SIDEBAR_BOTTOM_ADMIN, NAV_SIDEBAR_TOOL_ADMIN, NAV_SIDEBAR_TOP_ADMIN } from "@/const/admin";
-import { TNavbarAdmin } from "@/utils/types/admin";
-import Link from "next/link";
+import {
+  NAV_SIDEBAR_BOTTOM_ADMIN,
+  NAV_SIDEBAR_TOOL_ADMIN,
+  NAV_SIDEBAR_TOP_ADMIN,
+} from "@/const/admin";
+import { TButton } from "@/utils/types/common";
 import { usePathname } from "next/navigation";
+import ButtonComponent from "@/components/button-component";
 
 export default function SidebarAdmin() {
   const pathname = usePathname();
 
-  const renderNavAdmin = (navbar: TNavbarAdmin[]) => {
+  const renderNavAdmin = (navbar: TButton[]) => {
     return navbar.map((nav, index) => {
       return (
-        <li key={index} onClick={nav?.onClick ? nav.onClick : () => {}}>
-          <Link
+        <li key={index}>
+          <ButtonComponent
             href={nav.pathname}
-            className={`h-10 px-4 flex items-center gap-x-3 rounded-md hover:bg-primary-admin hover:text-white ${
-              pathname === nav.pathname
-                ? "bg-primary-admin text-white"
-                : "bg-white text-gray-800 hover:opacity-85"
-            }`}
+            type="admin"
+            active={pathname === nav.pathname ? true : false}
           >
             {nav.icon}
             <span className="text-base">{nav.text}</span>
-          </Link>
+          </ButtonComponent>
         </li>
       );
     });

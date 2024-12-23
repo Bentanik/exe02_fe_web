@@ -1,7 +1,8 @@
-import { TDropdownAdmin, TNavbarAdmin } from "@/utils/types/admin";
+import { TButton } from "@/utils/types/common";
 import {
   Bolt,
   ChartColumnBig,
+  CirclePlus,
   FolderKanban,
   House,
   LogOut,
@@ -10,7 +11,7 @@ import {
   UserRoundCog,
 } from "lucide-react";
 
-export const NAV_SIDEBAR_TOP_ADMIN: TNavbarAdmin[] = [
+export const NAV_SIDEBAR_TOP_ADMIN: TButton[] = [
   {
     pathname: "/admin/home",
     icon: <House className="text-base" strokeWidth={1.5} />,
@@ -38,7 +39,7 @@ export const NAV_SIDEBAR_TOP_ADMIN: TNavbarAdmin[] = [
   },
 ];
 
-export const NAV_SIDEBAR_TOOL_ADMIN: TNavbarAdmin[] = [
+export const NAV_SIDEBAR_TOOL_ADMIN: TButton[] = [
   {
     pathname: "/admin/setting",
     icon: <Bolt className="text-base" strokeWidth={1.5} />,
@@ -51,7 +52,7 @@ export const NAV_SIDEBAR_TOOL_ADMIN: TNavbarAdmin[] = [
   },
 ];
 
-export const NAV_SIDEBAR_BOTTOM_ADMIN: TNavbarAdmin[] = [
+export const NAV_SIDEBAR_BOTTOM_ADMIN: TButton[] = [
   {
     pathname: "#!",
     onClick: () => alert("Đăng xuất"),
@@ -60,7 +61,7 @@ export const NAV_SIDEBAR_BOTTOM_ADMIN: TNavbarAdmin[] = [
   },
 ];
 
-export const DROPDOWN_MENU_ADMIN: TDropdownAdmin[] = [
+export const DROPDOWN_MENU_ADMIN: TButton[] = [
   {
     pathname: "/admin/setting",
     icon: <Bolt className="text-base" strokeWidth={1.5} />,
@@ -71,3 +72,9 @@ export const DROPDOWN_MENU_ADMIN: TDropdownAdmin[] = [
     text: "Đăng xuất",
   },
 ];
+
+export const NAV_HEADER_ADMIN: TButton = {
+  pathname: "/admin/create-course",
+  icon: <CirclePlus className="text-base" strokeWidth={1.5} />,
+  text: "Tạo khóa học",
+};

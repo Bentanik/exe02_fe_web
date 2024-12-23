@@ -1,7 +1,7 @@
 "use client";
 
 import { DROPDOWN_MENU_ADMIN } from "@/const/admin";
-import { TDropdownAdmin } from "@/utils/types/admin";
+import { TDropdownAdmin } from "@/utils/types/common";
 import Link from "next/link";
 
 interface IAvatarMenuAdminProps {

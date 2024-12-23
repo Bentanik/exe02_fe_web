@@ -9,6 +9,8 @@ import {
 import { useState } from "react";
 import AvatarMenuAdmin from "@/components/avatar-menu-admin";
 import Image from "next/image";
+import ButtonComponent from "@/components/button-component";
+import { NAV_HEADER_ADMIN } from "@/const/admin";
 
 export default function HeaderAdmin() {
   const [avatarTooltip, setAvatarTooltip] = useState<boolean>(false);
@@ -26,7 +28,15 @@ export default function HeaderAdmin() {
       <div>
         <SearchSidebar />
       </div>
-      <div>
+      <div className="flex items-center gap-x-3">
+        <ButtonComponent
+          href={NAV_HEADER_ADMIN.pathname}
+          type="admin"
+          active={true}
+        >
+          {NAV_HEADER_ADMIN.icon}
+          <span className="text-base">{NAV_HEADER_ADMIN.text}</span>
+        </ButtonComponent>
         <div>
           <Popover open={avatarTooltip} onOpenChange={setAvatarTooltip}>
             <PopoverTrigger asChild>
@@ -49,7 +59,6 @@ export default function HeaderAdmin() {
               className="w-auto h-auto rounded-md p-0"
             >
               <AvatarMenuAdmin onClose={handleCloseAvatarTooltip} />
-              {/* <AvatarMenu onCloseTooltip={handleCloseAvatarMenuTooltip} /> */}
             </PopoverContent>
           </Popover>
         </div>
