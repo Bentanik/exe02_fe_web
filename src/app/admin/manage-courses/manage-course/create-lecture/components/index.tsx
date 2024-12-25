@@ -1,6 +1,6 @@
 "use client";
 
-import { BREADCRUMB_CREATECHAPTER, BREADCRUMB_CREATELECTURE } from "@/const/admin";
+import { BREADCRUMB_CREATELECTURE } from "@/const/admin";
 import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
 import BreadcrumbComponent from "@/components/breadcrumb-component";

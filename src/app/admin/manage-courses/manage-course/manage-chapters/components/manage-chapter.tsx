@@ -15,11 +15,7 @@ import {
   TvMinimalPlay,
 } from "lucide-react";
 import Link from "next/link";
-import { Fragment, useEffect, useState } from "react";
-
-interface IManageChapterProps {
-  onNextStep: () => void;
-}
+import { useEffect, useState } from "react";
 
 export default function ManageChapter() {
   const [chapters, setChapters] = useState<API.TChapter[]>([]);
