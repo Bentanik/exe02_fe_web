@@ -45,9 +45,11 @@ export const FileUpload = ({
   };
 
   const handleDeleteFile = (idx: number) => {
-    return setFiles((prev) => prev.filter((_, i) => i !== idx));
+    setFiles((prev) => prev.filter((_, i) => i !== idx));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
-
   const handleClick = () => {
     fileInputRef.current?.click();
   };

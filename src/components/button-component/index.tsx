@@ -94,16 +94,16 @@ export default function ButtonComponent({
         </Tooltip>
       </TooltipProvider>
     );
+  } else {
+    // Render Button if no href is provided
+    return (
+      <button
+        onClick={onClick}
+        className={stateBaseClass}
+        {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
+      >
+        {children}
+      </button>
+    );
   }
-
-  // Render Button if no href is provided
-  return (
-    <button
-      onClick={onClick}
-      className={stateBaseClass}
-      {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
-    >
-      {children}
-    </button>
-  );
 }

@@ -10,17 +10,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface IMultiSelectDropdownProps {
+interface IMultiSelectDropdownAdminProps {
   id: string;
   title: string;
-  values: API.TCategory[] | API.TLevel[];
+  values: API.TCategory[] | API.TLevel[] | API.TChapter[];
 }
 
-export default function MultiSelectDropdown({
+export default function MultiSelectDropdownAdmin({
   id,
   values,
   title,
-}: IMultiSelectDropdownProps) {
+}: IMultiSelectDropdownAdminProps) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const toggleCategory = (value: string) => {
@@ -29,15 +29,17 @@ export default function MultiSelectDropdown({
     );
   };
 
-  const renderCategories = (arr: API.TCategory[] | API.TLevel[]) => {
+  const renderCategories = (
+    arr: API.TCategory[] | API.TLevel[] | API.TChapter[] | API.TCourse[]
+  ) => {
     return arr.map((menu, index) => (
       <DropdownMenuItem
         key={index} // Đảm bảo `menu.id` là duy nhất
-        onClick={() => toggleCategory(menu.name)}
+        onClick={() => toggleCategory(menu.name || "")}
       >
         <input
           type="checkbox"
-          checked={selectedCategories.includes(menu.name)}
+          checked={selectedCategories.includes(menu.name || "")}
           readOnly
           className="mr-2"
         />

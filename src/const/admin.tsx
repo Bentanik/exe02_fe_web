@@ -96,7 +96,7 @@ export const DROPDOWN_CREATE_COURSE: TButton[] = [
     text: "Tạo chương",
   },
   {
-    pathname: "/admin/manage-courses/manage-course/create-course",
+    pathname: "/admin/manage-courses/manage-course/create-lecture",
     icon: <BookOpenText className="text-base" strokeWidth={1.5} />,
     text: "Tạo bài giảng",
   },
@@ -129,13 +129,85 @@ export const CREATE_COURSE_STEPS: TProgressStep[] = [
 
 export const BREADCRUMB_CREATECOURSE: TBreadcrumb[] = [
   {
-    link: "123",
+    link: "/admin/manage-courses/view-courses",
     title: "Quản lí khóa học",
     isActive: false,
   },
   {
-    link: "123",
+    link: "/admin/manage-courses/manage-course/create-course",
     title: "Tạo khóa học",
     isActive: false,
+  },
+];
+
+export const BREADCRUMB_CREATECHAPTER: TBreadcrumb[] = [
+  {
+    link: "/admin/manage-courses/view-courses",
+    title: "Quản lí khóa học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/manage-chapters",
+    title: "Quản lí chương học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/create-chapter",
+    title: "Tạo chương học",
+    isActive: true,
+  },
+];
+
+export const BREADCRUMB_MANAGECHAPTER: TBreadcrumb[] = [
+  {
+    link: "/admin/manage-courses/view-courses",
+    title: "Quản lí khóa học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/manage-chapters",
+    title: "Quản lí chương học",
+    isActive: true,
+  },
+];
+
+export const BREADCRUMB_MANAGECHAPTER_LIST: TBreadcrumb[] = [
+  {
+    link: "/admin/manage-courses/view-courses",
+    title: "Quản lí khóa học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/manage-chapters",
+    title: "Quản lí chương học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/manage-chapters",
+    title: "Danh sách chương học",
+    isActive: false,
+  },
+];
+
+export const BREADCRUMB_CREATELECTURE: TBreadcrumb[] = [
+  {
+    link: "/admin/manage-courses/view-courses",
+    title: "Quản lí khóa học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/manage-chapters",
+    title: "Quản lí chương học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/manage-lecture",
+    title: "Quản lí bài học",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses/manage-course/create-lecture",
+    title: "Tạo bài học",
+    isActive: true,
   },
 ];

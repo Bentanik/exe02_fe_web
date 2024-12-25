@@ -3,8 +3,7 @@ declare namespace REQUEST {}
 declare namespace API {
   type TLecture = {
     name?: string; // Name lecture
-    overviewDescription?: string; // Description short and overview about lecture
-    detailDescription?: string; // Description detail about lecture
+    description?: string; // Description short and overview about lecture
     duration?: number; // Duration of lecture
   };
 

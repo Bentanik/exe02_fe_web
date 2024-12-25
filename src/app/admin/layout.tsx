@@ -27,8 +27,8 @@ export default function AdminLayout({
               >
                 <HeaderAdmin />
               </div>
-              <div className=" w-full h-full overflow-y-auto scrollbar-admin">
-                <ScrollArea  className="h-[100vh]">{children}</ScrollArea>
+              <div className="border-t w-full h-full overflow-y-auto scrollbar-admin">
+                <section className="h-[90vh]">{children}</section>
               </div>
             </div>
           </main>

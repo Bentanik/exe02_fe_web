@@ -5,9 +5,10 @@ import { FileUpload } from "@/components/ui/file-upload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import MultiSelectDropdown from "@/app/admin/manage-courses/manage-course/create-course/components/multi-select-dropdown";
+import MultiSelectDropdownAdmin from "@/components/multi-select-dropdown-admin.tsx/multi-select-dropdown-admin";
 import { Categories } from "@/mooks/category";
 import { Levels } from "@/mooks/level";
+import { Courses } from "@/mooks/course";
 
 interface ICreateCourseFormProps {
   onNextStep: () => void;
@@ -48,7 +49,7 @@ export default function CreateCourseForm({
                 <label htmlFor="category" className="text-base">
                   Chọn thể loại
                 </label>
-                <MultiSelectDropdown
+                <MultiSelectDropdownAdmin
                   id="category"
                   title="thể loại"
                   values={Categories}
@@ -58,12 +59,22 @@ export default function CreateCourseForm({
                 <label htmlFor="level" className="text-base">
                   Chọn cấp độ người học
                 </label>
-                <MultiSelectDropdown
+                <MultiSelectDropdownAdmin
                   id="level"
                   title="cấp độ"
                   values={Levels}
                 />
               </div>
+            </div>
+            <div className="w-full flex flex-col gap-y-2">
+              <label htmlFor="addlecture" className="text-base">
+                Thêm chương học
+              </label>
+              <MultiSelectDropdownAdmin
+                id="addlecture"
+                title="chương học"
+                values={Courses?.at(0)?.chapters || []}
+              />
             </div>
             <div className="flex flex-col gap-y-2">
               <label htmlFor="description" className="text-base">

@@ -1,10 +1,10 @@
 "use client";
 
 import ButtonComponent from "@/components/button-component";
+import { FileUpload } from "@/components/ui/file-upload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
-import MultiSelectDropdownAdmin from "@/components/multi-select-dropdown-admin.tsx/multi-select-dropdown-admin";
 import {
   Select,
   SelectContent,
@@ -18,19 +18,28 @@ interface ICreateChapterFormProps {
   onNextStep: () => void;
 }
 
-export default function CreateChapterForm({
+export default function CreateLectureForm({
   onNextStep,
 }: ICreateChapterFormProps) {
+  const [files, setFiles] = useState<File[]>([]);
+  const handleFileUpload = (files: File[]) => {
+    setFiles(files);
+  };
+
   useEffect(() => {
     setCourses(Courses);
+    setChapters(Courses[0].chapters || []);
   }, []);
 
   const handleNextStep = () => {
-    onNextStep();
+    if (files) onNextStep();
   };
 
   const [courses, setCourses] = useState<API.TCourse[]>([]);
   const [course, setCourse] = useState<string>("");
+
+  const [chapters, setChapters] = useState<API.TChapter[]>([]);
+  const [chapter, setChapter] = useState<string>("");
 
   const renderCourses = (courses_arr: API.TCourse[]) => {
     return courses_arr.map((course, index) => (
@@ -40,13 +49,21 @@ export default function CreateChapterForm({
     ));
   };
 
+  const renderChapters = (chapters_arr: API.TChapter[]) => {
+    return chapters_arr.map((chapter, index) => (
+      <SelectItem key={index} value={index.toString() || ""}>
+        {chapter.name}
+      </SelectItem>
+    ));
+  };
+
   return (
     <div>
       <div className="px-12 py-2 border-b">
-        <h2 className="font-semibold text-xl">Tạo chương học</h2>
+        <h2 className="font-semibold text-xl">Tạo bài học</h2>
         <p className="mt-2 text-base text-gray-500 font-semibold">
-          Tạo chương học với các thông tin như tên chương học, mô tả ngắn và mô
-          tả chi tiết
+          Tạo bài học với các thông tin như tên bài học, mô tả, thumbnail, video
+          về bài học
         </p>
       </div>
       <div className="px-12 py-2">
@@ -57,54 +74,60 @@ export default function CreateChapterForm({
                 Khóa học
               </label>
               <Select value={course} onValueChange={setCourse}>
-                <SelectTrigger className="focus-visible:ring-0 focus-visible:border-gray-400 px-4 py-5 border border-gray-300 rounded-md">
+                <SelectTrigger
+                  id="namecourse"
+                  className="focus-visible:ring-0 focus-visible:border-gray-400 px-4 py-5 border border-gray-300 rounded-md"
+                >
                   <SelectValue placeholder="Xin vui lòng lựa chọn khóa học" />
                 </SelectTrigger>
                 <SelectContent>{renderCourses(courses)}</SelectContent>
               </Select>
             </div>
             <div className="flex flex-col gap-y-2">
-              <label htmlFor="namecourse" className="text-base">
-                Tên chương học
+              <label htmlFor="namechapter" className="text-base">
+                Chương học
               </label>
-              <Input id="namecourse" type="text" />
+              <Select value={chapter} onValueChange={setChapter}>
+                <SelectTrigger
+                  id="namechapter"
+                  className="focus-visible:ring-0 focus-visible:border-gray-400 px-4 py-5 border border-gray-300 rounded-md"
+                >
+                  <SelectValue placeholder="Xin vui lòng lựa chọn chương học" />
+                </SelectTrigger>
+                <SelectContent>{renderChapters(chapters)}</SelectContent>
+              </Select>
             </div>
-            <div>
-              <div className="w-full flex flex-col gap-y-2">
-                <label htmlFor="addlecture" className="text-base">
-                  Thêm bài học
-                </label>
-                <MultiSelectDropdownAdmin
-                  id="addlecture"
-                  title="bài học"
-                  values={courses?.at(0)?.chapters?.at(0)?.lectures || []}
-                />
-              </div>
+            <div className="flex flex-col gap-y-2">
+              <label htmlFor="namelecture" className="text-base">
+                Tên bài học
+              </label>
+              <Input id="namelecture" type="text" />
             </div>
             <div className="flex flex-col gap-y-2">
               <label htmlFor="description" className="text-base">
-                Mô tả ngắn và tổng quan
+                Mô tả
               </label>
               <Textarea
                 id="description"
                 placeholder="Xin vui lòng điền mô tả khóa học ở đây."
                 style={{ resize: "none" }}
-                className="resize-none h-[100px]"
+                className="resize-none h-[200px]"
               />
             </div>
           </div>
           <div className="flex-1">
             <div className="flex flex-col gap-y-2">
               <div className="flex flex-col gap-y-2">
-                <label htmlFor="description" className="text-base">
-                  Mô tả chi tiết
+                <label htmlFor="lecturevideocoursecreate" className="text-base">
+                  Tải lên thumbnail và video bài học
                 </label>
-                <Textarea
-                  id="description"
-                  placeholder="Xin vui lòng điền mô tả khóa học ở đây."
-                  style={{ resize: "none" }}
-                  className="resize-none h-[250px]"
-                />
+                <div className="border rounded-lg">
+                  <FileUpload
+                    title="Tải ảnh và video bài học lên"
+                    description="Xin vui lòng kéo hoặc click vào để tải lên"
+                    onChange={handleFileUpload}
+                  />
+                </div>
               </div>
             </div>
             <div className="mt-4 flex justify-end gap-x-3">

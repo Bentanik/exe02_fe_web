@@ -17,10 +17,7 @@ export const Courses: API.TCourse[] = Array.from(
       totalDuration: 300,
       lectures: Array.from({ length: 10 }, (_, lectureIndex) => ({
         name: `Lecture ${lectureIndex + 1}`,
-        overviewDescription: `Overview of Lecture ${lectureIndex + 1}`,
-        detailDescription: `Detailed description of Lecture ${
-          lectureIndex + 1
-        }`,
+        description: `Overview of Lecture ${lectureIndex + 1}`,
         duration: 30,
       })),
     })),
