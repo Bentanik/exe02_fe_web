@@ -4,6 +4,7 @@ import SidebarAdmin from "@/components/sidebar-admin";
 import HeaderAdmin from "@/components/header-admin";
 import { usePathname } from "next/navigation";
 import { NAV_HEADER_ADMIN } from "@/const/admin";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export default function AdminLayout({
   children,
@@ -22,14 +23,12 @@ export default function AdminLayout({
           <main className="flex-1 relative w-full min-h-full h-full overflow-hidden">
             <div className="w-full">
               <div
-                className={`mx-auto px-4 h-[60px] ${
-                  pathname === NAV_HEADER_ADMIN.pathname ? "hidden" : "flex"
-                } items-center justify-between border-b`}
+                className={`mx-auto px-4 h-[60px] flex items-center justify-between border-b`}
               >
                 <HeaderAdmin />
               </div>
               <div className=" w-full h-full overflow-y-auto scrollbar-admin">
-                <section className="h-[100vh]">{children}</section>
+                <ScrollArea  className="h-[100vh]">{children}</ScrollArea>
               </div>
             </div>
           </main>

@@ -1,12 +1,15 @@
 import { TBreadcrumb, TButton, TProgressStep } from "@/utils/types/common";
 import {
   Bolt,
+  BookOpenText,
+  BookPlus,
   ChartColumnBig,
   CirclePlus,
   FolderKanban,
   House,
   LogOut,
   MailQuestion,
+  NotebookTabs,
   UserPen,
   UserRoundCog,
 } from "lucide-react";
@@ -81,8 +84,26 @@ export const DROPDOWN_MENU_ADMIN: TButton[] = [
   },
 ];
 
+export const DROPDOWN_CREATE_COURSE: TButton[] = [
+  {
+    pathname: "/admin/manage-courses/manage-course/create-course",
+    icon: <BookPlus className="text-base" strokeWidth={1.5} />,
+    text: "Tạo khóa học",
+  },
+  {
+    pathname: "/admin/manage-courses/manage-course/create-chapter",
+    icon: <NotebookTabs className="text-base" strokeWidth={1.5} />,
+    text: "Tạo chương",
+  },
+  {
+    pathname: "/admin/manage-courses/manage-course/create-course",
+    icon: <BookOpenText className="text-base" strokeWidth={1.5} />,
+    text: "Tạo bài giảng",
+  },
+];
+
 export const NAV_HEADER_ADMIN: TButton = {
-  pathname: "/admin/manage-course/create-course",
+  pathname: "/admin/manage-course/manage-course/create-course",
   icon: <CirclePlus className="text-base" strokeWidth={1.5} />,
   text: "Tạo khóa học",
   description: "Tạo khóa học",

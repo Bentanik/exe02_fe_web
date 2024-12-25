@@ -28,7 +28,7 @@ export default function ProgressStep({
       {stepValue?.map((step, index) => (
         <div key={index} className="relative">
           <motion.div
-            className={`flex items-center justify-center text-xl w-11 h-11 rounded-full border-2 ${
+            className={`flex items-center justify-center text-xl w-11 h-11 rounded-full border-2 cursor-pointer ${
               index < currentStep
                 ? "bg-primary-admin text-white border-primary-admin"
                 : "bg-white text-gray-500 border-gray-300"
@@ -38,7 +38,7 @@ export default function ProgressStep({
             transition={{ duration: 0.3 }}
             onClick={onPrevStep}
           >
-            {index < currentStep ? <Check /> : index + 1}
+            {index < currentStep - 1 ? <Check /> : index + 1}
           </motion.div>
           <div className="absolute top-[120%] whitespace-nowrap left-1/2 -translate-x-1/2">
             <span

@@ -22,5 +22,5 @@ declare type TBreadcrumb = {
 declare type TTag = {
   text: string;
   description: string;
-  type: "normal" | "new";
+  type: "normal" | "new" | "category";
 };

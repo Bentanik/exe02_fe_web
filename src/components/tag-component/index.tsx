@@ -5,6 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 interface ITagComponentProps {
   tag: TTag;
@@ -16,9 +17,11 @@ export default function TagComponent({ tag }: ITagComponentProps) {
       <Tooltip delayDuration={100}>
         <TooltipTrigger>
           <div
-            className={`rounded-md px-2 py-1 text-xs border border-gray-500 cursor-pointer ${
-              tag.type === "normal" && "bg-white"
-            }`}
+            className={cn(
+              "rounded-md px-2 py-1 text-xs border  cursor-pointer",
+              tag.type === "normal" && "bg-white border-gray-500",
+              tag.type === "category" && "bg-blue-600 text-white"
+            )}
           >
             {tag.text}
           </div>

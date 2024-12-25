@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CreateCourseForm from "@/app/admin/manage-course/create-course/components";
+import CreateCourse from "@/app/admin/manage-courses/manage-course/create-course/components";
 
 export const metadata: Metadata = {
   title: "Tạo khóa học",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function CreateCoursePage() {
   return (
     <div>
-      <CreateCourseForm />
+      <CreateCourse />
     </div>
   );
 }

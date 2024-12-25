@@ -1,19 +1,21 @@
 "use client";
 
 import ButtonComponent from "@/components/button-component";
-import MultiSelectDropdown from "@/components/mutiple-select-dropdown";
 import { FileUpload } from "@/components/ui/file-upload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import MultiSelectDropdown from "@/app/admin/manage-courses/manage-course/create-course/components/multi-select-dropdown";
+import { Categories } from "@/mooks/category";
+import { Levels } from "@/mooks/level";
 
-interface ICreateInformationCourseProps {
+interface ICreateCourseFormProps {
   onNextStep: () => void;
 }
 
-export default function CreateInformationCourse({
+export default function CreateCourseForm({
   onNextStep,
-}: ICreateInformationCourseProps) {
+}: ICreateCourseFormProps) {
   const [files, setFiles] = useState<File[]>([]);
   const handleFileUpload = (files: File[]) => {
     setFiles(files);
@@ -26,10 +28,10 @@ export default function CreateInformationCourse({
   return (
     <div>
       <div className="px-12 py-2 border-b">
-        <h2 className="font-semibold text-xl">Thêm thông tin khóa học</h2>
+        <h2 className="font-semibold text-xl">Tạo khóa học</h2>
         <p className="mt-2 text-base text-gray-500 font-semibold">
-          Thêm thông tin khóa học bao gồm các yếu tố cơ bản như hình ảnh
-          thumbnail, tên khóa học và mô tả chi tiết.
+          Tạo khóa học với các thông tin như tên khóa học, thể loại, cấp độ
+          người học, mô tả và thumbnail
         </p>
       </div>
       <div className="px-12 py-2">
@@ -43,16 +45,24 @@ export default function CreateInformationCourse({
             </div>
             <div className="flex items-center gap-x-2">
               <div className="w-full flex flex-col gap-y-2">
-                <label htmlFor="description" className="text-base">
+                <label htmlFor="category" className="text-base">
                   Chọn thể loại
                 </label>
-                <MultiSelectDropdown />
+                <MultiSelectDropdown
+                  id="category"
+                  title="thể loại"
+                  values={Categories}
+                />
               </div>
               <div className="w-full flex flex-col gap-y-2">
-                <label htmlFor="description" className="text-base">
+                <label htmlFor="level" className="text-base">
                   Chọn cấp độ người học
                 </label>
-                <MultiSelectDropdown />
+                <MultiSelectDropdown
+                  id="level"
+                  title="cấp độ"
+                  values={Levels}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -80,11 +90,20 @@ export default function CreateInformationCourse({
                 />
               </div>
             </div>
-            <div className="mt-4 flex justify-end">
+            <div className="mt-4 flex justify-end gap-x-3">
+              <ButtonComponent
+                onClick={handleNextStep}
+                type="admin"
+                active={false}
+                className="hover:opacity-90"
+              >
+                <span className="text-base">Lưu bản nháp</span>
+              </ButtonComponent>
               <ButtonComponent
                 onClick={handleNextStep}
                 type="admin"
                 active={true}
+                className="hover:opacity-90"
               >
                 <span className="text-base">Tiếp tục</span>
               </ButtonComponent>

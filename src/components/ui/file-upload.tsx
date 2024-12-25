@@ -44,6 +44,10 @@ export const FileUpload = ({
     }
   };
 
+  const handleDeleteFile = (idx: number) => {
+    return setFiles((prev) => prev.filter((_, i) => i !== idx));
+  };
+
   const handleClick = () => {
     fileInputRef.current?.click();
   };
@@ -126,8 +130,20 @@ export const FileUpload = ({
                       animate={{ opacity: 1 }}
                       layout
                     >
-                      modified{" "}
+                      Cập nhật{" "}
                       {new Date(file.lastModified).toLocaleDateString()}
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      layout
+                      className="hover:text-gray-400"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteFile(idx);
+                      }}
+                    >
+                      Xóa
                     </motion.p>
                   </div>
                 </motion.div>
@@ -152,7 +168,7 @@ export const FileUpload = ({
                     animate={{ opacity: 1 }}
                     className="text-neutral-600 flex flex-col items-center"
                   >
-                    Drop it
+                    Thả vào
                     <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
                   </motion.p>
                 ) : (

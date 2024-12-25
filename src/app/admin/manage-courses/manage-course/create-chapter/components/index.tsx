@@ -1,28 +1,15 @@
 "use client";
 
-import CreateInformationCourse from "@/app/admin/manage-course/create-course/components/create-information-course";
-import ProgressStep from "@/components/progress-step";
-import { BREADCRUMB_CREATECOURSE, CREATE_COURSE_STEPS } from "@/const/admin";
-import { useProgressStep } from "@/hooks/use-step";
+import { BREADCRUMB_CREATECOURSE } from "@/const/admin";
 import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
 import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
 
-export default function CreateCourseForm() {
-  const totalSteps = CREATE_COURSE_STEPS?.length;
-  const { currentStep, handleNextStep, handlePrevStep } =
-    useProgressStep(totalSteps);
+import CreateChapterForm from "@/app/admin/manage-courses/manage-course/create-chapter/components/create-chapter-form";
+import SelectCourse from "@/app/admin/manage-courses/manage-course/create-chapter/components/select-course";
 
-  const renderComponentStep = (step: number) => {
-    if (step === 1)
-      return <CreateInformationCourse onNextStep={handleNextStep} />;
-    if (step === 2) return <div>Step 2</div>;
-    if (step === 3) return <div>Step 3</div>;
-    if (step === 4) return <div>Step 4</div>;
-    if (step === 4) return <div>Step 5</div>;
-  };
-
+export default function CreateChapterCourseComponent() {
   return (
     <div className="px-4 py-4">
       <header>
@@ -38,7 +25,7 @@ export default function CreateCourseForm() {
             <ArrowLeft className="w-5 h-5" />
           </ButtonComponent>
           <h1 className="text-xl font-semibold text-primary-admin">
-            Tạo khóa học
+            Tạo chương học
           </h1>
           <TagComponent
             tag={{
@@ -52,15 +39,13 @@ export default function CreateCourseForm() {
           <BreadcrumbComponent breadcrumbs={BREADCRUMB_CREATECOURSE} />
         </div>
       </header>
-      <div className="mt-5 w-full flex justify-center py-3">
-        <ProgressStep
-          stepValue={CREATE_COURSE_STEPS}
-          currentStep={currentStep}
-          onPrevStep={handlePrevStep}
-        />
-      </div>
-      <main className="my-16 border rounded-md">
-        {renderComponentStep(currentStep)}
+      <main className="mt-5 mb-4">
+        <div className="flex flex-col gap-y-4">
+          <SelectCourse />
+        </div>
+        <div className="px-12">
+          <CreateChapterForm onNextStep={() => {}} />
+        </div>
       </main>
     </div>
   );

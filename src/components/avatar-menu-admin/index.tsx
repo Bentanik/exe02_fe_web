@@ -4,15 +4,19 @@ import { DROPDOWN_MENU_ADMIN } from "@/const/admin";
 import { TButton } from "@/utils/types/common";
 import ButtonComponent from "@/components/button-component";
 
-interface IAvatarMenuAdminProps {
-  onClose: () => void;
-}
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
-export default function AvatarMenuAdmin({ onClose }: IAvatarMenuAdminProps) {
+export default function AvatarMenuAdmin() {
   const renderDropdowns = (dropdowns: TButton[]) => {
     return dropdowns?.map((dropdown, index) => {
       return (
-        <li key={index} onClick={onClose}>
+        <li key={index}>
           <ButtonComponent
             href="#!"
             type="admin"
@@ -28,16 +32,24 @@ export default function AvatarMenuAdmin({ onClose }: IAvatarMenuAdminProps) {
   };
 
   return (
-    <div className="z-10 bg-white right-0 rounded-lg shadow-box w-64 overflow-hidden">
-      <div className="px-4 py-1 text-lg text-gray-900 select-none cursor-pointer">
-        <div className="font-bold">Ngày mới tốt lành</div>
-      </div>
-      <ul
-        className="border-t text-sm text-gray-700"
-        aria-labelledby="avatarButton"
-      >
-        {renderDropdowns(DROPDOWN_MENU_ADMIN)}
-      </ul>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild className="focus:outline-none">
+        <div>
+          <figure className="rounded-full overflow-hidden w-11 h-11 flex items-center justify-center">
+            <Image
+              id="avatarButton"
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-full cursor-pointer"
+              src={"/images/avatar.jpg"}
+              alt="User dropdown"
+            />
+          </figure>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <ul>{renderDropdowns(DROPDOWN_MENU_ADMIN)}</ul>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
