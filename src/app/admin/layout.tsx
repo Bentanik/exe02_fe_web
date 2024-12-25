@@ -2,16 +2,12 @@
 
 import SidebarAdmin from "@/components/sidebar-admin";
 import HeaderAdmin from "@/components/header-admin";
-import { usePathname } from "next/navigation";
-import { NAV_HEADER_ADMIN } from "@/const/admin";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
 
   return (
     <div className="px-4 h-[100vh] bg-[#edeef7] flex items-center">
