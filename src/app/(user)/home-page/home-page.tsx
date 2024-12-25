@@ -188,7 +188,7 @@ function WarningItem({
     }, [inView, animated, index, info.percent]);
 
     return (
-        <div ref={ref} className="rounded-xl bg-white w-[40%] shadow-lg">
+        <div ref={ref} className="rounded-xl bg-white w-[35%] shadow-lg">
             <div className="p-5">
                 <div className="flex items-center justify-between">
                     <h2 className="text-[3rem] font-bold text-[#13759d]">
@@ -217,13 +217,14 @@ export default function Home() {
     const product2Ref = useRef<HTMLParagraphElement>(null);
     const product3Ref = useRef<HTMLParagraphElement>(null);
     const product4Ref = useRef<HTMLParagraphElement>(null);
-    const h1Ref = useRef<HTMLHeadingElement>(null); // Thêm ref cho <h1>
+    const h1Ref = useRef<HTMLHeadingElement>(null);
+    const h2Ref = useRef<HTMLDivElement>(null); // Ref mới
 
     const [currentImage1, setCurrentImage1] = useState<string | null>(null);
     const [currentImage2, setCurrentImage2] = useState<string | null>(null);
     const [fade1, setFade1] = useState(false);
     const [fade2, setFade2] = useState(false);
-    const [hideImages, setHideImages] = useState(false); // Trạng thái để ẩn/hiện ảnh
+    const [hideImages, setHideImages] = useState(false);
 
     const updateImage = (newImage: string, imageIndex: number) => {
         if (imageIndex === 1) {
@@ -245,7 +246,6 @@ export default function Home() {
         const observerCallback = (entries: IntersectionObserverEntry[]) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    // Khi phần tử được nhìn thấy
                     if (entry.target === product1Ref.current) {
                         updateImage("/images/launching.png", 1);
                         updateImage("/images/home.png", 2);
@@ -260,35 +260,40 @@ export default function Home() {
                         updateImage("/images/curriculum.png", 2);
                     }
 
-                    // Kiểm tra nếu h1 xuất hiện trong viewport
                     if (
-                        entry.target === h1Ref.current &&
-                        entry.isIntersecting
+                        entry.target === h1Ref.current ||
+                        entry.target === h2Ref.current // Kiểm tra ref mới
                     ) {
-                        setHideImages(true); // Ẩn ảnh khi h1 xuất hiện
-                    } else {
-                        setHideImages(false); // Hiện lại ảnh khi h1 không còn trong viewport
+                        setHideImages(true);
+                    }
+                } else {
+                    if (
+                        entry.target === h1Ref.current ||
+                        entry.target === h2Ref.current // Kiểm tra ref mới
+                    ) {
+                        setHideImages(false);
                     }
                 }
             });
         };
 
         const observer = new IntersectionObserver(observerCallback, {
-            root: null, // Theo dõi trong viewport
-            threshold: 0.1, // Kích hoạt khi 10% phần tử xuất hiện
+            root: null,
+            threshold: 0.1,
         });
 
-        // Quan sát các phần tử
         if (product1Ref.current) observer.observe(product1Ref.current);
         if (product2Ref.current) observer.observe(product2Ref.current);
         if (product3Ref.current) observer.observe(product3Ref.current);
         if (product4Ref.current) observer.observe(product4Ref.current);
-        if (h1Ref.current) observer.observe(h1Ref.current); // Quan sát <h1>
+        if (h1Ref.current) observer.observe(h1Ref.current);
+        if (h2Ref.current) observer.observe(h2Ref.current); // Quan sát phần tử mới
 
         return () => {
-            observer.disconnect(); // Dừng quan sát khi component bị unmount
+            observer.disconnect();
         };
     }, []);
+
     const renderListInfo = () => {
         return listInfo.map((info, index) => (
             <div
@@ -331,7 +336,7 @@ export default function Home() {
     const renderListHome = () => {
         return listHomeContent.map((info, index) => (
             <div key={index} className="w-[90%]">
-                <div className="flex mt-2 items-center gap-2">
+                <div className="flex mt-4 items-center gap-2">
                     <Image
                         src={info.img}
                         alt="icon"
@@ -348,7 +353,7 @@ export default function Home() {
     const renderListAwareness = () => {
         return listAwarenessContent.map((info, index) => (
             <div key={index} className="w-[90%]">
-                <div className="flex mt-2 items-center gap-2">
+                <div className="flex mt-4 items-center gap-2">
                     <Image
                         src={info.img}
                         alt="icon"
@@ -365,7 +370,7 @@ export default function Home() {
     const renderListSign = () => {
         return listSignContent.map((info, index) => (
             <div key={index} className="w-[90%]">
-                <div className="flex mt-2 items-center gap-2">
+                <div className="flex mt-4 items-center gap-2">
                     <Image
                         src={info.img}
                         alt="icon"
@@ -382,7 +387,7 @@ export default function Home() {
     const renderListCourse = () => {
         return listCourseContent.map((info, index) => (
             <div key={index} className="w-[90%]">
-                <div className="flex mt-2 items-center gap-2">
+                <div className="flex mt-4 items-center gap-2">
                     <Image
                         src={info.img}
                         alt="icon"
@@ -476,6 +481,18 @@ export default function Home() {
         ));
     };
 
+    //Animation for block introduce mobile app
+    const variants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+    };
+
+    //Animation for block warning
+    const divVariants = {
+        hidden: { opacity: 0, x: -50 },
+        visible: { opacity: 1, x: 0 },
+    };
+
     return (
         <div className="w-full bg-[#f6f6f6]">
             {/* Hero Content */}
@@ -520,73 +537,131 @@ export default function Home() {
             </div>
 
             {/* Warning content 1 */}
-            <div className="pt-[80px] pl-[50px]">
+            <div className="mt-[150px] pl-[50px] relative">
                 {/* Header */}
-                <h1 className=" text-[3.1rem] leading-[60px] font-bold text-center">
-                    Các vấn đề lừa đảo không gian mạng
-                    <br />
-                    nghiêm trọng hiện nay
-                </h1>
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    variants={variants}
+                >
+                    <h1 className=" text-[3.1rem] leading-[60px] font-bold text-center">
+                        Các vấn đề lừa đảo không gian mạng
+                        <br />
+                        nghiêm trọng hiện nay
+                    </h1>
+                </motion.div>
+
                 {/* Content */}
-                <div className="m-[50px] relative mt w-[80%]">
-                    <div className="flex flex-wrap gap-4 absolute top-[100px]">
+                <div className="mt-[100px]">
+                    <motion.div
+                        className="flex flex-wrap gap-4 absolute top-[300px]"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        variants={divVariants}
+                    >
                         {renderListWarning()}
-                    </div>
+                    </motion.div>
+                    <img
+                        src="/images/bg1.jpg"
+                        alt="bg content 1"
+                        className="ml-auto w-[40%] h-[700px] object-cover rounded-l-3xl"
+                    />
                 </div>
-                <img
-                    src="/images/bg1.jpg"
-                    alt="bg content 1"
-                    className="ml-auto w-[40%] h-[700px] object-cover rounded-l-3xl"
-                />
             </div>
 
             {/* Solution content*/}
-            <div className="mt-[80px]">
+            <div className="mt-[150px]">
                 <div>
-                    <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
-                        Làm thế nào để phòng ngừa
-                        <br /> và bảo vệ
-                    </h1>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        variants={variants}
+                    >
+                        <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
+                            Làm thế nào để phòng ngừa
+                            <br /> và bảo vệ
+                        </h1>
+                    </motion.div>
+
                     <div className="mt-[30px] px-[75px] relative">
-                        <div className="flex justify-between">
-                            <Image
-                                src="/images/dot.png"
-                                alt="icon"
-                                width={400}
-                                height={400}
-                                className="object-cover w-[30%] h-[500px]"
-                            />
-                            <Image
-                                src="/images/dot.png"
-                                alt="icon"
-                                width={400}
-                                height={350}
-                                className="object-cover w-[30%] h-[500px]"
-                            />
+                        <div className="">
+                            <motion.div
+                                className="flex justify-between"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1, ease: "easeOut" }}
+                                variants={variants}
+                            >
+                                <Image
+                                    src="/images/dot.png"
+                                    alt="icon"
+                                    width={400}
+                                    height={400}
+                                    className="object-cover w-[30%] h-[500px]"
+                                />
+                                <Image
+                                    src="/images/dot.png"
+                                    alt="icon"
+                                    width={400}
+                                    height={350}
+                                    className="object-cover w-[30%] h-[500px]"
+                                />
+                            </motion.div>
                         </div>
-                        <div className="flex gap-[20px] absolute top-[23%] left-[11%]">
-                            {renderListProtect()}
+                        <div
+                            className="absolute top-[23%] left-[11%]"
+                            ref={h1Ref}
+                        >
+                            <motion.div
+                                className="flex gap-[20px]"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1, ease: "easeOut" }}
+                                variants={variants}
+                            >
+                                {renderListProtect()}
+                            </motion.div>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Introduce mobile app */}
-            <div className="mt-[200px]">
-                <h1
-                    ref={h1Ref} // Thêm ref cho phần tử <h1>
-                    className="text-[3.1rem] leading-[60px] font-bold text-center"
+            <div className="mt-[150px]">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    variants={variants}
                 >
-                    antiSCM cung cấp các thông tin và
-                    <br /> khóa học về an ninh mạng
-                </h1>
+                    <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
+                        antiSCM cung cấp các thông tin và
+                        <br /> khóa học về an ninh mạng
+                    </h1>
+                </motion.div>
 
                 {/* Content*/}
                 <div>
-                    <div className="mt-[100px] flex p-[7%]">
+                    <div className="mt-[50px] flex p-[7%]">
                         <div className="flex-1">
                             {/* Content 1 */}
-                            <div className="w-[90%]">
+                            <motion.div
+                                className="w-[90%]"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1.5, ease: "easeOut" }}
+                                variants={variants}
+                            >
                                 <h1
                                     className="text-[3rem] font-bold"
                                     ref={product1Ref}
@@ -605,11 +680,18 @@ export default function Home() {
                                     cấp các tính năng hấp dẫn
                                 </p>
 
-                                <div className="mt-5">{renderListHome()}</div>
-                            </div>
+                                <div className="mt-7">{renderListHome()}</div>
+                            </motion.div>
 
                             {/* Content 2 */}
-                            <div className="mt-[200px] w-[90%]">
+                            <motion.div
+                                className="mt-[280px] w-[90%]"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                variants={variants}
+                            >
                                 <h1
                                     className="text-[3rem] font-bold leading-[55px]"
                                     ref={product2Ref}
@@ -622,7 +704,7 @@ export default function Home() {
                                     ngày càng phổ biến và phức tạp. Chính vì thế
                                     antiSCM đem đến cho người dùng các bài đăng
                                     về nhận thức và dấu hiệu nhận biết về các
-                                    cuộc tấn công mạng đề người dùng có được các
+                                    cuộc tấn công mạng để người dùng có được các
                                     kiến thức để phòng tránh các cuộc lừa đảo
                                     qua không gian mạng.
                                 </p>
@@ -636,11 +718,11 @@ export default function Home() {
                                             <h4 className="text-[1.5rem]">
                                                 Hơn 20 bài đăng
                                             </h4>
-                                            <p className="mt-2">
+                                            <p className="mt-5">
                                                 Chúng tôi cung cấp hơn 20 bài
-                                                dăng để người dân có thể nhận
+                                                đăng để người dân có thể nhận
                                                 thức được các cuộc lừa đảo không
-                                                gian mạng
+                                                gian mạng.
                                             </p>
                                         </div>
                                     </div>
@@ -653,25 +735,33 @@ export default function Home() {
                                             <h4 className="text-[1.5rem]">
                                                 Hơn 30 các dấu hiệu
                                             </h4>
-                                            <p className="mt-2">
+                                            <p className="mt-5">
                                                 Chúng tôi cung cấp hơn 30 các
                                                 dấu hiệu giúp người dùng dễ dàng
                                                 phòng tránh khỏi các cuộc lừa
-                                                đảo không gian mạng
+                                                đảo không gian mạng.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Content 3 */}
-                            <div className="mt-[200px] w-[90%]">
+                            <motion.div
+                                className="mt-[280px] w-[90%]"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1.5, ease: "easeOut" }}
+                                variants={variants}
+                            >
                                 <h1
                                     className="text-[3rem] font-bold leading-[55px]"
                                     ref={product3Ref}
                                 >
                                     Cung các tính năng kiểm thử đặc biệt
                                 </h1>
+
                                 {/* Awareness */}
                                 <div>
                                     <h2 className="mt-5 text-[1.2rem] font-semibold">
@@ -681,7 +771,7 @@ export default function Home() {
                                     <div>{renderListAwareness()}</div>
                                 </div>
 
-                                {/* Sign  */}
+                                {/* Sign */}
                                 <div>
                                     <h2 className="mt-5 text-[1.2rem] font-semibold">
                                         Kiểm tra độ an toàn của ngân hàng thông
@@ -689,10 +779,17 @@ export default function Home() {
                                     </h2>
                                     <div>{renderListSign()}</div>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Content 4 */}
-                            <div className="mt-[200px] w-[90%]">
+                            <motion.div
+                                className="mt-[280px] w-[90%]"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                variants={variants}
+                            >
                                 <h1
                                     className="text-[3rem] font-bold leading-[55px]"
                                     ref={product4Ref}
@@ -711,13 +808,13 @@ export default function Home() {
                                     Những lợi ích khi đăng kí gói premium của
                                     antiSCM
                                 </h2>
-                                <div>{renderListCourse()}</div>
+                                <div className="mt-7">{renderListCourse()}</div>
                                 <div className="mt-[50px]">
                                     <Button className="bg-[#036f98] px-[50px] py-[25px] rounded-full text-[1.2rem] hover:opacity-90">
                                         Tham gia ngay
                                     </Button>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                         <div className="flex-1 relative">
                             {/* Sticky Image */}
@@ -781,7 +878,14 @@ export default function Home() {
                         className="object-cover w-[27%] h-[400px] ml-auto"
                     />
                 </div>
-                <div className="w-full h-[224px] bg-white absolute bottom-[25%] right-[5%] flex justify-center items-center shadow-lg rounded-[20px]">
+                <motion.div
+                    className="w-full h-[224px] bg-white absolute bottom-[25%] right-[5%] flex justify-center items-center shadow-lg rounded-[20px]"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    variants={divVariants}
+                >
                     <Image
                         src="/images/searchBug.svg"
                         alt="icon 1"
@@ -791,7 +895,7 @@ export default function Home() {
                     />
                     <div className="flex items-center ml-[20%]">
                         <div>
-                            <h1 className="text-[2.5rem] font-bold">
+                            <h1 className="text-[2.5rem] font-bold" ref={h2Ref}>
                                 antiSCM mobile app
                             </h1>
                             <div className="flex gap-3 items-center">
@@ -816,15 +920,24 @@ export default function Home() {
                             </Button>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
 
             {/* Question and Answer */}
             <div className="flex flex-col items-center justify-center min-h-screen px-4">
                 <div className="w-full max-w-3xl space-y-4">
-                    <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
-                        Answers to Your Questions
-                    </h1>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        variants={variants}
+                    >
+                        <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
+                            Answers to Your Questions
+                        </h1>
+                    </motion.div>
+
                     <div>{RenderListQuestion()}</div>
                 </div>
             </div>
