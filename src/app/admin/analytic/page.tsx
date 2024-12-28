@@ -1,5 +1,9 @@
-export default function page() {
-  return (
-    <div>page</div>
-  )
+import Analytic from "./components/analytic";
+
+export default function DashboardPage() {
+    return (
+        <div>
+            <Analytic />
+        </div>
+    );
 }
