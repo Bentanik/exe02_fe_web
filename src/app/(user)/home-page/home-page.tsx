@@ -505,7 +505,6 @@ export default function Home() {
                             Của Bạn
                         </h1>
                         <div className="relative pl-6 mt-5">
-                            <span className="absolute left-0 top-0 h-full w-1 bg-[#06c4d9]"></span>
                             <p className="text-white w-[85%] opacity-90">
                                 Với cách tiếp cận chủ động của chúng tôi đối với
                                 an ninh mạng, các chuyên gia của chúng tôi giúp
