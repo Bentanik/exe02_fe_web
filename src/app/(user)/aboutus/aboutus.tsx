@@ -9,19 +9,42 @@ import { motion } from "framer-motion";
 const listInfo = [
     {
         percent: 35,
-        title: "Cuộc tấn công lừa đảo",
+        title: "Các bài đăng về nhận thức",
     },
     {
         percent: 25,
-        title: "Virus và Phần Mềm Độc Hại",
+        title: "Các dấu hiệu lừa đảo không gian mạng",
     },
     {
-        percent: 15,
-        title: "Cuộc tấn công DDoS",
+        percent: 150,
+        title: "Các trang web độc hại có thể kiểm tra được",
     },
     {
-        percent: 20,
-        title: "Các trang web không an toàn",
+        percent: 200,
+        title: "Các tài khoản lừa đảo cso thể kiểm tra được",
+    },
+];
+
+const listShaping = [
+    {
+        icon: "/images/community.svg",
+        title: "Sự tham gia của cộng đồng",
+        desc: "Tích cực thúc đẩy học tập và hợp tác về an ninh mạng thông qua các sự kiện trên toàn quốc.",
+    },
+    {
+        icon: "/images/g1.svg",
+        title: "Lấy khách hàng làm trung tâm",
+        desc: "Ưu tiên nhu cầu bảo mật của khách hàng bằng các giải pháp hiệu quả, tiết kiệm chi phí. ",
+    },
+    {
+        icon: "/images/g2.svg",
+        title: "Không ngừng cải tiến lien tục",
+        desc: "Không ngừng theo đuổi các công nghệ và biện pháp thực hành an ninh mạng mới nhất để bảo mật khách hàng một cách tối ưu.",
+    },
+    {
+        icon: "/images/g3.svg",
+        title: "Tính chính trực và minh bạch",
+        desc: "Đề cao sự trung thực và giao tiếp rõ ràng để có được mối quan hệ khách hàng đáng tin cậy. ",
     },
 ];
 
@@ -56,7 +79,7 @@ function InfoItem({
                         <span className={`percent-${index}`}>0</span>+
                     </h2>
                 </div>
-                <h3 className="text-[1.8rem] font-semibold">{info.title}</h3>
+                <h3 className="text-[1.5rem] font-semibold">{info.title}</h3>
             </div>
         </div>
     );
@@ -69,39 +92,49 @@ export default function AboutUs() {
         ));
     };
 
+    const renderListShaping = () => {
+        return listShaping.map((info, index) => (
+            <div key={index} className="">
+                <div className="bg-white shadow-xl rounded-3xl">
+                    <div className="p-5">
+                        <div className="flex justify-center">
+                            <div className="bg-black inline-block p-5 rounded-full border-[3px] border-[#87dcff]">
+                                <Image
+                                    src={info.icon}
+                                    alt="icon"
+                                    width={50}
+                                    height={50}
+                                />
+                            </div>
+                        </div>
+                        <h3 className="text-center mt-5 text-[1.5rem] font-semibold min-h-[72px]">
+                            {info.title}
+                        </h3>
+                        <p className="text-[#4c4b4b91] mt-5 min-h-[96px] text-center">
+                            {info.desc}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        ));
+    };
+
     //Animation for block introduce mobile app
     const variants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
     };
-    const textRef = useRef<HTMLDivElement>(null);
-    const [gradientHeight, setGradientHeight] = useState(0);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (textRef.current) {
-                const rect = textRef.current.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
+    //left to
+    const leftVariants = {
+        hidden: { opacity: 0, x: -50 },
+        visible: { opacity: 1, x: 0 },
+    };
 
-                // Tính phần trăm chiều cao văn bản hiển thị
-                const visibleHeight = Math.min(
-                    Math.max(windowHeight - rect.top, 0),
-                    rect.height
-                );
-                const percentage = visibleHeight / rect.height;
-
-                // Cập nhật chiều cao của gradient
-                setGradientHeight(percentage * 100);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        handleScroll(); // Gọi để render ban đầu
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    const rightVariants = {
+        hidden: { opacity: 0, x: 50 }, // Bắt đầu từ bên phải
+        visible: { opacity: 1, x: 0 }, // Di chuyển đến vị trí gốc
+    };
 
     return (
         <div className="w-full bg-[#f6f6f6] ">
@@ -252,9 +285,20 @@ export default function AboutUs() {
                                 </div>
                             </div>
                         </div>
-                        <h1 className="text-[3rem] font-bold leading-[60px] mt-10">
-                            Mang lại kết quả an ninh mạng vượt trội
-                        </h1>
+                        <motion.div
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{
+                                duration: 1.5,
+                                ease: "easeOut",
+                            }}
+                            variants={leftVariants}
+                        >
+                            <h1 className="text-[3rem] font-bold leading-[60px] mt-10">
+                                Mang lại kết quả an ninh mạng vượt trội
+                            </h1>
+                        </motion.div>
                     </div>
                     <div className="flex-1">
                         <div>
@@ -267,9 +311,20 @@ export default function AboutUs() {
                                 commitment.
                             </p>
                             <div>
-                                <div className="flex flex-wrap gap-4">
-                                    {renderListInfo()}
-                                </div>
+                                <motion.div
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{
+                                        duration: 1.5,
+                                        ease: "easeOut",
+                                    }}
+                                    variants={rightVariants}
+                                >
+                                    <div className="flex flex-wrap gap-4 mt-5">
+                                        {renderListInfo()}
+                                    </div>
+                                </motion.div>
                             </div>
                         </div>
                     </div>
@@ -280,7 +335,17 @@ export default function AboutUs() {
             {/*content 3*/}
             <div className="mt-[15%]  px-[5%] relative">
                 <div className="flex">
-                    <div className="flex-1 bg-white p-10 rounded-l-3xl shadow-xl">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{
+                            duration: 1.5,
+                            ease: "easeOut",
+                        }}
+                        variants={leftVariants}
+                        className="flex-1 bg-white p-10 rounded-l-3xl shadow-xl"
+                    >
                         <h1 className="text-[2.5rem] font-semibold">
                             Dẫn đầu về an ninh mạng
                         </h1>
@@ -321,15 +386,28 @@ export default function AboutUs() {
                             một doanh nghiệp lớn có nhu cầu bảo mật phức tạp,
                             Redline Cyber ​​​​Security luôn sẵn sàng trợ giúp
                         </p>
-                    </div>
+                    </motion.div>
+
                     <div className="flex-1">
-                        <Image
-                            src="/images/about_bg.png"
-                            alt="icon"
-                            width={600}
-                            height={350}
-                            className="object-cover rounded-r-3xl w-[700px] h-[700px] shadow-xl"
-                        />
+                        <motion.div
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{
+                                duration: 1.5,
+                                ease: "easeOut",
+                            }}
+                            variants={rightVariants}
+                            className="object-cover "
+                        >
+                            <Image
+                                src="/images/about_bg.png"
+                                alt="icon"
+                                width={600}
+                                height={350}
+                                className="w-[700px] h-[700px] rounded-r-3xl shadow-xl"
+                            />
+                        </motion.div>
                     </div>
                 </div>
                 <span className="absolute top-[-100px] w-[90%] h-[2px] bg-[#4f4f4e4d]"></span>
@@ -347,25 +425,50 @@ export default function AboutUs() {
                             </div>
                         </div>
                     </div>
-                    <h1 className="text-[3.3rem] leading-[60px] font-bold text-center mt-10">
-                        Những thứ bạn sẽ đạt được khi tham gia <br />
-                        khóa học của chúng tôi
-                    </h1>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{
+                            duration: 1.5,
+                            ease: "easeOut",
+                        }}
+                        variants={variants}
+                    >
+                        <h1 className="text-[3.3rem] leading-[60px] font-bold text-center mt-10">
+                            Những thứ bạn sẽ đạt được khi tham gia <br />
+                            khóa học của chúng tôi
+                        </h1>
+                    </motion.div>
+
                     <div className="flex mt-10">
                         <div className="flex-1 h-[1500px] border-r-2 border-[#87dcff] ">
                             <div className="relative">
-                                <div className="p-5 border-2 w-[80%] mt-5 rounded-3xl">
-                                    <h2 className="text-[2rem] font-semibold">
-                                        Humble Beginnings Humble Beginnings
-                                    </h2>
-                                    <p>
-                                        Our origins trace back to industry
-                                        experts in enterprise cybersecurity
-                                        roles, laying a strong foundation for
-                                        what would become Redline Cyber
-                                        Security.
-                                    </p>
-                                </div>
+                                <motion.div
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{
+                                        duration: 1.5,
+                                        ease: "easeOut",
+                                    }}
+                                    variants={leftVariants}
+                                >
+                                    <div className="p-5 border-2 w-[80%] mt-5 rounded-3xl">
+                                        <h2 className="text-[2rem] font-semibold">
+                                            Hiểu sâu hơn về công nghệ và các hệ
+                                            thống mạng
+                                        </h2>
+                                        <p className="mt-5 text-[#4c4b4b91]">
+                                            Cung cấp nền tảng vững chắc về cấu
+                                            trúc mạng, hệ điều hành, và các công
+                                            nghệ bảo mật phổ biến. Ngoài ra, nắm
+                                            bắt cách hoạt động của tấn công mạng
+                                            như phishing, ransomware, DDoS, và
+                                            cách phòng ngừa hiệu quả.
+                                        </p>
+                                    </div>
+                                </motion.div>
 
                                 <motion.div
                                     initial="hidden"
@@ -389,18 +492,30 @@ export default function AboutUs() {
                             </div>
 
                             <div className="relative mt-[73.1%]">
-                                <div className="p-5 border-2 w-[80%] mt-5 rounded-3xl">
-                                    <h2 className="text-[2rem] font-semibold">
-                                        Humble Beginnings Humble Beginnings
-                                    </h2>
-                                    <p>
-                                        Our origins trace back to industry
-                                        experts in enterprise cybersecurity
-                                        roles, laying a strong foundation for
-                                        what would become Redline Cyber
-                                        Security.
-                                    </p>
-                                </div>
+                                <motion.div
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{
+                                        duration: 1.5,
+                                        ease: "easeOut",
+                                    }}
+                                    variants={leftVariants}
+                                >
+                                    <div className="p-5 border-2 w-[80%] mt-5 rounded-3xl">
+                                        <h2 className="text-[2rem] font-semibold">
+                                            Tăng sự tự tin khi sử dụng các thiết
+                                            bị và dịch vụ trực tuyến
+                                        </h2>
+                                        <p className="mt-5 text-[#4c4b4b91]">
+                                            Biết cách bảo mật tài khoản, mã hóa
+                                            dữ liệu, và tránh các mối nguy tiềm
+                                            ẩn khi sử dụng internet. Ngoài ra,
+                                            bảo vệ bản thân và gia đình khỏi các
+                                            mối đe dọa trực tuyến.
+                                        </p>
+                                    </div>
+                                </motion.div>
 
                                 <motion.div
                                     initial="hidden"
@@ -445,18 +560,28 @@ export default function AboutUs() {
                                     </div>
                                 </motion.div>
 
-                                <div className="p-5 border-2 w-[80%] rounded-3xl absolute right-0">
-                                    <h2 className="text-[2rem] font-semibold">
-                                        Humble Beginnings Humble Beginnings
-                                    </h2>
-                                    <p>
-                                        Our origins trace back to industry
-                                        experts in enterprise cybersecurity
-                                        roles, laying a strong foundation for
-                                        what would become Redline Cyber
-                                        Security.
-                                    </p>
-                                </div>
+                                <motion.div
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{
+                                        duration: 1.5,
+                                        ease: "easeOut",
+                                    }}
+                                    variants={rightVariants}
+                                >
+                                    <div className="p-5 border-2 w-[80%] rounded-3xl absolute right-0">
+                                        <h2 className="text-[2rem] font-semibold">
+                                            Khả năng hỗ trợ và tư vấn cho tổ
+                                            chức hoặc cộng đồng
+                                        </h2>
+                                        <p className="mt-5 text-[#4c4b4b91]">
+                                            Đóng góp vào cộng đồng bằng cách
+                                            chia sẻ kiến thức và nâng cao nhận
+                                            thức về an toàn không gian mạng.
+                                        </p>
+                                    </div>
+                                </motion.div>
                             </div>
 
                             <div className="relative mt-[1084px]">
@@ -480,31 +605,47 @@ export default function AboutUs() {
                                     </div>
                                 </motion.div>
 
-                                <div className="p-5 border-2 w-[80%] rounded-3xl absolute right-0">
-                                    <h2 className="text-[2rem] font-semibold">
-                                        Humble Beginnings Humble Beginnings
-                                    </h2>
-                                    <p>
-                                        Our origins trace back to industry
-                                        experts in enterprise cybersecurity
-                                        roles, laying a strong foundation for
-                                        what would become Redline Cyber
-                                        Security.
-                                    </p>
-                                </div>
+                                <motion.div
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{
+                                        duration: 1.5,
+                                        ease: "easeOut",
+                                    }}
+                                    variants={rightVariants}
+                                >
+                                    <div className="p-5 border-2 w-[80%] rounded-3xl absolute right-0">
+                                        <h2 className="text-[2rem] font-semibold">
+                                            Kết nối với cộng đồng chuyên gia
+                                            trong lĩnh vực an ninh mạng
+                                        </h2>
+                                        <p className="mt-5 text-[#4c4b4b91]">
+                                            Cơ hội tham gia các nhóm học tập,
+                                            diễn đàn chuyên ngành, hoặc sự kiện,
+                                            hội thảo trực tuyến. Bên cạnh đó còn
+                                            mở rộng mạng lưới quan hệ với các
+                                            chuyên gia, nhà tuyển dụng, và đồng
+                                            nghiệp tiềm năng.
+                                        </p>
+                                    </div>
+                                </motion.div>
                             </div>
                         </div>
                     </div>
-                    <div className=" px-[100px] flex items-center">
-                        <div
-                            ref={textRef}
-                            className="text-[2rem] font-semibold text-center text-transparent bg-clip-text"
-                            style={{
-                                backgroundImage: `linear-gradient(to bottom, black ${gradientHeight}%, gray 0%)`,
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                            }}
-                        >
+
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{
+                            duration: 1.5,
+                            ease: "easeOut",
+                        }}
+                        variants={variants}
+                        className="px-[100px] flex items-center"
+                    >
+                        <h2 className="text-[2rem] font-semibold text-center">
                             From our humble beginnings to sustained organic
                             growth, our journey reflects our passion for
                             cybersecurity and commitment to our clients. As we
@@ -512,12 +653,53 @@ export default function AboutUs() {
                             staying at the forefront of cybersecurity,
                             safeguarding your digital assets with unmatched
                             expertise and unwavering dedication.
-                        </div>
-                    </div>
+                        </h2>
+                    </motion.div>
                 </div>
             </div>
             {/* Content 5 */}
-            <div className="mt-[1000px]"></div>
+            <div className="pt-[100px] pb-[100px]">
+                <div className="flex justify-center">
+                    <div className="p-[1px] bg-white rounded-full drop-shadow-[0_0_6px_#87dcff] inline-block">
+                        <div className="rounded-full border-[1px] border-[#87dcff] bg-white shadow-[inset_0_0_4px_#87dcff] p-2">
+                            <div className="text-[#13759d]">
+                                Nhiệm vụ của chúng tôi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{
+                        duration: 1.5,
+                        ease: "easeOut",
+                    }}
+                    variants={variants}
+                >
+                    <h1 className="text-[3.3rem] leading-[60px] font-bold text-center mt-10">
+                        Định hình cách tiếp cận của chúng tôi <br />
+                        đối với an ninh mạng
+                    </h1>
+                </motion.div>
+                <div className="mt-10 px-[5%]">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{
+                            duration: 1.5,
+                            ease: "easeOut",
+                        }}
+                        variants={variants}
+                    >
+                        <div className="grid grid-cols-4 gap-8">
+                            {renderListShaping()}
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
         </div>
     );
 }
