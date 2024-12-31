@@ -197,11 +197,10 @@ export default function AboutUs() {
                                     </div>
                                     <div>
                                         <h2 className="text-[1.3rem]">
-                                            Based in Detroit, USA, Serving
-                                            Globally
+                                            100% tự sở hữu và điều hành
                                         </h2>
                                         <p className="text-[0.8rem] text-[#6b6b6b]">
-                                            Global reach, with a local touch.
+                                            Dịch vụ cá nhân hóa, hiệu quả
                                         </p>
                                         <span className="absolute top-[100px] w-[80%] h-[1px] bg-[#06c4d9]"></span>
                                     </div>
@@ -220,11 +219,11 @@ export default function AboutUs() {
                                     </div>
                                     <div>
                                         <h2 className="text-[1.3rem]">
-                                            Based in Detroit, USA, Serving
-                                            Globally
+                                            Có trụ sở chính tại Việt Nam
                                         </h2>
                                         <p className="text-[0.8rem] text-[#6b6b6b]">
-                                            Global reach, with a local touch.
+                                            Hỗ trợ trực tiếp và kịp thời cho
+                                            người dùng
                                         </p>
                                         <span className="absolute top-[100px] w-[80%] h-[1px] bg-[#06c4d9]"></span>
                                     </div>
@@ -243,11 +242,12 @@ export default function AboutUs() {
                                     </div>
                                     <div>
                                         <h2 className="text-[1.3rem]">
-                                            Based in Detroit, USA, Serving
-                                            Globally
+                                            Các chuyên gia từ lĩnh vực an toàn
+                                            thông tin
                                         </h2>
                                         <p className="text-[0.8rem] text-[#6b6b6b]">
-                                            Global reach, with a local touch.
+                                            Cung cấp các bài học và các bài đăng
+                                            hữu ích
                                         </p>
                                     </div>
                                 </div>
@@ -303,12 +303,13 @@ export default function AboutUs() {
                     <div className="flex-1">
                         <div>
                             <p className="text-[#4c4b4b91] text-[1.2rem]">
-                                Real-world, quantifiable results that not only
-                                demonstrate our dedication to your security but
-                                also to your overall success. Witness the
-                                effectiveness of our strategies through tangible
-                                cybersecurity outcomes, reflecting our firm
-                                commitment.
+                                Kết quả thực tế, có thể định lượng được không
+                                chỉ thể hiện sự cống hiến của chúng tôi cho vấn
+                                đề bảo mật mà còn cho thành công chung của bạn.
+                                Chứng kiến ​​tính hiệu quả của các chiến lược
+                                của chúng tôi thông qua các kết quả an ninh mạng
+                                hữu hình, phản ánh cam kết vững chắc của chúng
+                                tôi.
                             </p>
                             <div>
                                 <motion.div
@@ -354,13 +355,13 @@ export default function AboutUs() {
                             cộng đồng
                         </h2>
                         <p className="text-[#4c4b4b91] mt-5">
-                            Tại Redline Cyber ​​​​Security, chúng tôi tin rằng
-                            mọi công ty đều phải có quyền truy cập vào các giải
-                            pháp an ninh mạng đáng tin cậy và hiệu quả để bảo vệ
-                            tài sản kỹ thuật số của mình. Sứ mệnh của chúng tôi
-                            là cung cấp các dịch vụ bảo mật toàn diện giúp các
-                            doanh nghiệp thuộc mọi quy mô tự bảo vệ mình khỏi
-                            các mối đe dọa trên mạng.
+                            Tại antiSCM, chúng tôi tin rằng mọi công ty đều phải
+                            có quyền truy cập vào các giải pháp an ninh mạng
+                            đáng tin cậy và hiệu quả để bảo vệ tài sản kỹ thuật
+                            số của mình. Sứ mệnh của chúng tôi là cung cấp các
+                            dịch vụ bảo mật toàn diện giúp các doanh nghiệp
+                            thuộc mọi quy mô tự bảo vệ mình khỏi các mối đe dọa
+                            trên mạng.
                         </p>
                         <p className="text-[#4c4b4b91] mt-5">
                             Câu chuyện của chúng tôi bắt đầu với một nhóm chuyên
@@ -372,19 +373,20 @@ export default function AboutUs() {
                             an ninh mạng phức tạp và luôn thay đổi.
                         </p>
                         <p className="text-[#4c4b4b91] mt-5">
-                            At Redline Cyber Security, we are committed to
-                            staying ahead of the curve with the latest tools,
-                            technologies, and best practices in the field. We
-                            believe that cyber security is not just a product or
-                            a service, but a continuous process of improvement
-                            and adaptation. We work closely with each client to
-                            understand their unique needs and develop tailored
-                            solutions that meet their specific requirements.
+                            Tại antiSCM, chúng tôi cam kết luôn dẫn đầu với các
+                            công cụ, công nghệ mới nhất và các phương pháp hay
+                            nhất trong lĩnh vực này. Chúng tôi tin rằng an ninh
+                            mạng không chỉ là một sản phẩm hay dịch vụ mà là một
+                            quá trình cải tiến và thích ứng liên tục. Chúng tôi
+                            làm việc chặt chẽ với từng khách hàng để hiểu nhu
+                            cầu riêng của họ và phát triển các giải pháp phù hợp
+                            đáp ứng yêu cầu cụ thể của họ.
                         </p>
                         <p className="text-[#4c4b4b91] mt-5">
-                            Cho dù bạn là một doanh nghiệp nhỏ mới bắt đầu hay
-                            một doanh nghiệp lớn có nhu cầu bảo mật phức tạp,
-                            Redline Cyber ​​​​Security luôn sẵn sàng trợ giúp
+                            Cho dù bạn là một người chưa có kiến thức về an ninh
+                            mạng sau khi đến với chúng tôi bạn sẽ có những kiến
+                            thức tuyệt vời không chỉ bảo vệ được bản thân mình
+                            mà còn bảo vệ được những người thân bên cạnh mình.
                         </p>
                     </motion.div>
 
@@ -401,11 +403,11 @@ export default function AboutUs() {
                             className="object-cover "
                         >
                             <Image
-                                src="/images/about_bg.png"
+                                src="/images/about.jpg"
                                 alt="icon"
                                 width={600}
                                 height={350}
-                                className="w-[700px] h-[700px] rounded-r-3xl shadow-xl"
+                                className="w-[700px] h-[800px] rounded-r-3xl shadow-xl"
                             />
                         </motion.div>
                     </div>
@@ -455,7 +457,7 @@ export default function AboutUs() {
                                     variants={leftVariants}
                                 >
                                     <div className="p-5 border-2 w-[80%] mt-5 rounded-3xl">
-                                        <h2 className="text-[2rem] font-semibold">
+                                        <h2 className="text-[2rem] font-semibold leading-[40px]">
                                             Hiểu sâu hơn về công nghệ và các hệ
                                             thống mạng
                                         </h2>
@@ -491,7 +493,7 @@ export default function AboutUs() {
                                 </motion.div>
                             </div>
 
-                            <div className="relative mt-[73.1%]">
+                            <div className="relative mt-[69%]">
                                 <motion.div
                                     initial="hidden"
                                     whileInView="visible"
@@ -503,7 +505,7 @@ export default function AboutUs() {
                                     variants={leftVariants}
                                 >
                                     <div className="p-5 border-2 w-[80%] mt-5 rounded-3xl">
-                                        <h2 className="text-[2rem] font-semibold">
+                                        <h2 className="text-[2rem] font-semibold leading-[40px]">
                                             Tăng sự tự tin khi sử dụng các thiết
                                             bị và dịch vụ trực tuyến
                                         </h2>
@@ -571,7 +573,7 @@ export default function AboutUs() {
                                     variants={rightVariants}
                                 >
                                     <div className="p-5 border-2 w-[80%] rounded-3xl absolute right-0">
-                                        <h2 className="text-[2rem] font-semibold">
+                                        <h2 className="text-[2rem] font-semibold leading-[40px]">
                                             Khả năng hỗ trợ và tư vấn cho tổ
                                             chức hoặc cộng đồng
                                         </h2>
@@ -616,7 +618,7 @@ export default function AboutUs() {
                                     variants={rightVariants}
                                 >
                                     <div className="p-5 border-2 w-[80%] rounded-3xl absolute right-0">
-                                        <h2 className="text-[2rem] font-semibold">
+                                        <h2 className="text-[2rem] font-semibold leading-[40px]">
                                             Kết nối với cộng đồng chuyên gia
                                             trong lĩnh vực an ninh mạng
                                         </h2>
@@ -646,13 +648,12 @@ export default function AboutUs() {
                         className="px-[100px] flex items-center"
                     >
                         <h2 className="text-[2rem] font-semibold text-center">
-                            From our humble beginnings to sustained organic
-                            growth, our journey reflects our passion for
-                            cybersecurity and commitment to our clients. As we
-                            continue to adapt and evolve, we remain dedicated to
-                            staying at the forefront of cybersecurity,
-                            safeguarding your digital assets with unmatched
-                            expertise and unwavering dedication.
+                            Những gì bạn đạt được sau các khóa học của chúng tôi
+                            về các biện pháp an toàn khi tham gia không gian
+                            mạng cũng là ước muốn và là niềm tự hào của chúng
+                            tôi khi thành lập ra antiSCM. Với mục đích bảo vệ
+                            chính bạn và cộng đồng khỏi những cuộc tấn công
+                            mạng.
                         </h2>
                     </motion.div>
                 </div>
