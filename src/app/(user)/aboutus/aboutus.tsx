@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import anime from "animejs";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const listInfo = [
