@@ -7,6 +7,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useServiceLogin } from "@/services/auth/services";
 
 export function useLogin() {
   const [typePassword, setTypePassword] = useState<boolean>(false);
@@ -14,7 +15,9 @@ export function useLogin() {
   const {
     register,
     watch,
+    setError,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
@@ -24,48 +27,34 @@ export function useLogin() {
     },
   });
 
-  // const { mutate, isPending } = useServiceLogin();
+  const { mutate, isPending } = useServiceLogin();
   const onSubmit = async (request: LoginBodyType) => {
     try {
-      // mutate(request, {
-      //   onSuccess: async (data) => {
-      //     reset();
-      //     if (data.authProfile.roleId === Roles[1].id) {
-      //       return router.push("/");
-      //     } else if (data.authProfile.roleId === Roles[0].id) {
-      //       return router.push("/admin/dashboard");
-      //     }
-      //   },
-      //   onError: (error) => {
-      //     if (error.errorCode === "auth_password_not_match") {
-      //       setError("password", {
-      //         type: "manual",
-      //         message: error.detail,
-      //       });
-      //     }
-      //     if (error.errorCode === "auth_not_regist") {
-      //       setError("email", {
-      //         type: "manual",
-      //         message: error.detail,
-      //       });
-      //     }
-      //     if (error.errorCode === "account_banned") {
-      //       addToast({
-      //         type: "error",
-      //         description: error.detail,
-      //         duration: 4000,
-      //       });
-      //     }
-      //     if (error.errorCode === "auth_regis_another") {
-      //       addToast({
-      //         type: "error",
-      //         description: error.detail,
-      //         duration: 4000,
-      //       });
-      //     }
-      //   },
-      // });
-      console.log(request);
+      const loginRequest: REQUEST.TLogin = { ...request };
+      mutate(loginRequest, {
+        onSuccess: async (data) => {
+          reset();
+          // if (data.authProfile.roleId === Roles[1].id) {
+          //   return router.push("/");
+          // } else if (data.authProfile.roleId === Roles[0].id) {
+          //   return router.push("/admin/dashboard");
+          // }
+        },
+        onError: (error) => {
+          if (error.errorCode === "em02") {
+            setError("email", {
+              type: "manual",
+              message: error.detail,
+            });
+          }
+          if (error.errorCode === "auth03") {
+            setError("password", {
+              type: "manual",
+              message: error.detail,
+            });
+          }
+        },
+      });
     } catch (err) {
       console.log("err: ", err);
     }
