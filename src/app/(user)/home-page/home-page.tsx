@@ -64,12 +64,12 @@ const listProtect = [
     {
         img: "/images/email.svg",
         title: "Cảnh giác với các liên kết lạ và email giả mạo",
-        desc: "Phishing is a scam where an attacker impersonates a trusted entity to deceive users into providing sensitive information via spoofed emails or messages.",
+        desc: "Tin tặc thường giả danh ngân hàng, dịch vụ trực tuyến hoặc tổ chức uy tín để gửi email có nội dung khẩn cấp, yêu cầu bạn cung cấp thông tin cá nhân hoặc nhấp vào một liên kết.",
     },
     {
         img: "/images/publicWifi.svg",
         title: "Hạn chế dùng Wi-Fi công cộng",
-        desc: "Phishing is a scam where an attacker impersonates a trusted entity to deceive users into providing sensitive information via spoofed emails or messages.",
+        desc: "Wi-Fi công cộng thường có mặt ở quán cà phê, sân bay,... giúp người dùng truy cập Internet miễn phí. Tuy nhiên, những mạng Wi-Fi này tiềm ẩn nhiều rủi ro bảo mật, có thể khiến dữ liệu cá nhân của bạn bị đánh cắp.",
     },
 ];
 const listHomeContent = [
@@ -895,7 +895,7 @@ export default function Home() {
                     <div className="flex items-center ml-[20%]">
                         <div>
                             <h1 className="text-[2.5rem] font-bold" ref={h2Ref}>
-                                antiSCM mobile app
+                                Ứng dụng antiSCM
                             </h1>
                             <div className="flex gap-3 items-center">
                                 <svg
@@ -909,7 +909,7 @@ export default function Home() {
                                     />
                                 </svg>
                                 <p className="text-[1.1rem]">
-                                    Trust less, verify more
+                                    Tin ít, kiểm chứng nhiều
                                 </p>
                             </div>
                         </div>
@@ -933,7 +933,7 @@ export default function Home() {
                         variants={variants}
                     >
                         <h1 className="text-[3.1rem] leading-[60px] font-bold text-center">
-                            Answers to Your Questions
+                            Trả lời cho các câu hỏi của bạn
                         </h1>
                     </motion.div>
 
