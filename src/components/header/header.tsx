@@ -28,7 +28,7 @@ const Header: React.FC = () => {
                                 : "hover:text-[#06c4d9]"
                         }`}
                     >
-                        Home
+                        Trang chủ
                     </Link>
                     <Link
                         href="/aboutus"
@@ -38,43 +38,14 @@ const Header: React.FC = () => {
                                 : "hover:text-[#06c4d9]"
                         }`}
                     >
-                        About Us
-                    </Link>
-                    <Link
-                        href="/adopt"
-                        className={`text-white ${
-                            currentPath === "/adopt"
-                                ? "text-[#06c4d9]"
-                                : "hover:text-[#06c4d9]"
-                        }`}
-                    >
-                        Adopt
-                    </Link>
-                    <Link
-                        href="/volunteer"
-                        className={`text-white ${
-                            currentPath === "/volunteer"
-                                ? "text-[#06c4d9]"
-                                : "hover:text-[#06c4d9]"
-                        }`}
-                    >
-                        Volunteer
+                        Về chúng tôi
                     </Link>
                     <Link href="/donation">
                         <Button className="text-white bg-[#06c4d9] hover:bg-[#06c4d9] hover:opacity-90 hover:text-white">
-                            Donate
+                            Tham gia khóa học
                         </Button>
                     </Link>
-                    <Link
-                        href="/event"
-                        className={`text-white ${
-                            currentPath === "/newandevent"
-                                ? "text-[#06c4d9]"
-                                : "hover:text-[#06c4d9]"
-                        }`}
-                    >
-                        News and Events
-                    </Link>
+
                     <div className="bg-slate-500 w-[50px] h-[50px] rounded-[100px]"></div>
                 </nav>
             </div>
