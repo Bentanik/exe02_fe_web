@@ -108,7 +108,7 @@ export default function ManageChapter() {
                         <h5>{lecture.name}</h5>
                       </Link>
                       <span className="!text-[14px] text-gray-600">
-                        {lecture.duration} phút
+                        {123} phút
                       </span>
                     </div>
                   </div>

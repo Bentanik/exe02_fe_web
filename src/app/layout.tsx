@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Provider from "@/provider";
+import { Toaster } from "sonner";
 export const metadata: Metadata = {
   title: "antiSCM",
   description:
@@ -15,6 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Toaster
+          position="top-right"
+          richColors
+          expand={false}
+          style={{ marginRight: 28 }}
+        />
         <Provider>{children}</Provider>
       </body>
     </html>

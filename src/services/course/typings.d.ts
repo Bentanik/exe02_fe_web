@@ -1,4 +1,12 @@
-declare namespace REQUEST {}
+declare namespace REQUEST {
+  type TCreateCourse = {
+    name: string;
+    description: string;
+    thumbnailFile: File;
+    categoryId: string;
+    levelId: string;
+  };
+}
 
 declare namespace API {
   type TCourse = {

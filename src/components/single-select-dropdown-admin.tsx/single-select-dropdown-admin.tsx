@@ -15,26 +15,33 @@ interface IMultiSelectDropdownAdminProps {
   title: string;
   values: API.TCategory[] | API.TLevel[] | API.TChapter[];
   onSelect?: (selected: API.TCategory | API.TLevel | API.TChapter | null) => void;
+  isReset: true | false;
 }
 
 export default function SingleSelectDropdownAdmin({
   id,
   values,
   title,
-  onSelect
+  onSelect,
+  isReset
 }: IMultiSelectDropdownAdminProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   useEffect(() => {
+    setSelectedIndex(null);
+  }, [isReset])
+
+  useEffect(() => {
     if (selectedIndex !== null) {
       onSelect?.(values[selectedIndex]);
+    } else {
+      onSelect?.(null);
     }
   }, [selectedIndex, values, onSelect]);
 
   const handleSelect = (index: number) => {
     setSelectedIndex((prev) => (prev === index ? null : index));
   };
-
 
   const renderCategories = (
     arr: API.TCategory[] | API.TLevel[] | API.TChapter[]

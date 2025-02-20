@@ -8,10 +8,6 @@ import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
 
 export default function CreateCourse() {
-  const handleNextStep = () => {
-    alert(1);
-  };
-
   return (
     <div className="px-4 py-4">
       <header>
@@ -42,7 +38,7 @@ export default function CreateCourse() {
         </div>
       </header>
       <main className="my-4 border rounded-md">
-        <CreateInformationCourseForm onNextStep={handleNextStep} />
+        <CreateInformationCourseForm />
       </main>
     </div>
   );

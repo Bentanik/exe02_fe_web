@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import API_ENDPOINTS from "@/services/auth/api-path";
 import request from "@/services/interceptor";
 
-export const loginAsync = async (body: REQUEST.TLogin) => {
+export const loginAsync = async (idTokenFirebase: string) => {
   const response = await request<API.TLoginResponse>(API_ENDPOINTS.LOGIN, {
     method: "POST",
-    data: body,
+    data: {
+      idTokenFirebase,
+    },
   });
 
   return response.data;
@@ -17,12 +20,14 @@ export const logout = async () => {
   return response.data;
 };
 
+
 export const refreshToken = async () => {
-  const response = await request<API.TLoginResponse>(
-    API_ENDPOINTS.REFRESH_TOKEN,
-    {
-      method: "GET",
-    }
-  );
-  return response.data;
+  // const response = await request<API.TLoginResponse>(
+  //   API_ENDPOINTS.REFRESH_TOKEN,
+  //   {
+  //     method: "GET",
+  //   }
+  // );
+  // return response.data;
+
 };

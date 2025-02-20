@@ -126,6 +126,8 @@ export default function CreateLectureForm({
                     title="Tải ảnh và video bài học lên"
                     description="Xin vui lòng kéo hoặc click vào để tải lên"
                     onChange={handleFileUpload}
+                    isReset={false}
+                    single={true}
                   />
                 </div>
               </div>

@@ -5,22 +5,32 @@ import { FileUpload } from "@/components/ui/file-upload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
-import { Courses } from "@/mooks/course";
 import { getCategoriesAsync } from "@/services/category/api-services";
 import { isTResponseData } from "@/utils/compare";
 import { getLevelsAsync } from "@/services/level/api-services";
-import SingleSelectDropdownAdmin from "@/components/single-select-dropdown-admin.tsx/single-select-dropdown-admin";
+import SelectFieldCreateCourse from "@/app/admin/manage-courses/manage-course/create-course/components/select-field-create-course";
+import { useSubmitCreateCourse } from "@/app/admin/manage-courses/manage-course/create-course/hooks/useSubmitCreateCourse";
+import { Backdrop } from "@/components/backdrop";
 
 export default function CreateCourseForm() {
   // State
   const [categories, setCategories] = useState<API.TCategory[] | []>([]);
   const [levels, setLevels] = useState<API.TLevel[] | []>([]);
 
+  const [name, setName] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
   const [categorySelect, setCategorySelect] = useState<API.TCategory | null>(null);
   const [levelSelect, setLevelSelect] = useState<API.TLevel | null>(null);
+
+  const [nameError, setNameError] = useState<string>("");
+  const [descError, setDescError] = useState<string>("");
+  const [categorySelectError, setCategorySelectError] = useState<string>("");
+  const [levelSelectError, setLevelSelectError] = useState<string>("");
   const [errorFileUpload, setErrorFileUpload] = useState<string>("");
 
   const [files, setFiles] = useState<File[]>([]);
+
+  const { onSubmit, isPending, isSuccess } = useSubmitCreateCourse();
 
   // Function
 
@@ -58,6 +68,14 @@ export default function CreateCourseForm() {
     setLevelSelect(selected);
   };
 
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }
+
+  const handleChangeDesc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDesc(e.target.value);
+  }
+
 
   const verifyFile = (file: File): boolean => {
     const isImage = file.type.startsWith("image/");
@@ -86,11 +104,69 @@ export default function CreateCourseForm() {
     return errors.length === 0 ? true : errors;
   };
 
+  const handleResetState = () => {
+    setName("");
+    setDesc("");
+    setLevelSelect(null);
+    setCategorySelect(null);
+    setErrorFileUpload("");
+    setFiles([]);
+    setNameError("");
+    setDescError("");
+    setCategorySelectError("");
+    setLevelSelectError("");
+    setErrorFileUpload("");
+  }
+
+  const handleSetErrorField = (nameError: string | null) => {
+    if (nameError !== null && nameError !== "")
+      setNameError(nameError);
+  }
 
   const handleSubmit = () => {
-    console.table(categorySelect);
-    console.table(levelSelect);
-    console.table(files);
+    if (name === "") {
+      setNameError("Tên khóa học là bắt buộc");
+    } else {
+      setNameError("");
+    }
+
+    if (desc === "") {
+      setDescError("Mô tả khóa học là bắt buộc");
+    } else {
+      setDescError("");
+    }
+
+    if (categorySelect == null) {
+      setCategorySelectError("Thể loại là bắt buộc");
+    } else {
+      setCategorySelectError("");
+    }
+
+    if (levelSelect == null) {
+      setLevelSelectError("Cấp độ là bắt buộc");
+    } else {
+      setLevelSelectError("");
+    }
+
+    if (files?.length == 0) {
+      setErrorFileUpload("Xin vui lòng chọn file ảnh");
+    } else {
+      setErrorFileUpload("");
+    }
+
+    const isVerify = name !== "" && desc !== "" && levelSelect !== null && categorySelect !== null && files?.length == 1
+
+    if (isVerify) {
+      const form = {
+        name: name,
+        categoryId: categorySelect?.id,
+        levelId: levelSelect?.id,
+        description: desc,
+        thumbnailFile: files.at(0),
+      } as REQUEST.TCreateCourse
+
+      onSubmit(form, handleResetState, handleSetErrorField);
+    }
   };
 
   return (
@@ -109,41 +185,21 @@ export default function CreateCourseForm() {
               <label htmlFor="namecourse" className="text-base">
                 Tên khóa học
               </label>
-              <Input id="namecourse" type="text" />
+              <Input id="namecourse" type="text" value={name} onChange={handleChangeName} className={`${nameError != "" && "border-red-600"}`} />
+              <p className="text-red-600 text-[15px]">{nameError}</p>
             </div>
             <div className="flex items-center gap-x-2">
-              <div className="w-full flex flex-col gap-y-2">
-                <label htmlFor="category" className="text-base">
-                  Chọn thể loại
-                </label>
-                <SingleSelectDropdownAdmin
-                  id="category"
-                  title="Thể loại"
-                  values={categories || []}
-                  onSelect={handleCategorySelect}
-                />
+              <div className="w-full">
+                <SelectFieldCreateCourse id="category" title="Thể loại" value={categories} onSelect={handleCategorySelect} isReset={isSuccess == true ? true : false} />
+                <p className="text-red-600 text-[15px]">{categorySelectError}</p>
               </div>
-              <div className="w-full flex flex-col gap-y-2">
-                <label htmlFor="level" className="text-base">
-                  Chọn cấp độ người học
-                </label>
-                <SingleSelectDropdownAdmin
-                  id="level"
-                  title="Cấp độ"
-                  values={levels || []}
-                  onSelect={handleLevelSelect}
-                />
+              <div className="w-full">
+                <SelectFieldCreateCourse id="level" title="Cấp độ" value={levels} onSelect={handleLevelSelect} isReset={isSuccess == true ? true : false} />
+                <p className="text-red-600 text-[15px]">{levelSelectError}</p>
               </div>
             </div>
             <div className="w-full flex flex-col gap-y-2">
-              <label htmlFor="addlecture" className="text-base">
-                Thêm chương học
-              </label>
-              <SingleSelectDropdownAdmin
-                id="addlecture"
-                title="chương học"
-                values={Courses?.at(0)?.chapters || []}
-              />
+              <SelectFieldCreateCourse id="chapter" title="Chương học" value={levels} onSelect={handleLevelSelect} isReset={isSuccess == true ? true : false} />
             </div>
             <div className="flex flex-col gap-y-2">
               <label htmlFor="description" className="text-base">
@@ -153,8 +209,12 @@ export default function CreateCourseForm() {
                 id="description"
                 placeholder="Xin vui lòng điền mô tả khóa học ở đây."
                 style={{ resize: "none" }}
-                className="resize-none h-[200px]"
+                className={`resize-none h-[200px] ${descError !== "" && "border-red-600"}`}
+                value={desc}
+                onChange={handleChangeDesc}
               />
+              <p className="text-red-600 text-[15px]">{descError}</p>
+
             </div>
           </div>
           <div className="flex-1">
@@ -169,6 +229,7 @@ export default function CreateCourseForm() {
                   onChange={handleFileUpload}
                   validateFile={validateFiles}
                   single={true}
+                  isReset={isSuccess === true ? true : false}
                 />
               </div>
               {errorFileUpload !== "" && <p className="text-base text-red-400">{errorFileUpload}</p>}
@@ -186,6 +247,7 @@ export default function CreateCourseForm() {
           </div>
         </div>
       </div>
+      {isPending == true && <Backdrop open={true} />}
     </div>
   );
 }

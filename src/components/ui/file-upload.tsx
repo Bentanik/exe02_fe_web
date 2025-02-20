@@ -1,5 +1,7 @@
+'use client'
+
 import { cn } from "@/lib/utils";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
@@ -30,13 +32,15 @@ export const FileUpload = ({
   title,
   description,
   single,
-  validateFile
+  validateFile,
+  isReset
 }: {
   onChange?: (files: File[]) => void;
   title?: string;
   description?: string;
   single: true | false;
   validateFile?: (files: File[]) => boolean | string[]; // validateFile có thể trả về boolean hoặc mảng lỗi
+  isReset: true | false;
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -77,6 +81,14 @@ export const FileUpload = ({
       console.log(error);
     },
   });
+
+  const handleReset = () => {
+    setFiles([]);
+  }
+
+  useEffect(() => {
+    if (isReset === true) handleReset();
+  }, [isReset])
 
   return (
     <div className="w-full" {...getRootProps()}>
