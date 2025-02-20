@@ -45,3 +45,22 @@ declare type TResponseDataHub<T = object> = {
     Message: string;
   };
 };
+
+declare type TDataWithPagin<T = object> = {
+  items: T[];
+  pageIndex: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+};
+
+declare type TRequestGetAll = {
+  searchTerm?: string | null;
+  includes?: string[] | null;
+  sortColumn?: string | null;
+  sortOrder?: string| null;
+  pageIndex: number | 1;
+  pageSize?: number | 10;
+}

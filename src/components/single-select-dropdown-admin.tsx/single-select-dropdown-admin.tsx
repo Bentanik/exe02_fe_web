@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,29 +14,36 @@ interface IMultiSelectDropdownAdminProps {
   id: string;
   title: string;
   values: API.TCategory[] | API.TLevel[] | API.TChapter[];
+  onSelect?: (selected: API.TCategory | API.TLevel | API.TChapter | null) => void;
 }
 
-export default function MultiSelectDropdownAdmin({
+export default function SingleSelectDropdownAdmin({
   id,
   values,
   title,
+  onSelect
 }: IMultiSelectDropdownAdminProps) {
-  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
-  console.log(selectedIndexes);
-  const toggleCategory = (index: number) => {
-    setSelectedIndexes((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      onSelect?.(values[selectedIndex]);
+    }
+  }, [selectedIndex, values, onSelect]);
+
+  const handleSelect = (index: number) => {
+    setSelectedIndex((prev) => (prev === index ? null : index));
   };
+
 
   const renderCategories = (
     arr: API.TCategory[] | API.TLevel[] | API.TChapter[]
   ) => {
     return arr.map((menu, index) => (
-      <DropdownMenuItem key={index} onClick={() => toggleCategory(index)}>
+      <DropdownMenuItem key={index} onClick={() => handleSelect(index)}>
         <input
-          type="checkbox"
-          checked={selectedIndexes.includes(index)}
+          type="radio"
+          checked={selectedIndex === index}
           readOnly
           className="mr-2"
         />
@@ -49,8 +56,8 @@ export default function MultiSelectDropdownAdmin({
     <DropdownMenu>
       <DropdownMenuTrigger asChild id={id}>
         <Button variant="outline" className="w-full">
-          {selectedIndexes.length > 0
-            ? `Đã chọn: ${selectedIndexes.length} ${title}`
+          {selectedIndex !== null
+            ? `Đã chọn: ${values[selectedIndex]?.name}`
             : `Chọn ${title}`}
         </Button>
       </DropdownMenuTrigger>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Backdrop } from "@/components/backdrop";
 import InputAuth from "@/components/input-auth";
 import { useLogin } from "@/hooks/use-login";
 import Image from "next/image";
@@ -13,10 +14,10 @@ export default function LoginForm() {
     onSubmit,
     valuePassword,
     typePassword,
+    isPending,
     handleToggleTypePassword,
   } = useLogin();
 
-  // const { handleLoginGoogle, isPendingGoogle } = useLoginGoogle();
 
   return (
     <div className="px-10 w-full min-h-screen flex justify-center items-center bg-white">
@@ -58,27 +59,24 @@ export default function LoginForm() {
           <div className="flex flex-col gap-y-5">
             <button
               type="submit"
-              className={`mt-2 block w-full rounded-md py-2 bg-blue-600 hover:bg-blue-60 ${
-                Object.keys(errors).length !== 0 && "!bg-blue-400"
-              }`}
+              className={`mt-2 block w-full rounded-md py-2 bg-blue-600 hover:bg-blue-60 ${Object.keys(errors).length !== 0 && "!bg-blue-400"
+                }`}
             >
               <span className="text-base text-gray-200">Đăng nhập</span>
             </button>
             <div className="flex items-center justify-between gap-3">
               <div
-                className={`w-[45%] h-1 rounded-full ${
-                  Object.keys(errors).length === 0
+                className={`w-[45%] h-1 rounded-full ${Object.keys(errors).length === 0
                     ? "bg-blue-600"
                     : "bg-blue-100"
-                }`}
+                  }`}
               ></div>
               <span className="text-gray-400">OR</span>
               <div
-                className={`w-[45%] h-1 rounded-full ${
-                  Object.keys(errors).length === 0
+                className={`w-[45%] h-1 rounded-full ${Object.keys(errors).length === 0
                     ? "bg-blue-600"
                     : "bg-blue-100"
-                }`}
+                  }`}
               ></div>
             </div>
             <button
@@ -112,6 +110,7 @@ export default function LoginForm() {
           </div>
         </form>
       </div>
+      {isPending == true && <Backdrop open={true} />}
     </div>
   );
 }

@@ -2,6 +2,12 @@ declare namespace REQUEST {}
 
 declare namespace API {
   type TLevel = {
-    name: string; //Level of course
+    id?: string | null;
+    name?: string | null;
+    quantityCourses?: number | 0;
+  };
+
+  type TLevels = {
+    levels: TDataWithPagin<TLevel>;
   };
 }

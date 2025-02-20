@@ -10,9 +10,13 @@ export const useServiceLogin = () => {
     mutationFn: loginAsync,
     onSuccess: (data) => {
       const { authTokenDTO, authUserDTO } = data;
-      setStorageItem("accessToken", `${authTokenDTO.tokenType} ${authTokenDTO.accessToken}`);
+      setStorageItem(
+        "accessToken",
+        `${authTokenDTO.tokenType} ${authTokenDTO.accessToken}`
+      );
       dispatch(loginSuccess(authUserDTO));
-      location.pathname = "/";
+      if (authUserDTO.roleName === "Admin") location.pathname = "/admin/home";
+      else location.pathname = "/";
       return data;
     },
   });

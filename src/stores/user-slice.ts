@@ -4,7 +4,7 @@ export interface InitialState {
   accountInfo?: API.TAuthUserDTO | null;
 }
 
-let initialState: InitialState = { accountInfo: null };
+const initialState: InitialState = { accountInfo: null };
 
 const userSlice = createSlice({
   name: "userSlice",

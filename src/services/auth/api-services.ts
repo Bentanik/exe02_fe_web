@@ -9,3 +9,20 @@ export const loginAsync = async (body: REQUEST.TLogin) => {
 
   return response.data;
 };
+
+export const logout = async () => {
+  const response = await request<TResponseData>(API_ENDPOINTS.LOGOUT, {
+    method: "POST",
+  });
+  return response.data;
+};
+
+export const refreshToken = async () => {
+  const response = await request<API.TLoginResponse>(
+    API_ENDPOINTS.REFRESH_TOKEN,
+    {
+      method: "GET",
+    }
+  );
+  return response.data;
+};

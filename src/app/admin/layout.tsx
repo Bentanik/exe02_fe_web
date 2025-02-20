@@ -10,7 +10,7 @@ export default function AdminLayout({
 }>) {
 
   return (
-    <div className="px-4 h-[100vh] bg-[#edeef7] flex items-center">
+    <div className="px-4 h-screen fixed w-full bg-[#edeef7] flex items-center">
       <div className="w-full h-[95vh] bg-white rounded-lg shadow-box-admin relative">
         <div className="flex items-start h-full">
           <section className="w-[20%] h-full border-r">

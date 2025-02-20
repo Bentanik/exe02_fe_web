@@ -1,21 +1,6 @@
 declare namespace REQUEST {}
 
 declare namespace API {
-  type TLecture = {
-    name?: string; // Name lecture
-    description?: string; // Description short and overview about lecture
-    duration?: number; // Duration of lecture
-  };
-
-  type TChapter = {
-    name?: string; // Name chapter
-    overviewDescription?: string; // Description short and overview about chapter
-    detailDescription?: string; // Description detail chapter
-    totalLecture?: number; // Total number of lecture
-    totalDuration?: number; // Total duration of courses in chapter
-    lectures?: TLecture[];
-  };
-
   type TCourse = {
     name?: string; // Name course
     thumbnail?: string; // Thumbnail

@@ -72,7 +72,7 @@ export default function ButtonComponent({
   if (href) {
     return (
       <TooltipProvider>
-        <Tooltip delayDuration={100}>
+        <Tooltip delayDuration={500}>
           <TooltipTrigger className={`${tooltip === "full" && "w-full"}`}>
             <Link
               href={href}

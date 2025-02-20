@@ -1,4 +1,5 @@
-const AUTH = "/v1/auth";
+/* eslint-disable import/no-anonymous-default-export */
+const AUTH = "/auth/v1";
 const LOGIN = AUTH + "/login";
 const REGISTER = AUTH + "/register";
 const LOGOUT = AUTH + "/logout";

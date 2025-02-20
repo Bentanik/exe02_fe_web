@@ -32,22 +32,15 @@ export function useLogin() {
     try {
       const loginRequest: REQUEST.TLogin = { ...request };
       mutate(loginRequest, {
-        onSuccess: async (data) => {
+        onSuccess: async () => {
           reset();
-          // if (data.authProfile.roleId === Roles[1].id) {
-          //   return router.push("/");
-          // } else if (data.authProfile.roleId === Roles[0].id) {
-          //   return router.push("/admin/dashboard");
-          // }
         },
         onError: (error) => {
-          if (error.errorCode === "em02") {
+          if (error.errorCode === "auth13") {
             setError("email", {
               type: "manual",
               message: error.detail,
             });
-          }
-          if (error.errorCode === "auth03") {
             setError("password", {
               type: "manual",
               message: error.detail,
@@ -73,6 +66,6 @@ export function useLogin() {
     valuePassword,
     typePassword,
     handleToggleTypePassword,
-    // isPending,
+    isPending,
   };
 }

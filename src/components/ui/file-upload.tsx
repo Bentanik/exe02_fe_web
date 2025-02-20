@@ -29,18 +29,33 @@ export const FileUpload = ({
   onChange,
   title,
   description,
+  single,
+  validateFile
 }: {
   onChange?: (files: File[]) => void;
   title?: string;
   description?: string;
+  single: true | false;
+  validateFile?: (files: File[]) => boolean | string[]; // validateFile có thể trả về boolean hoặc mảng lỗi
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (newFiles: File[]) => {
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    if (onChange) {
-      onChange(newFiles);
+    if (single == true && files.length !== 0) {
+      alert("Chỉ được tải lên 1 file")
+      return;
+    }
+    const validation = validateFile ? validateFile(newFiles) : true;
+    if (validation === true) {
+      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      if (onChange) {
+        onChange(newFiles);
+      }
+    } else if (Array.isArray(validation)) {
+      alert(validation.join(", "));
+    } else {
+      alert("Các tệp không hợp lệ.");
     }
   };
 
@@ -203,11 +218,10 @@ export function GridPattern() {
           return (
             <div
               key={`${col}-${row}`}
-              className={`w-10 h-10 flex flex-shrink-0 rounded-[2px] ${
-                index % 2 === 0
-                  ? "bg-gray-50 dark:bg-neutral-950"
-                  : "bg-gray-50 dark:bg-neutral-950 shadow-[0px_0px_1px_3px_rgba(255,255,255,1)_inset] dark:shadow-[0px_0px_1px_3px_rgba(0,0,0,1)_inset]"
-              }`}
+              className={`w-10 h-10 flex flex-shrink-0 rounded-[2px] ${index % 2 === 0
+                ? "bg-gray-50 dark:bg-neutral-950"
+                : "bg-gray-50 dark:bg-neutral-950 shadow-[0px_0px_1px_3px_rgba(255,255,255,1)_inset] dark:shadow-[0px_0px_1px_3px_rgba(0,0,0,1)_inset]"
+                }`}
             />
           );
         })

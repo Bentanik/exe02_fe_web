@@ -29,6 +29,7 @@ declare namespace API {
     email: string;
     fullName: string;
     avatarUrl: string;
+    roleName: string;
   };
 
   type TLoginResponse = {

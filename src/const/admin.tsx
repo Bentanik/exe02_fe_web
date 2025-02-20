@@ -40,6 +40,12 @@ export const NAV_SIDEBAR_TOP_ADMIN: TButton[] = [
     description: "Quản lí khóa học",
   },
   {
+    pathname: "/admin/manage-subscription",
+    icon: <FolderKanban className="text-base" strokeWidth={1.5} />,
+    text: "Quản lí gói đăng ký",
+    description: "Quản lí khóa học",
+  },
+  {
     pathname: "/admin/support",
     icon: <MailQuestion className="text-base" strokeWidth={1.5} />,
     text: "Hỗ trợ người dùng",
