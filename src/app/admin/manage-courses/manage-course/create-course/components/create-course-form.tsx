@@ -11,21 +11,26 @@ import { getLevelsAsync } from "@/services/level/api-services";
 import SelectFieldCreateCourse from "@/app/admin/manage-courses/manage-course/create-course/components/select-field-create-course";
 import { useSubmitCreateCourse } from "@/app/admin/manage-courses/manage-course/create-course/hooks/useSubmitCreateCourse";
 import { Backdrop } from "@/components/backdrop";
+import { getChaptersAsync } from "@/services/chapter/api-services";
 
 export default function CreateCourseForm() {
   // State
   const [categories, setCategories] = useState<API.TCategory[] | []>([]);
   const [levels, setLevels] = useState<API.TLevel[] | []>([]);
+  const [chapters, setChapters] = useState<API.TChapter[] | []>([]);
 
   const [name, setName] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
+
   const [categorySelect, setCategorySelect] = useState<API.TCategory | null>(null);
   const [levelSelect, setLevelSelect] = useState<API.TLevel | null>(null);
+  const [chapterSelect, setChapterSelect] = useState<string[] | null>(null);
 
   const [nameError, setNameError] = useState<string>("");
   const [descError, setDescError] = useState<string>("");
   const [categorySelectError, setCategorySelectError] = useState<string>("");
   const [levelSelectError, setLevelSelectError] = useState<string>("");
+
   const [errorFileUpload, setErrorFileUpload] = useState<string>("");
 
   const [files, setFiles] = useState<File[]>([]);
@@ -38,7 +43,8 @@ export default function CreateCourseForm() {
     const fetchData = async () => {
       await Promise.all([
         handleGetCategoriesAsync(),
-        handleGetLevelsAsync()
+        handleGetLevelsAsync(),
+        handleGetChaptersAsync()
       ]);
     };
 
@@ -60,12 +66,31 @@ export default function CreateCourseForm() {
     return null;
   }
 
+  const handleGetChaptersAsync = async () => {
+    const form = {
+      noneAssignedCourse: true
+    } as REQUEST.TGetChapters
+
+    const res = await getChaptersAsync(form);
+    if (isTResponseData(res)) {
+      setChapters(res.value.data.chapters.items);
+    }
+    return null;
+  }
+
   const handleCategorySelect = (selected: API.TCategory | null) => {
     setCategorySelect(selected);
   };
 
   const handleLevelSelect = (selected: API.TLevel | null) => {
     setLevelSelect(selected);
+  };
+
+  const handleChapterSelect = (selected: number[]) => {
+    const chapterIds = selected
+      .map(item => chapters[item]?.id)
+      .filter(id => id !== null && id !== undefined);
+    setChapterSelect(chapterIds);
   };
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,12 +187,14 @@ export default function CreateCourseForm() {
         categoryId: categorySelect?.id,
         levelId: levelSelect?.id,
         description: desc,
+        chapterIds: chapterSelect,
         thumbnailFile: files.at(0),
       } as REQUEST.TCreateCourse
 
       onSubmit(form, handleResetState, handleSetErrorField);
     }
   };
+
 
   return (
     <div>
@@ -190,16 +217,16 @@ export default function CreateCourseForm() {
             </div>
             <div className="flex items-center gap-x-2">
               <div className="w-full">
-                <SelectFieldCreateCourse id="category" title="Thể loại" value={categories} onSelect={handleCategorySelect} isReset={isSuccess == true ? true : false} />
+                <SelectFieldCreateCourse id="category" title="Thể loại" value={categories} onSelectSingle={handleCategorySelect} isReset={isSuccess == true ? true : false} />
                 <p className="text-red-600 text-[15px]">{categorySelectError}</p>
               </div>
               <div className="w-full">
-                <SelectFieldCreateCourse id="level" title="Cấp độ" value={levels} onSelect={handleLevelSelect} isReset={isSuccess == true ? true : false} />
+                <SelectFieldCreateCourse id="level" title="Cấp độ" value={levels} onSelectSingle={handleLevelSelect} isReset={isSuccess == true ? true : false} />
                 <p className="text-red-600 text-[15px]">{levelSelectError}</p>
               </div>
             </div>
             <div className="w-full flex flex-col gap-y-2">
-              <SelectFieldCreateCourse id="chapter" title="Chương học" value={levels} onSelect={handleLevelSelect} isReset={isSuccess == true ? true : false} />
+              <SelectFieldCreateCourse id="chapter" title="Chương học" value={chapters} onSelectMulti={handleChapterSelect} isReset={isSuccess == true ? true : false} isMultiSelect={true} />
             </div>
             <div className="flex flex-col gap-y-2">
               <label htmlFor="description" className="text-base">

@@ -105,7 +105,7 @@ export default function ManageChapter() {
                   <div className="w-full">
                     <div className="flex justify-between">
                       <Link href="#!" className="hover:text-primary-admin">
-                        <h5>{lecture.name}</h5>
+                        <h5>{lecture.name}</h5> 
                       </Link>
                       <span className="!text-[14px] text-gray-600">
                         {123} phút

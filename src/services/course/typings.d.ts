@@ -5,6 +5,7 @@ declare namespace REQUEST {
     thumbnailFile: File;
     categoryId: string;
     levelId: string;
+    chapterIds: string[];
   };
 }
 

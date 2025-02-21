@@ -1,4 +1,14 @@
-declare namespace REQUEST {}
+declare namespace REQUEST {
+  type TCreateChapter = {
+    name: string;
+    description: string;
+    courseId: string;
+  };
+
+  type TGetChapters = TRequestAll & {
+    noneAssignedCourse?: boolean;
+  };
+}
 
 declare namespace API {
   type TChapter = {
@@ -9,5 +19,9 @@ declare namespace API {
     totalLecture?: number | null;
     totalDuration?: number | null;
     lectures?: TLecture[] | null;
-  };  
+  };
+
+  type TChapters = {
+    chapters: TDataWithPagin<TChapter>;
+  };
 }

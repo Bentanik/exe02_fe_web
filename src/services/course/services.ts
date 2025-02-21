@@ -13,7 +13,11 @@ export const useServiceCreateCourse = () => {
       formData.append("LevelId", request.levelId);
       formData.append("ThumbnailFile", request.thumbnailFile);
 
-      return await createCourseAsync(request);
+      request.chapterIds.forEach((chapterId) => {
+        formData.append("ChapterId", chapterId);
+      });
+
+      return await createCourseAsync(formData);
     },
     onSuccess: (data) => {
       toast.addToast({

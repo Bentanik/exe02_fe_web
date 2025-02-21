@@ -28,7 +28,8 @@ export default function SingleSelectDropdownAdmin({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    setSelectedIndex(null);
+    if (isReset == true)
+      setSelectedIndex(null);
   }, [isReset])
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function SingleSelectDropdownAdmin({
     } else {
       onSelect?.(null);
     }
-  }, [selectedIndex, values, onSelect]);
+  }, [selectedIndex, values]);
 
   const handleSelect = (index: number) => {
     setSelectedIndex((prev) => (prev === index ? null : index));
