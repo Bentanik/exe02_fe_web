@@ -2,7 +2,7 @@
 import MultiSelectDropdownAdmin from "@/components/multi-select-dropdown-admin.tsx/multi-select-dropdown-admin";
 import SingleSelectDropdownAdmin from "@/components/single-select-dropdown-admin.tsx/single-select-dropdown-admin";
 
-interface ISelectFieldCreateCourse {
+interface ISelectFieldCreateChapter {
   id: string;
   title: string;
   value: API.TCategory[] | API.TLevel[] | API.TChapter[];
@@ -12,7 +12,7 @@ interface ISelectFieldCreateCourse {
   isMultiSelect?: true | false;
 }
 
-export default function SelectFieldCreateCourse({ id, title, value, isReset, onSelectSingle, onSelectMulti, isMultiSelect = false }: ISelectFieldCreateCourse) {
+export default function SelectFieldCreateChapter({ id, title, value, isReset, onSelectSingle, onSelectMulti, isMultiSelect = false }: ISelectFieldCreateChapter) {
   return (
     <div className="w-full flex flex-col gap-y-2">
       <label htmlFor="category" className="text-base">

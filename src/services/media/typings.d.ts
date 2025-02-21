@@ -1,7 +1,7 @@
 declare namespace REQUEST {}
 
 declare namespace API {
-  type TMedia = {
+  type TImage = {
     publicId?: string;
     publicUrl?: string;
   };

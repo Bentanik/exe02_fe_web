@@ -12,3 +12,15 @@ export const createCourseAsync = async (body: FormData) => {
 
   return response.data;
 };
+
+export const getCoursesAsync = async (body?: REQUEST.TGetCourses | null) => {
+  const response = await request<TResponseData<API.TCourses>>(
+    API_ENDPOINTS.GET_COURSES,
+    {
+      method: "GET",
+      params: body,
+    }
+  );
+
+  return response.data;
+};

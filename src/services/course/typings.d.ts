@@ -7,15 +7,22 @@ declare namespace REQUEST {
     levelId: string;
     chapterIds: string[];
   };
+
+  type TGetCourses = TRequestGetAll;
 }
 
 declare namespace API {
   type TCourse = {
-    name?: string; // Name course
-    thumbnail?: string; // Thumbnail
-    desciption?: string; // Description
-    category?: API.TCategory[]; // List categories for course
-    level?: API.TLevel[]; // List of levels for learners
+    id?: string;
+    name?: string;
+    thumbnail?: string;
+    desciption?: string;
+    category?: API.TCategory[];
+    level?: API.TLevel[];
     chapters?: TChapter[];
+  };
+
+  type TCourses = {
+    courses: TDataWithPagin<TCourse>;
   };
 }

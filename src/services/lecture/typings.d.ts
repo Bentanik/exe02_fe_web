@@ -1,4 +1,8 @@
-declare namespace REQUEST {}
+declare namespace REQUEST {
+  type TGetLectures = TRequestAll & {
+    noneAssignedChapter?: boolean;
+  };
+}
 
 declare namespace API {
   type TLecture = {
@@ -6,7 +10,11 @@ declare namespace API {
     chapterId?: string | null;
     name?: string | null;
     description?: string | null;
-    imageLecture?: TImage | null;
-    videoLecture?: TVideo | null;
-  };  
+    imageLecture?: API.TImage | null;
+    videoLecture?: API.TVideo | null;
+  };
+
+  type TLectures = {
+    lectures: TDataWithPagin<TLecture>;
+  };
 }

@@ -4,33 +4,124 @@ import ButtonComponent from "@/components/button-component";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
-import MultiSelectDropdownAdmin from "@/components/multi-select-dropdown-admin.tsx/multi-select-dropdown-admin";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Courses } from "@/mooks/course";
+import { Backdrop } from "@/components/backdrop";
+import { isTResponseData } from "@/utils/compare";
+import SelectFieldCreateChapter from "@/app/admin/manage-courses/manage-course/create-chapter/components/select-field-create-chapter";
+import { getLecturesAsync } from "@/services/lecture/api-services";
+import { useSubmitCreateChapter } from "@/app/admin/manage-courses/manage-course/create-chapter/hooks/useSubmitCreateChapter";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getCoursesAsync } from "@/services/course/api-services";
 
-interface ICreateChapterFormProps {
-  onNextStep: () => void;
-}
+export default function CreateChapterForm() {
+  // State
+  const [courses, setCourses] = useState<API.TCourse[] | []>([]);
+  const [lectures, setLectures] = useState<API.TLecture[] | []>([]);
 
-export default function CreateChapterForm({
-  onNextStep,
-}: ICreateChapterFormProps) {
+  const [name, setName] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
+
+  const [courseSelect, setCourseSelect] = useState<string>("");
+  const [lectureSelect, setLectureSelect] = useState<string[] | null>(null);
+
+  const [nameError, setNameError] = useState<string>("");
+  const [descError, setDescError] = useState<string>("");
+
+
+  const { onSubmit, isPending, isSuccess } = useSubmitCreateChapter();
+
+  // Function
+
   useEffect(() => {
-    setCourses(Courses);
-  }, []);
+    const fetchData = async () => {
+      await Promise.all([
+        handleGetCoursesAsync(),
+        handleGetLecturesAsync()
+      ]);
+    };
 
-  const handleNextStep = () => {
-    onNextStep();
+    fetchData();
+  }, [])
+
+  const handleGetCoursesAsync = async () => {
+    const form = {
+      pageSize: 100,
+    } as REQUEST.TGetCourses
+
+    const res = await getCoursesAsync(form);
+    if (isTResponseData(res)) {
+      setCourses(res.value.data.courses.items);
+    }
+  }
+
+  const handleGetLecturesAsync = async () => {
+    const form = {
+      noneAssignedChapter: true
+    } as REQUEST.TGetLectures
+
+    const res = await getLecturesAsync(form);
+    if (isTResponseData(res)) {
+      setLectures(res.value.data.lectures.items);
+    }
+  }
+
+  const handleLecturesSelect = (selected: number[]) => {
+    const chapterIds = selected
+      .map(item => lectures[item]?.id)
+      .filter(id => id !== null && id !== undefined);
+    setLectureSelect(chapterIds);
   };
 
-  const [courses, setCourses] = useState<API.TCourse[]>([]);
-  const [course, setCourse] = useState<string>("");
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }
+
+  const handleChangeDesc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDesc(e.target.value);
+  }
+
+
+  const handleResetState = () => {
+    setName("");
+    setDesc("");
+    setNameError("");
+    setDescError("");
+    setCourseSelect("");
+    setLectureSelect(null);
+
+    handleGetLecturesAsync();
+  }
+
+  const handleSetErrorField = (nameError: string | null) => {
+    if (nameError !== null && nameError !== "")
+      setNameError(nameError);
+  }
+
+  const handleSubmit = () => {
+    if (name === "") {
+      setNameError("Tên chương học là bắt buộc");
+    } else {
+      setNameError("");
+    }
+
+    if (desc === "") {
+      setDescError("Mô tả chương học là bắt buộc");
+    } else {
+      setDescError("");
+    }
+
+    const isVerify = name !== "" && desc !== "";
+
+    if (isVerify) {
+      const form = {
+        name: name,
+        courseId: courseSelect !== "" && courses[+courseSelect].id,
+        description: desc,
+        lectureIds: lectureSelect
+      } as REQUEST.TCreateChapter
+
+      onSubmit(form, handleResetState, handleSetErrorField);
+    }
+  };
 
   const renderCourses = (courses_arr: API.TCourse[]) => {
     return courses_arr.map((course, index) => (
@@ -45,18 +136,17 @@ export default function CreateChapterForm({
       <div className="px-12 py-2 border-b">
         <h2 className="font-semibold text-xl">Tạo chương học</h2>
         <p className="mt-2 text-base text-gray-500 font-semibold">
-          Tạo chương học với các thông tin như tên chương học, mô tả ngắn và mô
-          tả chi tiết
+          Tạo chương học với các thông tin như tên chương học, mô tả
         </p>
       </div>
       <div className="px-12 py-2">
         <div className="flex items-start gap-x-10 pb-4">
-          <div className="basis-[60%] flex flex-col gap-y-6">
+          <div className="w-full flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-2">
               <label htmlFor="namecourse" className="text-base">
                 Khóa học
               </label>
-              <Select value={course} onValueChange={setCourse}>
+              <Select value={courseSelect} onValueChange={setCourseSelect}>
                 <SelectTrigger className="focus-visible:ring-0 focus-visible:border-gray-400 px-4 py-5 border border-gray-300 rounded-md">
                   <SelectValue placeholder="Xin vui lòng lựa chọn khóa học" />
                 </SelectTrigger>
@@ -64,70 +154,44 @@ export default function CreateChapterForm({
               </Select>
             </div>
             <div className="flex flex-col gap-y-2">
-              <label htmlFor="namecourse" className="text-base">
+              <label htmlFor="namechapter" className="text-base">
                 Tên chương học
               </label>
-              <Input id="namecourse" type="text" />
+              <Input id="namechapter" type="text" value={name} onChange={handleChangeName} className={`${nameError != "" && "border-red-600"}`} />
+              <p className="text-red-600 text-[15px]">{nameError}</p>
             </div>
-            <div>
-              <div className="w-full flex flex-col gap-y-2">
-                <label htmlFor="addlecture" className="text-base">
-                  Thêm bài học
-                </label>
-                <MultiSelectDropdownAdmin
-                  id="addlecture"
-                  title="bài học"
-                  values={courses?.at(0)?.chapters?.at(0)?.lectures || []}
-                />
-              </div>
+            <div className="w-full flex flex-col gap-y-2">
+              <SelectFieldCreateChapter id="chapter" title="Bài học (có hoặc không)" value={lectures} onSelectMulti={handleLecturesSelect} isReset={isSuccess == true ? true : false} isMultiSelect={true} />
             </div>
             <div className="flex flex-col gap-y-2">
               <label htmlFor="description" className="text-base">
-                Mô tả ngắn và tổng quan
+                Mô tả
               </label>
               <Textarea
                 id="description"
-                placeholder="Xin vui lòng điền mô tả khóa học ở đây."
+                placeholder="Xin vui lòng điền mô tả chương học ở đây."
                 style={{ resize: "none" }}
-                className="resize-none h-[100px]"
+                className={`resize-none h-[250px] ${descError !== "" && "border-red-600"}`}
+                value={desc}
+                onChange={handleChangeDesc}
               />
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="flex flex-col gap-y-2">
-              <div className="flex flex-col gap-y-2">
-                <label htmlFor="description" className="text-base">
-                  Mô tả chi tiết
-                </label>
-                <Textarea
-                  id="description"
-                  placeholder="Xin vui lòng điền mô tả khóa học ở đây."
-                  style={{ resize: "none" }}
-                  className="resize-none h-[250px]"
-                />
-              </div>
+              <p className="text-red-600 text-[15px]">{descError}</p>
+
             </div>
             <div className="mt-4 flex justify-end gap-x-3">
               <ButtonComponent
-                onClick={handleNextStep}
-                type="admin"
-                active={false}
-                className="hover:opacity-90"
-              >
-                <span className="text-base">Lưu bản nháp</span>
-              </ButtonComponent>
-              <ButtonComponent
-                onClick={handleNextStep}
+                onClick={handleSubmit}
                 type="admin"
                 active={true}
                 className="hover:opacity-90"
               >
-                <span className="text-base">Tiếp tục</span>
+                <span className="text-base">Tạo chương học</span>
               </ButtonComponent>
             </div>
           </div>
         </div>
       </div>
+      {isPending == true && <Backdrop open={true} />}
     </div>
   );
 }

@@ -5,9 +5,6 @@ export const createChapterAsync = async (body: REQUEST.TCreateChapter) => {
   const response = await request<TResponse>(API_ENDPOINTS.CREATE, {
     method: "POST",
     data: body,
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
   });
 
   return response.data;

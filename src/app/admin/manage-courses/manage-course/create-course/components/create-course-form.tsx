@@ -141,6 +141,8 @@ export default function CreateCourseForm() {
     setCategorySelectError("");
     setLevelSelectError("");
     setErrorFileUpload("");
+
+    handleGetChaptersAsync();
   }
 
   const handleSetErrorField = (nameError: string | null) => {
@@ -226,7 +228,7 @@ export default function CreateCourseForm() {
               </div>
             </div>
             <div className="w-full flex flex-col gap-y-2">
-              <SelectFieldCreateCourse id="chapter" title="Chương học" value={chapters} onSelectMulti={handleChapterSelect} isReset={isSuccess == true ? true : false} isMultiSelect={true} />
+              <SelectFieldCreateCourse id="chapter" title="Chương học (có hoặc không)" value={chapters} onSelectMulti={handleChapterSelect} isReset={isSuccess == true ? true : false} isMultiSelect={true} />
             </div>
             <div className="flex flex-col gap-y-2">
               <label htmlFor="description" className="text-base">

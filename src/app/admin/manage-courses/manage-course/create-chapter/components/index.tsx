@@ -8,9 +8,6 @@ import TagComponent from "@/components/tag-component";
 import CreateChapterForm from "@/app/admin/manage-courses/manage-course/create-chapter/components/create-chapter-form";
 
 export default function CreateChapter() {
-  const handleNextStep = () => {
-    alert(1);
-  };
 
   return (
     <div className="px-4 py-4">
@@ -42,7 +39,7 @@ export default function CreateChapter() {
         </div>
       </header>
       <main className="my-4 border rounded-md">
-        <CreateChapterForm onNextStep={handleNextStep} />
+        <CreateChapterForm />
       </main>
     </div>
   );

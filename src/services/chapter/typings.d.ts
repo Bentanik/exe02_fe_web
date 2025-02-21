@@ -3,6 +3,7 @@ declare namespace REQUEST {
     name: string;
     description: string;
     courseId: string;
+    lectureIds: string[];
   };
 
   type TGetChapters = TRequestAll & {

@@ -8,6 +8,8 @@ import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
 
 export default function CreateCourse() {
+
+
   return (
     <div className="px-4 py-4">
       <header>
