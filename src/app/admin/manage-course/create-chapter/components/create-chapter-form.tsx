@@ -6,9 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { Backdrop } from "@/components/backdrop";
 import { isTResponseData } from "@/utils/compare";
-import SelectFieldCreateChapter from "@/app/admin/manage-courses/manage-course/create-chapter/components/select-field-create-chapter";
+import SelectFieldCreateChapter from "@/app/admin/manage-course/create-chapter/components/select-field-create-chapter";
 import { getLecturesAsync } from "@/services/lecture/api-services";
-import { useSubmitCreateChapter } from "@/app/admin/manage-courses/manage-course/create-chapter/hooks/useSubmitCreateChapter";
+import { useSubmitCreateChapter } from "@/app/admin/manage-course/create-chapter/hooks/useSubmitCreateChapter";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getCoursesAsync } from "@/services/course/api-services";
 

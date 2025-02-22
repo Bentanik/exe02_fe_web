@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { getCategoriesAsync } from "@/services/category/api-services";
 import { isTResponseData } from "@/utils/compare";
 import { getLevelsAsync } from "@/services/level/api-services";
-import SelectFieldCreateCourse from "@/app/admin/manage-courses/manage-course/create-course/components/select-field-create-course";
-import { useSubmitCreateCourse } from "@/app/admin/manage-courses/manage-course/create-course/hooks/useSubmitCreateCourse";
+import SelectFieldCreateCourse from "@/app/admin/manage-course/create-course/components/select-field-create-course";
+import { useSubmitCreateCourse } from "@/app/admin/manage-course/create-course/hooks/useSubmitCreateCourse";
 import { Backdrop } from "@/components/backdrop";
 import { getChaptersAsync } from "@/services/chapter/api-services";
 
@@ -200,7 +200,7 @@ export default function CreateCourseForm() {
 
   return (
     <div>
-      <div className="px-12 py-2 border-b">
+      <div className="px-12 py-4 border-b">
         <h2 className="font-semibold text-xl">Tạo khóa học</h2>
         <p className="mt-2 text-base text-gray-500 font-semibold">
           Tạo khóa học với các thông tin như tên khóa học, thể loại, cấp độ
@@ -208,7 +208,7 @@ export default function CreateCourseForm() {
         </p>
       </div>
       <div className="px-12 py-2">
-        <div className="flex items-start gap-x-10 pb-4">
+        <div className="flex items-start gap-x-10 pt-4 pb-4">
           <div className="basis-[60%] flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-2">
               <label htmlFor="namecourse" className="text-base">

@@ -1,16 +1,13 @@
 "use client";
 
-import { BREADCRUMB_CREATELECTURE } from "@/const/admin";
+import { BREADCRUMB_CREATECHAPTER } from "@/const/admin";
 import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
 import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
-import CreateLectureForm from "@/app/admin/manage-courses/manage-course/create-lecture/components/create-lecture-form";
+import CreateChapterForm from "@/app/admin/manage-course/create-chapter/components/create-chapter-form";
 
-export default function CreateLecture() {
-  const handleNextStep = () => {
-    alert(1);
-  };
+export default function CreateChapter() {
 
   return (
     <div className="px-4 py-4">
@@ -27,7 +24,7 @@ export default function CreateLecture() {
             <ArrowLeft className="w-5 h-5" />
           </ButtonComponent>
           <h1 className="text-xl font-semibold text-primary-admin">
-            Tạo bài học
+            Tạo chương học
           </h1>
           <TagComponent
             tag={{
@@ -38,11 +35,11 @@ export default function CreateLecture() {
           />
         </div>
         <div className="mt-3 ml-12">
-          <BreadcrumbComponent breadcrumbs={BREADCRUMB_CREATELECTURE} />
+          <BreadcrumbComponent breadcrumbs={BREADCRUMB_CREATECHAPTER} />
         </div>
       </header>
       <main className="my-4 border rounded-md">
-        <CreateLectureForm onNextStep={handleNextStep} />
+        <CreateChapterForm />
       </main>
     </div>
   );

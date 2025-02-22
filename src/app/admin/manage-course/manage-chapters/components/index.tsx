@@ -8,8 +8,8 @@ import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
 import BreadcrumbComponent from "@/components/breadcrumb-component";
 
-import ManageChapter from "@/app/admin/manage-courses/manage-course/manage-chapters/components/manage-chapter";
-import SelectCourse from "@/app/admin/manage-courses/manage-course/manage-chapters/components/select-course";
+import ManageChapter from "@/app/admin/manage-course/manage-chapters/components/manage-chapter";
+import SelectCourse from "@/app/admin/manage-course/manage-chapters/components/select-course";
 import { useEffect, useState } from "react";
 
 export default function ManageChapterComponent() {

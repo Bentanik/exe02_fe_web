@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ManageChapterComponent from "@/app/admin/manage-courses/manage-course/manage-chapters/components";
+import ManageChapterComponent from "@/app/admin/manage-course/manage-chapters/components";
 
 export const metadata: Metadata = {
   title: "Quản lí chương học",

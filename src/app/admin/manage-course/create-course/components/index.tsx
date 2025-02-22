@@ -1,6 +1,6 @@
 "use client";
 
-import CreateInformationCourseForm from "@/app/admin/manage-courses/manage-course/create-course/components/create-course-form";
+import CreateInformationCourseForm from "@/app/admin/manage-course/create-course/components/create-course-form";
 import { BREADCRUMB_CREATECOURSE } from "@/const/admin";
 import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
@@ -8,10 +8,8 @@ import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
 
 export default function CreateCourse() {
-
-
   return (
-    <div className="px-4 py-4">
+    <div className="">
       <header>
         <div className="flex items-center gap-x-3">
           <ButtonComponent
@@ -39,8 +37,10 @@ export default function CreateCourse() {
           <BreadcrumbComponent breadcrumbs={BREADCRUMB_CREATECOURSE} />
         </div>
       </header>
-      <main className="my-4 border rounded-md">
-        <CreateInformationCourseForm />
+      <main className="border rounded-md mt-5">
+        <div>
+          <CreateInformationCourseForm />
+        </div>
       </main>
     </div>
   );
