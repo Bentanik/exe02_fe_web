@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -40,13 +41,11 @@ const Header: React.FC = () => {
                     >
                         Về chúng tôi
                     </Link>
-                    <Link href="/donation">
+                    <Link href="/about-premium">
                         <Button className="text-white bg-[#06c4d9] hover:bg-[#06c4d9] hover:opacity-90 hover:text-white">
-                            Tham gia khóa học
+                            Premium
                         </Button>
                     </Link>
-
-                    <div className="bg-slate-500 w-[50px] h-[50px] rounded-[100px]"></div>
                 </nav>
             </div>
         </header>
