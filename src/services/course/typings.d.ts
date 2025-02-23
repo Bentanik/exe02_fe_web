@@ -15,11 +15,11 @@ declare namespace API {
   type TCourse = {
     id?: string;
     name?: string;
-    thumbnail?: string;
+    thumbnail?: TImage;
     desciption?: string;
-    category?: API.TCategory[];
-    level?: API.TLevel[];
-    chapters?: TChapter[];
+    category?: API.TCategory;
+    level?: API.TLevel;
+    chapters?: TChapter;
   };
 
   type TCourses = {

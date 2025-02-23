@@ -4,13 +4,11 @@ import { cn } from "@/lib/utils";
 export const CardCourse = ({
     className,
     title,
-    imageLink,
     description,
     category,
     level,
 }: {
     className?: string;
-    imageLink: string;
     title: string;
     description: string;
     category: string;
@@ -24,7 +22,7 @@ export const CardCourse = ({
                 className
             )}
         >
-            <img src={`${imageLink !== "" ? imageLink : "/images/bgAdmin.png"} `} alt={title} className="w-full h-full" />
+            <img src="/images/bgAdmin.png" alt={title} className="w-full h-full" />
             <div className="group-hover/bento:translate-x-2 transition duration-200 flex flex-col gap-y-3">
                 <div className="font-sans font-bold text-[18px]">
                     {title}

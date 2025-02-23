@@ -82,7 +82,7 @@ export default function AdminLayout({
             <div className="border-t border-gray-300 w-full flex flex-col gap-y-3 py-2">
               <SidebarLink
                 link={{
-                  label: "Manu Arora",
+                  label: "Admin",
                   href: "#",
                   icon: (
                     <Image

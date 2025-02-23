@@ -6,9 +6,8 @@ import ButtonComponent from "@/components/button-component";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { BREADCRUMB_MANAGECOURSES } from "@/const/admin";
 import { ArrowLeft, CirclePlus } from "lucide-react";
-import Link from "next/link";
 
-export default function ManageCourses() {
+export default function ManageBlogs() {
     return (
         <div className="">
             <header>
@@ -24,7 +23,7 @@ export default function ManageCourses() {
                         <ArrowLeft className="w-5 h-5" />
                     </ButtonComponent>
                     <h1 className="text-xl font-semibold text-primary-admin">
-                        Quản lí khóa học
+                        Quản lí bài viết
                     </h1>
                 </div>
                 <div className="mt-3 ml-12">
@@ -34,16 +33,14 @@ export default function ManageCourses() {
             <main className="mt-5">
                 <div className="flex items-center justify-between">
                     <h3 className='px-4'>Tìm kiếm khóa học(Tính năng đang phát triển)</h3>
-                    <Link href="/admin/manage-course/create-course">
-                        <HoverBorderGradient
-                            containerClassName="rounded-full"
-                            as="button"
-                            className="bg-white text-black dark:text-white flex items-center space-x-2 text-sm"
-                        >
-                            <CirclePlus className="text-base" />
-                            <span>Tạo khóa học</span>
-                        </HoverBorderGradient>
-                    </Link>
+                    <HoverBorderGradient
+                        containerClassName="rounded-full"
+                        as="button"
+                        className="bg-white text-black dark:text-white flex items-center space-x-2 text-sm"
+                    >
+                        <CirclePlus className="text-base"/>
+                        <span>Tạo bài viết</span>
+                    </HoverBorderGradient>
                 </div>
                 <div>
                     <TableCourses />

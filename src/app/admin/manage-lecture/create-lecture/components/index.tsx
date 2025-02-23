@@ -1,19 +1,16 @@
 "use client";
 
+
 import { BREADCRUMB_CREATELECTURE } from "@/const/admin";
 import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
 import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
-import CreateLectureForm from "@/app/admin/manage-course/create-lecture/components/create-lecture-form";
+import CreateLectureForm from "@/app/admin/manage-lecture/create-lecture/components/create-lecture-form";
 
 export default function CreateLecture() {
-  const handleNextStep = () => {
-    alert(1);
-  };
-
   return (
-    <div className="px-4 py-4">
+    <div className="">
       <header>
         <div className="flex items-center gap-x-3">
           <ButtonComponent
@@ -41,8 +38,10 @@ export default function CreateLecture() {
           <BreadcrumbComponent breadcrumbs={BREADCRUMB_CREATELECTURE} />
         </div>
       </header>
-      <main className="my-4 border rounded-md">
-        <CreateLectureForm onNextStep={handleNextStep} />
+      <main className="border rounded-md mt-5">
+        <div>
+          <CreateLectureForm />
+        </div>
       </main>
     </div>
   );

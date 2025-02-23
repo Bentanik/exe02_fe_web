@@ -6,7 +6,7 @@ declare namespace REQUEST {
     lectureIds: string[];
   };
 
-  type TGetChapters = TRequestAll & {
+  type TGetChapters = TRequestGetAll & {
     noneAssignedCourse?: boolean;
   };
 }
@@ -17,9 +17,10 @@ declare namespace API {
     courseId?: string | null;
     name?: string | null;
     description?: string | null;
-    totalLecture?: number | null;
+    quantityLectures?: number | null;
     totalDuration?: number | null;
     lectures?: TLecture[] | null;
+    course?: TCourse | null;
   };
 
   type TChapters = {

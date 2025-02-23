@@ -1,6 +1,15 @@
 declare namespace REQUEST {
-  type TGetLectures = TRequestAll & {
+  type TGetLectures = TRequestGetAll & {
     noneAssignedChapter?: boolean;
+  };
+
+  type TCreateLecture = {
+    name: string;
+    description: string;
+    imageFile: File;
+    chapterId: string;
+    publicVideoId: string;
+    durationVideo: number;
   };
 }
 
@@ -12,6 +21,7 @@ declare namespace API {
     description?: string | null;
     imageLecture?: API.TImage | null;
     videoLecture?: API.TVideo | null;
+    chapter?: API.TChapter | null;
   };
 
   type TLectures = {

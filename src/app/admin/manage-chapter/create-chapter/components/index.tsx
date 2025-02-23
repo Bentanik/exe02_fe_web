@@ -5,7 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import ButtonComponent from "@/components/button-component";
 import BreadcrumbComponent from "@/components/breadcrumb-component";
 import TagComponent from "@/components/tag-component";
-import CreateChapterForm from "@/app/admin/manage-course/create-chapter/components/create-chapter-form";
+import CreateChapterForm from "@/app/admin/manage-chapter/create-chapter/components/create-chapter-form";
+
 
 export default function CreateChapter() {
 
