@@ -1,63 +1,137 @@
 "use client";
-
-import {
-  NAV_SIDEBAR_BOTTOM_ADMIN,
-  NAV_SIDEBAR_TOOL_ADMIN,
-  NAV_SIDEBAR_TOP_ADMIN,
-} from "@/const/admin";
-import { TButton } from "@/utils/types/common";
+import { cn } from "@/lib/utils";
+import Link, { LinkProps } from "next/link";
+import React, { useState, createContext, useContext } from "react";
+import { motion } from "framer-motion";
+import { TAdminLink } from "@/utils/types/common";
 import { usePathname } from "next/navigation";
-import ButtonComponent from "@/components/button-component";
 
-export default function SidebarAdmin() {
-  const pathname = usePathname();
+interface SidebarContextProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  animate: boolean;
+}
 
-  const renderNavAdmin = (navbar: TButton[]) => {
-    return navbar.map((nav, index) => {
-      const isActive = pathname?.includes(nav.pathname || "");
-      return (
-        <li key={index}>
-          <ButtonComponent
-            href={nav.pathname}
-            type="admin"
-            active={isActive}
-            description={nav.description}
-          >
-            {nav.icon}
-            <span className="text-base">{nav.text}</span>
-          </ButtonComponent>
-        </li>
-      );
-    });
-  };
+const SidebarContext = createContext<SidebarContextProps | undefined>(
+  undefined
+);
+
+export const useSidebar = () => {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider");
+  }
+  return context;
+};
+
+export const SidebarProvider = ({
+  children,
+  open: openProp,
+  setOpen: setOpenProp,
+  animate = true,
+}: {
+  children: React.ReactNode;
+  open?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  animate?: boolean;
+}) => {
+  const [openState, setOpenState] = useState(false);
+
+  const open = openProp !== undefined ? openProp : openState;
+  const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
   return (
-    <div className="flex flex-col h-full justify-between">
-      <div>
-        <div className="mx-auto h-[60px] px-4 flex items-center justify-between border-b">
-          <h4>antiSCM</h4>
-        </div>
-        <div className="py-6 flex flex-col gap-y-4">
-          <div className="px-4">
-            <ul className="flex flex-col gap-y-3">
-              {renderNavAdmin(NAV_SIDEBAR_TOP_ADMIN)}
-            </ul>
-          </div>
-          <div className="px-4">
-            <h3>Công cụ</h3>
-            <div className="mt-6">
-              <ul className="flex flex-col gap-y-3">
-                {renderNavAdmin(NAV_SIDEBAR_TOOL_ADMIN)}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="border-t py-2 px-4">
-        <ul className="flex flex-col gap-y-3">
-          {renderNavAdmin(NAV_SIDEBAR_BOTTOM_ADMIN)}
-        </ul>
-      </div>
-    </div>
+    <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
+      {children}
+    </SidebarContext.Provider>
   );
-}
+};
+
+export const Sidebar = ({
+  children,
+  open,
+  setOpen,
+  animate,
+}: {
+  children: React.ReactNode;
+  open?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  animate?: boolean;
+}) => {
+  return (
+    <SidebarProvider open={open} setOpen={setOpen} animate={animate}>
+      {children}
+    </SidebarProvider>
+  );
+};
+
+export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+  return (
+    <>
+      <DesktopSidebar {...props} />
+    </>
+  );
+};
+
+export const DesktopSidebar = ({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof motion.div>) => {
+  const { open, setOpen, animate } = useSidebar();
+  return (
+    <>
+      <motion.div
+        className={cn(
+          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
+          className
+        )}
+        animate={{
+          width: animate ? (open ? "300px" : "60px") : "300px",
+        }}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        {...props}
+      >
+        {children}
+      </motion.div>
+    </>
+  );
+};
+
+export const SidebarLink = ({
+  link,
+  className,
+  ...props
+}: {
+  link: TAdminLink;
+  className?: string;
+  props?: LinkProps;
+}) => {
+  const pathname = usePathname();
+  const { open, animate } = useSidebar();
+  const isActive = pathname?.includes(link.href || "");
+
+  return (
+    <Link
+      href={link.href}
+      className={cn(
+        "flex items-center justify-start gap-2  group/sidebar py-2",
+        className, isActive === true && "text-primary-admin"
+      )}
+      {...props}
+    >
+      {link.icon}
+
+      <motion.span
+        animate={{
+          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          opacity: animate ? (open ? 1 : 0) : 1,
+        }}
+        className="dark:text-neutral-200 text-base group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+      >
+        {link.label}
+      </motion.span>
+    </Link>
+  );
+};

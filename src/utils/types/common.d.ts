@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
 
+declare type TAdminLink = {
+  label: string;
+  href: string;
+  icon: React.JSX.Element | React.ReactNode;
+};
+
 declare type TButton = {
   pathname?: string;
   onClick?: () => void;

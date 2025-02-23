@@ -1,56 +1,69 @@
-import { TBreadcrumb, TButton, TProgressStep } from "@/utils/types/common";
+import { TAdminLink, TBreadcrumb, TButton, TProgressStep } from "@/utils/types/common";
 import {
   Bolt,
+  BookAudio,
+  BookOpen,
   BookOpenText,
   BookPlus,
   ChartColumnBig,
   CirclePlus,
-  FolderKanban,
   House,
   LogOut,
   MailQuestion,
+  NotebookPen,
   NotebookTabs,
+  Package2,
+  SquareLibrary,
   UserPen,
   UserRoundCog,
 } from "lucide-react";
 
-export const NAV_SIDEBAR_TOP_ADMIN: TButton[] = [
+export const NAV_SIDEBAR_TOP_ADMIN: TAdminLink[] = [
   {
-    pathname: "/admin/home",
+    href: "/admin/home",
     icon: <House className="text-base" strokeWidth={1.5} />,
-    text: "Trang chủ",
-    description: "Trang chủ",
+    label: "Trang chủ",
   },
   {
-    pathname: "/admin/analytic",
+    href: "/admin/analytic",
     icon: <ChartColumnBig className="text-base" strokeWidth={1.5} />,
-    text: "Phân tích",
-    description: "Phân tích",
+    label: "Phân tích",
   },
   {
-    pathname: "/admin/manage-user",
+    href: "/admin/manage-user",
     icon: <UserRoundCog className="text-base" strokeWidth={1.5} />,
-    text: "Quản lí người dùng",
-    description: "Quản lí người dùng",
+    label: "Quản lí người dùng",
   },
   {
-    pathname: "/admin/manage-course",
-    icon: <FolderKanban className="text-base" strokeWidth={1.5} />,
-    text: "Quản lí khóa học",
-    description: "Quản lí khóa học",
+    href: "/admin/manage-courses",
+    icon: <SquareLibrary  className="text-base" strokeWidth={1.5} />,
+    label: "Quản lí khóa học",
   },
   {
-    pathname: "/admin/manage-subscription",
-    icon: <FolderKanban className="text-base" strokeWidth={1.5} />,
-    text: "Quản lí gói đăng ký",
-    description: "Quản lí khóa học",
+    href: "/admin/manage-chapter",
+    icon: <BookAudio  className="text-base" strokeWidth={1.5} />,
+    label: "Quản lí chương học",
   },
   {
-    pathname: "/admin/support",
+    href: "/admin/manage-lecture",
+    icon: <BookOpen  className="text-base" strokeWidth={1.5} />,
+    label: "Quản lí bài học",
+  },
+  {
+    href: "/admin/manage-subscription",
+    icon: <Package2  className="text-base" strokeWidth={1.5} />,
+    label: "Quản lí gói đăng ký",
+  },
+  {
+    href: "/admin/manage-blogs",
+    icon: <NotebookPen  className="text-base" strokeWidth={1.5} />,
+    label: "Quản lí bài viết",
+  },
+  {
+    href: "/admin/support",
     icon: <MailQuestion className="text-base" strokeWidth={1.5} />,
-    text: "Hỗ trợ người dùng",
-    description: "Hỗ trợ người dùng",
-  },
+    label: "Hỗ trợ người dùng",
+  }
 ];
 
 export const NAV_SIDEBAR_TOOL_ADMIN: TButton[] = [
@@ -135,7 +148,12 @@ export const CREATE_COURSE_STEPS: TProgressStep[] = [
 
 export const BREADCRUMB_CREATECOURSE: TBreadcrumb[] = [
   {
-    link: "/admin/manage-courses/view-courses",
+    link: "/admin/home",
+    title: "Trang chủ",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-courses",
     title: "Quản lí khóa học",
     isActive: false,
   },
@@ -148,33 +166,59 @@ export const BREADCRUMB_CREATECOURSE: TBreadcrumb[] = [
 
 export const BREADCRUMB_CREATECHAPTER: TBreadcrumb[] = [
   {
-    link: "/admin/manage-courses/view-courses",
-    title: "Quản lí khóa học",
+    link: "/admin/home",
+    title: "Trang chủ",
     isActive: false,
   },
   {
-    link: "/admin/manage-courses/manage-course/manage-chapters",
-    title: "Quản lí chương học",
+    link: "/admin/manage-lectures",
+    title: "Quản lí bài học",
     isActive: false,
   },
   {
-    link: "/admin/manage-courses/manage-course/create-chapter",
-    title: "Tạo chương học",
+    link: "/admin/manage-lectures/manage-lecture/create-lecture",
+    title: "Tạo bài học",
     isActive: true,
   },
 ];
 
-export const BREADCRUMB_MANAGECHAPTER: TBreadcrumb[] = [
+export const BREADCRUMB_MANAGECOURSES: TBreadcrumb[] = [
   {
-    link: "/admin/manage-courses/view-courses",
-    title: "Quản lí khóa học",
+    link: "/admin/home",
+    title: "Trang chủ",
     isActive: false,
   },
   {
-    link: "/admin/manage-courses/manage-course/manage-chapters",
+    link: "/admin/manage-courses/view-courses",
+    title: "Quản lí khóa học",
+    isActive: true,
+  }
+];
+
+export const BREADCRUMB_MANAGECHAPTERS: TBreadcrumb[] = [
+  {
+    link: "/admin/home",
+    title: "Trang chủ",
+    isActive: false,
+  },
+  {
+    link: "/admin/manage-chapters",
     title: "Quản lí chương học",
     isActive: true,
+  }
+];
+
+export const BREADCRUMB_MANAGELECTURES: TBreadcrumb[] = [
+  {
+    link: "/admin/home",
+    title: "Trang chủ",
+    isActive: false,
   },
+  {
+    link: "/admin/manage-lectures",
+    title: "Quản lí bài học",
+    isActive: true,
+  }
 ];
 
 export const BREADCRUMB_MANAGECHAPTER_LIST: TBreadcrumb[] = [
@@ -197,22 +241,17 @@ export const BREADCRUMB_MANAGECHAPTER_LIST: TBreadcrumb[] = [
 
 export const BREADCRUMB_CREATELECTURE: TBreadcrumb[] = [
   {
-    link: "/admin/manage-courses/view-courses",
-    title: "Quản lí khóa học",
+    link: "/admin/home",
+    title: "Trang chủ",
     isActive: false,
   },
   {
-    link: "/admin/manage-courses/manage-course/manage-chapters",
-    title: "Quản lí chương học",
-    isActive: false,
-  },
-  {
-    link: "/admin/manage-courses/manage-course/manage-lecture",
+    link: "/admin/manage-lectures",
     title: "Quản lí bài học",
     isActive: false,
   },
   {
-    link: "/admin/manage-courses/manage-course/create-lecture",
+    link: "/admin/manage-lecture/create-lecture",
     title: "Tạo bài học",
     isActive: true,
   },

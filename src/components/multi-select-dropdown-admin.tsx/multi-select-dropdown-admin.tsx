@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,15 +14,33 @@ interface IMultiSelectDropdownAdminProps {
   id: string;
   title: string;
   values: API.TCategory[] | API.TLevel[] | API.TChapter[];
+  onSelect?: (selected: number[]) => void;
+  isReset: true | false;
 }
 
 export default function MultiSelectDropdownAdmin({
   id,
   values,
   title,
+  onSelect,
+  isReset
 }: IMultiSelectDropdownAdminProps) {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
-  console.log(selectedIndexes);
+
+  useEffect(() => {
+    if (isReset == true)
+      setSelectedIndexes([]);
+  }, [isReset])
+
+
+  useEffect(() => {
+    if (selectedIndexes.length > 0) {
+      onSelect?.(selectedIndexes);
+    } else {
+      onSelect?.([]);
+    }
+  }, [selectedIndexes, values]);
+
   const toggleCategory = (index: number) => {
     setSelectedIndexes((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]

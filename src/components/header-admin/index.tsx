@@ -1,7 +1,6 @@
 "use client";
 
 import SearchSidebar from "@/components/search-sidebar";
-import AvatarMenuAdmin from "@/components/avatar-menu-admin";
 import ButtonCreateCourseHeaderAdmin from "@/components/button-create-course-header-admin";
 
 export default function HeaderAdmin() {
@@ -13,9 +12,6 @@ export default function HeaderAdmin() {
       <div className="flex items-center gap-x-5">
         <div>
           <ButtonCreateCourseHeaderAdmin />
-        </div>
-        <div>
-          <AvatarMenuAdmin />
         </div>
       </div>
     </div>

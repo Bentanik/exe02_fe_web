@@ -1,12 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
   getStorageItem,
-  removeStorageItem,
-  setStorageItem,
 } from "@/utils/local-storage";
 import axios, { AxiosError } from "axios";
-import { refreshToken } from "@/services/auth/api-services";
 import useToast from "@/hooks/use-toast";
-// import useLogout from "@/hooks/use-logout";
+import useLogout from "@/hooks/use-logout";
 
 const request = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER,
@@ -17,7 +16,6 @@ const request = axios.create({
   withCredentials: true,
 });
 
-let refreshTokenPromise: any = null;
 
 const errorHandler = async (error: AxiosError) => {
   const responseMeta: TMeta = error.response?.data as TMeta;
@@ -50,7 +48,7 @@ const errorHandler = async (error: AxiosError) => {
           description: responseMeta.detail,
           duration: 5000,
         });
-        // useLogout().handleLogout();
+        useLogout().handleLogout();
         break;
       default:
         break;
@@ -72,42 +70,21 @@ const errorHandler = async (error: AxiosError) => {
     return Promise.reject(result);
   }
 
-  if (error.response?.status === 401 && error?.config) {
-    const originalRequest = error?.config;
-
-    // if (!refreshTokenPromise) {
-    //   refreshTokenPromise = refreshToken()
-    //     .then((res: any) => {
-    //       const accessToken = `${res?.tokenType} ${res?.accessToken}`;
-    //       setStorageItem("accessToken", accessToken);
-    //       request.defaults.headers.Authorization = accessToken;
-    //     })
-    //     .catch((err: any) => {
-    //       removeStorageItem("accessToken");
-    //       location.href = "/";
-    //       return Promise.reject(err);
-    //     })
-    //     .finally(() => {
-    //       refreshTokenPromise = null;
-    //     });
-    // }
-
-    return refreshTokenPromise.then(() => {
-      originalRequest.headers.Authorization = getStorageItem("accessToken");
-      return request(originalRequest);
-    });
-  }
-
   return Promise.reject(responseMeta);
 };
 
 request.interceptors.request.use(
-  (config) => {
-    const token = getStorageItem("accessToken");
-    if (token) {
-      config.headers.Authorization = token;
+  async (config) => {
+    try {
+      const token = getStorageItem("accessToken");
+      if (token) {
+        config.headers.Authorization = token;
+      }
+      return config;
+    } catch (err) {
+      console.table(err);
+      return config;
     }
-    return config;
   },
   (error) => Promise.reject(error)
 );

@@ -28,24 +28,22 @@ export function useLogin() {
   });
 
   const { mutate, isPending } = useServiceLogin();
+
   const onSubmit = async (request: LoginBodyType) => {
     try {
-      const loginRequest: REQUEST.TLogin = { ...request };
-      mutate(loginRequest, {
+      mutate(request, {
         onSuccess: async () => {
           reset();
         },
-        onError: (error) => {
-          if (error.errorCode === "auth13") {
-            setError("email", {
-              type: "manual",
-              message: error.detail,
-            });
-            setError("password", {
-              type: "manual",
-              message: error.detail,
-            });
-          }
+        onError: () => {
+          setError("email", {
+            type: "manual",
+            message: "Sai Email hoặc mật khẩu",
+          });
+          setError("password", {
+            type: "manual",
+            message: "Sai Email hoặc mật khẩu",
+          });
         },
       });
     } catch (err) {
