@@ -11,7 +11,7 @@ import { XMarkIcon, PlusIcon } from "@heroicons/react/24/solid";
 
 const listInfo = [
     {
-        img: "/images/Security.svg",
+        img: "/images/security.svg",
         title: "Tránh xa khỏi những cuộc tấn công mạng",
         desc: "Bảo vệ bản thân khỏi các mối đe dọa trực tuyến bằng cách nhận diện và ngăn chặn các cuộc tấn công.",
     },

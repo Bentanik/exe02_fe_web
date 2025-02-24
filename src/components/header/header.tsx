@@ -23,27 +23,34 @@ const Header: React.FC = () => {
                 <nav className="flex items-center space-x-6 mr-10">
                     <Link
                         href="/"
-                        className={`text-white ${
-                            currentPath === "/"
+                        className={`text-white ${currentPath === "/"
                                 ? "text-[#06c4d9]"
                                 : "hover:text-[#06c4d9]"
-                        }`}
+                            }`}
                     >
                         Trang chủ
                     </Link>
                     <Link
                         href="/aboutus"
-                        className={`text-white ${
-                            currentPath === "/aboutus"
+                        className={`text-white ${currentPath === "/aboutus"
                                 ? "text-[#06c4d9]"
                                 : "hover:text-[#06c4d9]"
-                        }`}
+                            }`}
                     >
                         Về chúng tôi
                     </Link>
-                    <Link href="/about-premium">
+                    <Link
+                        href="/aboutus"
+                        className={`text-white ${currentPath === "/aboutus"
+                                ? "text-[#06c4d9]"
+                                : "hover:text-[#06c4d9]"
+                            }`}
+                    >
+                        Tham khảo các gói đăng ký
+                    </Link>
+                    <Link href="/login">
                         <Button className="text-white bg-[#06c4d9] hover:bg-[#06c4d9] hover:opacity-90 hover:text-white">
-                            Premium
+                            Tham gia ngay
                         </Button>
                     </Link>
                 </nav>
