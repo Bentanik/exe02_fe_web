@@ -40,12 +40,12 @@ export const NAV_SIDEBAR_TOP_ADMIN: TAdminLink[] = [
     label: "Quản lí khóa học",
   },
   {
-    href: "/admin/manage-chapter",
+    href: "/admin/manage-chapters",
     icon: <BookAudio  className="text-base" strokeWidth={1.5} />,
     label: "Quản lí chương học",
   },
   {
-    href: "/admin/manage-lecture",
+    href: "/admin/manage-lectures",
     icon: <BookOpen  className="text-base" strokeWidth={1.5} />,
     label: "Quản lí bài học",
   },

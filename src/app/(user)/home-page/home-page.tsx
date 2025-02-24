@@ -425,7 +425,7 @@ export default function Home() {
                 className="p-6 flex flex-col bg-white rounded-xl shadow-lg mt-3"
                 key={index}
             >
-                {({}) => (
+                {({ }) => (
                     <>
                         <Disclosure.Button
                             onClick={() => toggleIndex(index)} // Thay đổi trạng thái của mục
@@ -434,11 +434,10 @@ export default function Home() {
                             {/* Left Content */}
                             <div>
                                 <div
-                                    className={`!text-justify text-[1.1rem] font-semibold ${
-                                        openIndices[index]
+                                    className={`!text-justify text-[1.1rem] font-semibold ${openIndices[index]
                                             ? "text-[#13759d]"
                                             : "text-black"
-                                    }`}
+                                        }`}
                                 >
                                     {info.question}
                                 </div>
@@ -821,13 +820,12 @@ export default function Home() {
                                 <div className=" flex gap-5">
                                     {/* Image 1 */}
                                     <div
-                                        className={`transition-opacity duration-500 ${
-                                            hideImages
+                                        className={`transition-opacity duration-500 ${hideImages
                                                 ? "opacity-0" // Ẩn khi hideImages là true
                                                 : fade1
-                                                ? "opacity-100"
-                                                : "opacity-50"
-                                        }`}
+                                                    ? "opacity-100"
+                                                    : "opacity-50"
+                                            }`}
                                     >
                                         {currentImage1 && (
                                             <Image
@@ -841,13 +839,12 @@ export default function Home() {
                                     </div>
 
                                     <div
-                                        className={`transition-opacity duration-500 ${
-                                            hideImages
+                                        className={`transition-opacity duration-500 ${hideImages
                                                 ? "opacity-0"
                                                 : fade2
-                                                ? "opacity-100"
-                                                : "opacity-50"
-                                        }`}
+                                                    ? "opacity-100"
+                                                    : "opacity-50"
+                                            }`}
                                     >
                                         {currentImage2 && (
                                             <Image
@@ -909,7 +906,7 @@ export default function Home() {
                                     />
                                 </svg>
                                 <p className="text-[1.1rem]">
-                                    Tin ít, kiểm chứng nhiều
+                                    Trust less, verify more
                                 </p>
                             </div>
                         </div>

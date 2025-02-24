@@ -1,4 +1,3 @@
-import { Gender } from "@/const/genders";
 import { z } from "zod";
 
 export const LoginBody = z
@@ -28,20 +27,7 @@ export const RegisterBody = z
     confirmPassword: z
       .string()
       .min(6, "Mật khẩu phải ít nhất 6 ký tự")
-      .max(100, "Mật khẩu dài tối đa 100 ký tự"),
-    phoneNumber: z.string().refine(
-      (val) => {
-        if (/^0\d{9}$/.test(val)) return true;
-        if (/^\d{9}$/.test(val)) return true;
-        return false;
-      },
-      {
-        message: "Số điện thoại này không hợp lệ",
-      }
-    ),
-    gender: z.nativeEnum(Gender, {
-      errorMap: () => ({ message: "Xin vui lòng lựa chọn giới tính" }),
-    }),
+      .max(100, "Mật khẩu dài tối đa 100 ký tự")
   })
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {

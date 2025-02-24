@@ -7,6 +7,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useServiceRegister } from "@/services/auth/services";
+import { reset } from "@/stores/user-slice";
+import { useRouter } from "next/navigation";
+import useToast from "@/hooks/use-toast";
 
 export function useRegister() {
   const [typePassword, setTypePassword] = useState<boolean>(false);
@@ -19,6 +23,7 @@ export function useRegister() {
     handleSubmit,
     formState: { errors },
     control,
+    setError,
   } = useForm<RegisterBodyType>({
     resolver: zodResolver(RegisterBody),
     defaultValues: {
@@ -26,36 +31,33 @@ export function useRegister() {
       email: "",
       password: "",
       confirmPassword: "",
-      phoneNumber: "",
     },
   });
+  const { addToast } = useToast();
+  const { mutate, isPending } = useServiceRegister();
 
+  const router = useRouter();
   const onSubmit = async (request: RegisterBodyType) => {
-    // dispatch(openBackdrop());
     try {
-      //   mutate(data, {
-      //     onSuccess: async (data) => {
-      //       if (data) {
-      //         if (data.value.code === "auth_register_success") {
-      //           reset();
-      //           addToast({
-      //             description: data.value.message,
-      //             type: "success",
-      //             duration: 5000,
-      //           });
-      //           router.push("/login");
-      //         }
-      //       }
-      //     },
-      //     onError: (error) => {
-      //       if (error.errorCode == "auth_email_exists") {
-      //         setError("email", {
-      //           type: "manual",
-      //           message: error.detail,
-      //         });
-      //       }
-      //     },
-      //   });
+      mutate(request, {
+        onSuccess: async (data) => {
+          if (data) {
+            addToast({
+              description: "Đã tạo tài khoản thành công",
+              type: "success",
+              duration: 5000,
+            });
+            reset();
+            router.push("/login");
+          }
+        },
+        onError: () => {
+          setError("email", {
+            type: "manual",
+            message: "Email đã tồn tại",
+          });
+        },
+      });
       console.log(request);
     } catch (err) {
       console.log("err: ", err);
@@ -80,6 +82,7 @@ export function useRegister() {
     onSubmit,
     control,
     valuePassword,
+    isPending,
     typePassword,
     valueConfirmPassword,
     typeConfirmPassword,

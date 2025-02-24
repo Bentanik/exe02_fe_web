@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import API_ENDPOINTS from "@/services/auth/api-path";
 import request from "@/services/interceptor";
+import { RegisterBodyType } from "@/utils/schema-validations/auth.schema";
 
 export const loginAsync = async (idTokenFirebase: string) => {
   const response = await request<API.TLoginResponse>(API_ENDPOINTS.LOGIN, {
@@ -10,6 +11,14 @@ export const loginAsync = async (idTokenFirebase: string) => {
     },
   });
 
+  return response.data;
+};
+
+export const registerAsync = async (body: RegisterBodyType) => {
+  const response = await request<TResponse>(API_ENDPOINTS.REGISTER, {
+    method: "POST",
+    data: body,
+  });
   return response.data;
 };
 

@@ -2,25 +2,15 @@
 
 import InputAuth from "@/components/input-auth";
 import Link from "next/link";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Gender } from "@/const/genders";
 import { useRegister } from "@/app/(auth)/register/hooks/useRegister";
-import { Controller } from "react-hook-form";
-import Image from "next/image";
-
+import { Backdrop } from "@/components/backdrop";
 export default function RegisterForm() {
   const {
-    control,
     register,
     errors,
     handleSubmit,
     onSubmit,
+    isPending,
     valuePassword,
     valueConfirmPassword,
     typePassword,
@@ -54,30 +44,6 @@ export default function RegisterForm() {
           </div>
         </div>
         <div className="flex flex-col gap-y-2">
-          <label htmlFor="gender" className="text-gray-600">
-            Giới tính
-          </label>
-          <Controller
-            name="gender"
-            control={control}
-            defaultValue={Gender.Male} // Giá trị mặc định
-            render={({ field }) => (
-              <Select {...field} onValueChange={field.onChange}>
-                <SelectTrigger className="focus-visible:ring-0 focus-visible:border-gray-400 px-4 py-5 border-2 border-gray-300 rounded-md">
-                  <SelectValue placeholder="Gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.values(Gender).map((gender, index) => (
-                    <SelectItem key={index} value={gender}>
-                      {gender}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-          />
-        </div>
-        <div className="flex flex-col gap-y-2">
           <InputAuth
             id="email"
             label="Email"
@@ -86,35 +52,6 @@ export default function RegisterForm() {
             register={register("email")}
             error={errors?.email?.message}
           />
-        </div>
-        <div className="flex flex-row gap-x-4">
-          <div className="flex flex-col gap-y-2 mt-2">
-            <label
-              htmlFor="code"
-              className={`text-gray-600 ${
-                errors?.phoneNumber?.message && "text-red-400"
-              }`}
-            >
-              Mã vùng
-            </label>
-            <div
-              className={`block p-2 border-2 border-gray-300 rounded-md text-center ${
-                errors?.phoneNumber?.message && "border-red-300"
-              }`}
-            >
-              +84
-            </div>
-          </div>
-          <div className="flex-1 flex flex-col gap-y-2">
-            <InputAuth
-              id="phonenumber"
-              label="Số điện thoại"
-              type="number"
-              autoComplete="off"
-              register={register("phoneNumber")}
-              error={errors?.phoneNumber?.message}
-            />
-          </div>
         </div>
         <div className="flex flex-col gap-y-2">
           <InputAuth
@@ -141,44 +78,27 @@ export default function RegisterForm() {
           />
         </div>
         <button
-          className={`mt-2 block w-full rounded-md py-2 ${
-            Object.keys(errors).length === 0 ? "bg-blue-600" : "bg-blue-400"
-          }`}
+          className={`mt-2 block w-full rounded-md py-2 ${Object.keys(errors).length === 0 ? "bg-blue-600" : "bg-blue-400"
+            }`}
         >
           <span className="text-base text-gray-200">Đăng ký</span>
         </button>
         <div className="flex items-center justify-between gap-3">
           <div
-            className={`w-[50%] h-1 rounded-full ${
-              Object.keys(errors).length === 0 ? "bg-blue-600" : "bg-blue-400"
-            }`}
+            className={`w-[50%] h-1 rounded-full ${Object.keys(errors).length === 0 ? "bg-blue-600" : "bg-blue-400"
+              }`}
           ></div>
           <span className="text-gray-400">OR</span>
           <div
-            className={`w-[50%] h-1 rounded-full ${
-              Object.keys(errors).length === 0 ? "bg-blue-600" : "bg-blue-400"
-            }`}
+            className={`w-[50%] h-1 rounded-full ${Object.keys(errors).length === 0 ? "bg-blue-600" : "bg-blue-400"
+              }`}
           ></div>
         </div>
-        <button
-          type="button"
-          //   onClick={() => handleLoginGoogle()}
-          className="w-full rounded-md py-2 bg-white border border-gray-400 hover:bg-gray-300 flex items-center justify-center space-x-2"
-        >
-          <Image
-            src={"/images/google-icon.svg"}
-            alt="Đăng nhập với Google"
-            width={25}
-            height={25}
-            className="block"
-          />
-          <span className="text-base text-gray-700">Đăng nhập với Google</span>
-        </button>
         <div className="flex flex-wrap justify-between gap-y-2">
           <p className="text-[1rem]">
             Đã có tài khoản <b>antiSCM? </b>
             <Link href="/login" className="hover:text-blue-600">
-              <span className="font-bold cursor-pointer">Log In</span>
+              <span className="font-bold cursor-pointer">Đăng nhập</span>
             </Link>
           </p>
           <Link href="/forgot-password" className="hover:text-blue-600">
@@ -188,6 +108,7 @@ export default function RegisterForm() {
           </Link>
         </div>
       </form>
+      {isPending == true && <Backdrop open={true} />}
     </div>
   );
 }

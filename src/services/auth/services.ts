@@ -3,9 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useAppDispatch } from "@/stores";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAppAuth } from "../../../firebase";
-import { loginAsync, logout } from "@/services/auth/api-services";
+import { loginAsync, logout, registerAsync } from "@/services/auth/api-services";
 import { loginSuccess } from "@/stores/user-slice";
 import { removeStorageItem, setStorageItem } from "@/utils/local-storage";
+import { RegisterBodyType } from "@/utils/schema-validations/auth.schema";
 
 export const useServiceLogin = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,12 @@ export const useServiceLogin = () => {
       else location.pathname = "/";
       return data;
     },
+  });
+};
+
+export const useServiceRegister = () => {
+  return useMutation<TResponse, TMeta, RegisterBodyType>({
+    mutationFn: registerAsync,
   });
 };
 
