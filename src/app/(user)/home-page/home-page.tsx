@@ -259,7 +259,6 @@ export default function Home() {
                         updateImage("/images/listCourse.png", 1);
                         updateImage("/images/curriculum.png", 2);
                     }
-
                     if (
                         entry.target === h1Ref.current ||
                         entry.target === h2Ref.current // Kiểm tra ref mới
@@ -425,7 +424,7 @@ export default function Home() {
                 className="p-6 flex flex-col bg-white rounded-xl shadow-lg mt-3"
                 key={index}
             >
-                {({ }) => (
+                {({}) => (
                     <>
                         <Disclosure.Button
                             onClick={() => toggleIndex(index)} // Thay đổi trạng thái của mục
@@ -434,10 +433,11 @@ export default function Home() {
                             {/* Left Content */}
                             <div>
                                 <div
-                                    className={`!text-justify text-[1.1rem] font-semibold ${openIndices[index]
+                                    className={`!text-justify text-[1.1rem] font-semibold ${
+                                        openIndices[index]
                                             ? "text-[#13759d]"
                                             : "text-black"
-                                        }`}
+                                    }`}
                                 >
                                     {info.question}
                                 </div>
@@ -495,8 +495,35 @@ export default function Home() {
     return (
         <div className="w-full bg-[#f6f6f6]">
             {/* Hero Content */}
-            <div className="pt-[10%] pl-[10%] bg-[black] relative rounded-b-[50px]">
-                <div className="flex w-full">
+            <div className="pt-[10%] pl-[10%] bg-black relative rounded-b-[50px] overflow-hidden">
+                {/* Hiệu ứng chạy dọc background */}
+                <div className="absolute inset-0">
+                    {/* Thay thế w-[300px] h-[250px] bằng w-full h-full */}
+                    <div className="w-full h-full relative p-[1px]">
+                        {/* Dot chuyển động */}
+                        <div className="absolute inset-0">
+                            {/* Dot thứ nhất, không delay */}
+                            <div
+                                className="absolute w-[1.5px] h-[300px] aspect-square bg-white rounded-full z-20 shadow-[0_0_10px_#ffffff] animate-moveDot"
+                                style={{ animationDelay: "0s" }}
+                            ></div>
+                        </div>
+
+                        {/* Card */}
+                        <div className="z-10 w-full h-full rounded-[9px] border border-[#202222] flex flex-col items-center justify-center relative text-white">
+                            {/* Ray */}
+                            <div className="absolute w-[220px] h-[45px] rounded-full top-0 left-0 origin-[10%] rotate-[40deg] bg-[#c7c7c7] opacity-40 shadow-[0_0_50px_#ffffff] blur-[10px]"></div>
+                            {/* Đường viền */}
+                            <div className="absolute top-[10%] w-full h-[1px] bg-[#918f8f29]"></div>
+                            {/* <div className="absolute bottom-[10%] w-full h-[1px] bg-[#2c2c2c]"></div> */}
+                            <div className="absolute left-[5%] w-[1px] h-full bg-[#918f8f29]"></div>
+                            {/* <div className="absolute right-[10%] w-[1px] h-full bg-[#2c2c2c]"></div> */}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Phần nội dung hiện có (Hero, ...) */}
+                <div className="flex w-full relative z-10">
                     {/* Left Hero */}
                     <div className="flex-1 mt-[100px]">
                         <h1 className="text-white text-[3.1rem] leading-[60px] font-bold">
@@ -518,18 +545,70 @@ export default function Home() {
                             </Button>
                         </Link>
                     </div>
+
                     {/* Right Hero Content */}
                     <div className="flex-1 text-white mb-10 relative">
-                        {/* Background Blur Image */}
                         <img
                             src="/images/blur.png"
                             alt="blur"
                             className="absolute top-[50px] right-20 w-full h-full opacity-40 z-0"
                         />
-                        {/* Info Boxes */}
                         <div className="grid grid-cols-2 gap-5 w-[80%] relative z-10">
                             {renderListInfo()}
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Warning content 1 */}
+            <div className="mt-[150px] pl-[50px] relative">
+                {/* Header */}
+                <h1 className=" text-[3.1rem] leading-[60px] font-bold text-center">
+                    Sử dụng trên điện thoại và máy tính bảng
+                </h1>
+                <p className="text-center mt-[30px]">
+                    Trải nghiệm antiSCM trên cả hai nền tảng điện thoại và máy
+                    tính bảng để có những trải nghiệm hấp dẫn
+                </p>
+
+                {/* Content */}
+                <div className="mt-[50px] ">
+                    <div className="flex gap-4 justify-center items-center">
+                        <Link
+                            className="playstore-button inline-flex items-center justify-center border-2 border-black rounded-full bg-black py-2 px-6 text-center text-white outline-none transition-all duration-200 ease-in-out hover:bg-transparent hover:text-black"
+                            href="https://play.google.com/store/games?hl=vi&pli=1"
+                        >
+                            <Image
+                                src="/images/ggPlay.png"
+                                alt="icon"
+                                width={25}
+                                height={25}
+                                className="mx-auto"
+                            />
+                            <span className="texts ml-4 flex flex-col items-start leading-none">
+                                <span className="text-1 mb-1 text-xs leading-4">
+                                    GET IT ON
+                                </span>
+                                <span className="text-2 font-semibold">
+                                    Google Play
+                                </span>
+                            </span>
+                        </Link>
+
+                        <Link
+                            href="https://apkpure.com/vn/antiscm/com.antiSCM.exe02_fe_mobile"
+                            className="relative inline-flex items-center py-3 px-8 text-lg font-semibold text-[#2cab6c] bg-transparent border-[2px] border-[#2cab6c] rounded-full cursor-pointer transition-all duration-300 ease-out hover:text-[white] hover:bg-[#2cab6c] overflow-hidden"
+                        >
+                            <Image
+                                src="/images/apkPure.png"
+                                alt="icon"
+                                width={25}
+                                height={25}
+                                className="mx-auto mr-4"
+                            />
+                            <span>APKPure</span>
+                            <span className="absolute top-0 left-0 right-0 bottom-0 mx-auto w-[20em] h-[20em] rounded-full text-center transition-shadow duration-500 ease-out z-[-1]"></span>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -820,12 +899,13 @@ export default function Home() {
                                 <div className=" flex gap-5">
                                     {/* Image 1 */}
                                     <div
-                                        className={`transition-opacity duration-500 ${hideImages
+                                        className={`transition-opacity duration-500 ${
+                                            hideImages
                                                 ? "opacity-0" // Ẩn khi hideImages là true
                                                 : fade1
-                                                    ? "opacity-100"
-                                                    : "opacity-50"
-                                            }`}
+                                                ? "opacity-100"
+                                                : "opacity-50"
+                                        }`}
                                     >
                                         {currentImage1 && (
                                             <Image
@@ -839,12 +919,13 @@ export default function Home() {
                                     </div>
 
                                     <div
-                                        className={`transition-opacity duration-500 ${hideImages
+                                        className={`transition-opacity duration-500 ${
+                                            hideImages
                                                 ? "opacity-0"
                                                 : fade2
-                                                    ? "opacity-100"
-                                                    : "opacity-50"
-                                            }`}
+                                                ? "opacity-100"
+                                                : "opacity-50"
+                                        }`}
                                     >
                                         {currentImage2 && (
                                             <Image
