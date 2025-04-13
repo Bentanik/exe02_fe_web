@@ -14,3 +14,16 @@ export const GetBillByIdAsync = async (billId: string) => {
   );
   return response.data;
 };
+
+export const getUsersAsync = async (pageIndex: number) => {
+  const response = await request<TResponseData<API.TGetUsers>>(
+    API_ENDPOINTS.GET_USERS,
+    {
+      method: "GET",
+      params: {
+        pageIndex: pageIndex,
+      },
+    }
+  );
+  return response.data;
+};

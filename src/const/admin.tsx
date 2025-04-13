@@ -5,9 +5,7 @@ import {
   BookOpen,
   BookOpenText,
   BookPlus,
-  ChartColumnBig,
   CirclePlus,
-  House,
   LogOut,
   MailQuestion,
   NotebookPen,
@@ -19,15 +17,10 @@ import {
 } from "lucide-react";
 
 export const NAV_SIDEBAR_TOP_ADMIN: TAdminLink[] = [
-  {
-    href: "/admin/home",
-    icon: <House className="text-base" strokeWidth={1.5} />,
-    label: "Trang chủ",
-  },
-  {
-    href: "/admin/analytic",
-    icon: <ChartColumnBig className="text-base" strokeWidth={1.5} />,
-    label: "Phân tích",
+{
+    href: "/admin/manage-donate",
+    icon: <UserRoundCog className="text-base" strokeWidth={1.5} />,
+    label: "Quản lí lượt ủng hộ",
   },
   {
     href: "/admin/manage-user",

@@ -10,4 +10,14 @@ declare namespace API {
     dateSubcribe: DateTime;
     nameSubscribe: string;
   };
+
+  type TUser = {
+    id: string;
+    fullName: string;
+    email: string;
+  }
+
+  type TGetUsers = {
+    users: TDataWithPagin<TUser>;
+  }
 }
